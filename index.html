@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#e5e7df">
+  <title>校园三年 · 风经过座位</title>
+  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="experience.css"><link rel="stylesheet" href="identity.css">
+</head>
+<body>
+<main id="game" aria-label="校园三年">
+  <div id="world" class="world classroom" aria-hidden="true"></div>
+  <div class="light-grain" aria-hidden="true"></div>
+  <section id="title-screen" class="title-screen">
+    <div class="title-copy">
+      <p class="chapter-label">一段关于普通高中生活的游戏</p>
+      <h1>校园三年</h1>
+      <p class="title-sub">风经过座位</p>
+      <div class="title-rule"></div>
+      <p class="title-prose">九月的风把窗帘吹起来。<br>你找到自己的座位，<br>以为往后的日子还很长。</p>
+      <div class="title-actions">
+        <button id="new-game" class="ink-button">推开教室的门 <span aria-hidden="true">↗</span></button>
+        <button id="continue-game" class="quiet-button" hidden>继续上次的生活</button>
+      </div>
+      <p class="edition">表情与身份版 · 四个关键周</p>
+    </div>
+    <div class="title-bottom"><span>把时间留给值得的人和事。</span><button id="title-help" class="text-button">怎么玩</button></div>
+  </section>
+  <section id="play-screen" class="play-screen" hidden>
+    <header class="topbar">
+      <div class="brand"><span class="brand-name">校园三年</span><button id="profile-button" class="profile-chip" aria-label="查看主角身份"><img id="profile-avatar" alt="主角头像"><span id="profile-name">你的名字</span></button></div>
+      <div class="date-block"><span id="date-label"></span><span id="week-label"></span></div>
+      <div class="tools"><button id="sound-button" class="icon-button" aria-label="开启环境声" title="环境声">声</button><button id="journal-button" class="icon-button" aria-label="打开手记" title="手记">记</button><button id="menu-button" class="icon-button" aria-label="暂停菜单" title="暂停菜单">···</button></div>
+    </header>
+    <div class="scene-heading"><div class="scene-title-row"><span class="small-line"></span><h2 id="scene-name"></h2></div><p id="scene-desc"></p></div>
+    <div class="time-budget" aria-label="本周剩余时间"><span>课余时间</span><div id="time-dots"></div><strong id="time-label"></strong></div>
+    <aside class="energy-budget" id="energy-budget" aria-label="当前精力"><header><span>精力</span><strong id="energy-number">64 / 100</strong></header><div class="energy-track" role="meter" aria-label="精力" aria-valuemin="0" aria-valuemax="100" aria-valuenow="64"><i id="energy-fill"></i></div><small id="energy-hint">学习也需要留一点余力</small></aside>
+    <div id="hotspots" class="hotspots" aria-label="场景中的人物与物品"></div>
+    <aside id="reminder" class="reminder" hidden></aside>
+    <div id="observation" class="observation" role="status"></div>
+    <footer class="bottom-bar">
+      <nav aria-label="校园地点"><button data-place="classroom" class="place-button"><span class="nav-icon" data-icon="school"></span><span>教室</span></button><button data-place="canteen" class="place-button"><span class="nav-icon" data-icon="bowl"></span><span>食堂</span></button><button data-place="track" class="place-button"><span class="nav-icon">↝</span><span>操场</span></button><button data-place="home" class="place-button"><span class="nav-icon" data-icon="home"></span><span>家里</span></button></nav>
+      <button id="plan-button" class="plan-button"><span data-icon="calendar"></span><span>这一周的安排</span></button>
+      <button id="finish-week" class="finish-button">收好这一周 <span aria-hidden="true">→</span></button>
+    </footer>
+    <div id="save-indicator" class="save-indicator" role="status"></div>
+  </section>
+  <div id="overlay-root"></div>
+  <div id="toast" class="toast" role="status" hidden></div>
+</main>
+<script src="content.js"></script>
+<script src="characters.js"></script>
+<script src="experience.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
