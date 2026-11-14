@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "checks": [
+    "Four weeks of three steady studies are sustainable with a quiet weekend; repeated learning retains its value and affects exam rank",
+    "Every night is credited once; revisiting a finished weekend or reloading its ledger cannot farm recovery",
+    "Focus has larger learning gains and real fatigue; basic sleep does not reset to full energy",
+    "Three studies plus two full-day demanding weekend activities still require extra rest",
+    "Recovery caps at 100, records actual recovered energy, and cannot be collected twice",
+    "One-time 18-point compensation for ongoing legacy saves, preserving completed chapter energy",
+    "Skipping free slots still advances the intervening nights exactly once",
+    "Explained mistakes retain learning value; exam fatigue remains separate from study effort"
+  ],
+  "steady_week_one": [
+    58,
+    52,
+    34
+  ],
+  "steady_four_weeks_points": 48,
+  "weekly_base_recovery": 42
+}

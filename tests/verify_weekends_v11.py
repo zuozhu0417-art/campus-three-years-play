@@ -5,7 +5,7 @@ from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
 from threading import Thread
 import json
 from playwright.sync_api import sync_playwright
-ROOT=Path(__file__).resolve().parents[1];SHOTS=ROOT/'screenshots-weekends-v11';SHOTS.mkdir(exist_ok=True)
+ROOT=Path(__file__).resolve().parents[1];SHOTS=ROOT/'screenshots-weekends-v12';SHOTS.mkdir(exist_ok=True)
 KEY='campus-three-years-portraits-v3';errors=[];checks=[]
 class Quiet(SimpleHTTPRequestHandler):
     def log_message(self,*a):pass
@@ -36,7 +36,7 @@ try:
     b=pw.chromium.launch(executable_path=r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe',headless=True)
     def page(w=1366,h=768):
         p=b.new_page(viewport={'width':w,'height':h},reduced_motion='reduce');p.on('pageerror',lambda e:errors.append(str(e)));return p
-    p=page();fixture(p);begin(p);assert state(p)['version']==5;assert state(p)['remaining']==0;shot(p,'01-saturday')
+    p=page();fixture(p);begin(p);assert state(p)['version']==6;assert state(p)['remaining']==0;shot(p,'01-saturday')
     before=state(p);activity(p,'basketball','pass');p.locator('#ball-abandon').click();assert state(p)==before
     activity(p,'basketball','pass');p.locator('#ball-start').click();p.locator('#ball-pause').click();assert p.locator('#ball-start').is_visible();p.locator('#ball-start').click()
     for _ in range(3):
@@ -86,6 +86,6 @@ try:
     old.reload(wait_until='domcontentloaded');old.locator('#continue-game').click();assert not old.locator('#oct-weekend').count()
     checks.append('Week-four weekend leads to the exam and October without clearing promises or taste; completed legacy week-six saves get one backed-up weekend, preserve photography promise and cannot replay it')
     assert not errors,errors
-    report={'status':'passed','checks':checks,'javascript_errors':errors,'actual_phone_hardware':False,'catalog_at_week6':18,'save_version':5}
-    (ROOT/'verification-weekends-v11.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8');print(json.dumps(report,ensure_ascii=True),flush=True);b.close()
+    report={'status':'passed','checks':checks,'javascript_errors':errors,'actual_phone_hardware':False,'catalog_at_week6':18,'save_version':6}
+    (ROOT/'verification-weekends-v12.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8');print(json.dumps(report,ensure_ascii=True),flush=True);b.close()
 finally:server.shutdown();server.server_close()

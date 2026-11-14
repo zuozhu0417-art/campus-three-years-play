@@ -16,10 +16,10 @@ window.CampusExperience = (() => {
     el.setAttribute('aria-label',kind==='novel'?'校园对话':kind==='cg'?'校园短片':'校园小游戏');
     el.innerHTML=html;root.append(el);document.getElementById('game').classList.add('experience-active');document.getElementById('toast').hidden=true;
     const underneath=[...root.children].filter(x=>x!==el).map(x=>[x,x.inert]);underneath.forEach(([x])=>x.inert=true);
-    const play=document.getElementById('play-screen'),oldInert=play.inert;play.inert=true;
+    const play=document.getElementById('play-screen'),oldInert=play.inert;play.inert=true;const title=document.getElementById('title-screen'),oldTitleInert=title.inert;title.inert=true;
     const clean=[];let ended=false;
     const session={el,key:null,pause:null,clean,finish(value){
-      if(ended)return;ended=true;clean.forEach(f=>f());el.remove();current=null;play.inert=oldInert;document.getElementById('game').classList.remove('experience-active');
+      if(ended)return;ended=true;clean.forEach(f=>f());el.remove();current=null;play.inert=oldInert;title.inert=oldTitleInert;document.getElementById('game').classList.remove('experience-active');
       underneath.forEach(([x,v])=>x.inert=v);if(previous?.isConnected)previous.focus({preventScroll:true});
       if(done)done(value);
     }};
@@ -93,10 +93,11 @@ window.CampusExperience = (() => {
     frame=requestAnimationFrame(loop);s.clean.push(()=>cancelAnimationFrame(frame));s.el.querySelector('#cg-skip').onclick=()=>s.finish();
     s.key=e=>{if([' ','Enter','Escape'].includes(e.key)&&!e.repeat){e.preventDefault();s.finish();}};
   }
-  function mini(kind,done){
+  function mini(kind,done,{practice=false}={}){
     const running=kind==='running',title=running?'最后一圈，跟上自己的呼吸':'晚自习 · 屏幕别亮太久';
     const s=mount('mini '+kind,`<div class="mini-background"></div><header class="mini-header"><div><small>${running?'操场 · 400 米节奏跑':'教室 · 视野躲避'}</small><h2>${title}</h2></div><button id="mini-pause">暂停 / Esc</button></header><div class="mini-stage">${running?'<div class="run-distance"><strong id="distance">0</strong><span>/ 400 m</span></div><div class="run-lanes"><i></i><i></i><i></i><i></i></div><div class="run-horizon"></div><div class="run-caption">一步，呼气。再一步，吸气。</div>':'<div class="class-map" aria-label="老师视野示意"><div class="mini-blackboard">晚 自 习</div><div class="desk-grid">'+Array.from({length:20},(_,i)=>`<i class="map-desk ${i===17?'your-desk':''}">${i===17?'你':''}</i>`).join('')+'</div><div class="teacher-marker"><div class="vision-cone"></div><span>韩</span></div><div class="teacher-key">扇形区域是老师当前的视野</div></div><div class="phone-readout"><small>赵程 · 班旗草稿</small><p id="phone-message">屏幕已收起</p><div class="mini-meter"><i id="read-meter"></i></div><span id="read-label">0 / 3 条消息</span></div>'}</div><div class="mini-console"><div class="mini-status"><span id="mini-signal">准备好再开始</span><strong id="mini-time">${running?'22':'18'} 秒</strong></div>${running?'<div class="rhythm-track"><div class="rhythm-target">落脚区</div><i id="rhythm-dot"></i></div>':'<div class="exposure-line"><span>被注意</span><div class="mini-meter"><i id="exposure-meter"></i></div><strong id="exposure-label">0%</strong></div>'}<div class="mini-controls"><button id="mini-action" class="primary-button" disabled>${running?'落脚 · 空格':'拿出手机 · 空格'}</button><span id="mini-feedback">${running?'光点到中央浅色区时按一下；乱按会打乱呼吸。':'按一下拿出，再按一下收起。老师转身前会提醒。'}</span></div></div><div class="mini-curtain"><div class="mini-instructions"><small>一段课余时间</small><h2>${title}</h2><p>${running?'22 秒内跑完 400 米。光点到中央落脚区时，按空格或点“落脚”。保持节奏会加速，连续乱按会减速。':'18 秒内读完 3 条消息。按空格或点按钮切换拿出 / 收起。老师背对你时看，准备转身时收起；进入视野后仍亮屏会积累注意。'}</p><p class="modal-note">${running?'离开小游戏不会扣时间或精力。完成后消耗 14 精力。':'离开小游戏不会扣时间或精力。完成或被发现消耗 8 精力，不会直接结束游戏。'}</p><button class="primary-button" id="mini-start">准备好了，开始</button><button class="secondary-button" id="mini-abandon">先回去，不消耗时间</button></div></div>`,done);
     const $=q=>s.el.querySelector(q);let started=false,paused=true,elapsed=0,frame,last=performance.now(),distance=0,hits=0,misses=0,lastTap=-10,read=0,exposure=0,phoneOut=false;
+    if(practice){$('.mini-instructions small').textContent='独立练习';$('.mini-instructions .modal-note').textContent='这是主界面的练习。完成、失败或返回都不会消耗剧情时间和精力，也不会改变存档。';}
     const duration=running?22:18;
     const setPhone=v=>{phoneOut=v;$('#mini-action').textContent=v?'收起手机 · 空格':'拿出手机 · 空格';s.el.classList.toggle('phone-out',v);};
     function finish(won){s.finish({won,hits,misses,distance:Math.round(distance),read:Math.floor((read+1e-6)/1.6),caught:exposure>=100});}
@@ -157,5 +158,5 @@ window.CampusExperience = (() => {
     const loop=now=>{const dt=Math.max(0,Math.min(.05,(now-last)/1000));last=now;if(playing&&!paused&&!document.hidden){if(locked){cooldown-=dt;if(cooldown<=0){locked=false;s.el.classList.remove('ball-hit','ball-miss');if(shots===3){s.finish({hits,shots});return;}$('#ball-shoot').disabled=false;}}else time+=dt;}paint();frame=requestAnimationFrame(loop);};
     frame=requestAnimationFrame(loop);s.clean.push(()=>cancelAnimationFrame(frame));
   }
-  return {get busy(){return !!current;},get motionEnabled(){return motionOn;},setPeriod(value){period=value;},setMotion,dialogue,cg,basketball,running:done=>mini('running',done),phone:done=>mini('phone-game',done)};
+  return {get busy(){return !!current;},get motionEnabled(){return motionOn;},setPeriod(value){period=value;},setMotion,dialogue,cg,basketball,running:(done,options)=>mini('running',done,options),phone:(done,options)=>mini('phone-game',done,options)};
 })();

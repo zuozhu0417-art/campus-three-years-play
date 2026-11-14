@@ -96,7 +96,7 @@ window.CampusWeekend=(()=>{
     if(S.weekend.wallet+e.money<0)return `零用钱不够，需要 ${-e.money} 元`;
     return '';
   }
-  function begin(S){const w=S.weekend;if(w.current.week!==S.week)w.current=fresh(S.week);if(!w.current.finished)w.current.started=true;}
+  function begin(S){const w=S.weekend;if(w.current.week!==S.week)w.current=fresh(S.week);if(!w.current.started&&!w.current.finished)window.CampusBalance.sleep(S,'fri-sat',1);if(!w.current.finished)w.current.started=true;}
   function commit(S,id,key,mini=null){
     const e=catalog(S).find(x=>x.id===id),option=e?.choices.find(x=>x.key===key);
     if(!e||!option)return {ok:false,reason:'这个安排已经变化，请重新打开。'};
@@ -129,7 +129,7 @@ window.CampusWeekend=(()=>{
     const c=S.weekend.current;if(!active(S)||c.pending)return false;
     S.energy=clamp(S.energy+c.remaining*3,0,100);
     if(c.remaining)S.memories.push({week:S.week,tag:c.day?'周日':'周六',text:'你没有再塞进一个安排，把剩下的时间留了空白。'});
-    if(c.day===0){c.day=1;c.remaining=2;}else c.finished=true;
+    if(c.day===0){window.CampusBalance.sleep(S,'sat-sun',1);c.day=1;c.remaining=2;}else c.finished=true;
     return true;
   }
   return {initial,normalize,fresh,active,catalog,availability,begin,commit,finishDay,line};

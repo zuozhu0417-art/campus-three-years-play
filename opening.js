@@ -22,7 +22,7 @@ window.CampusOpening=(()=>{
       if(session.closed)return;session.closed=true;cancelAnimationFrame(session.frame);cancelAnimationFrame(session.fadeFrame);
       video.pause();video.removeAttribute('src');video.querySelector('source')?.remove();video.load();el.remove();game.inert=oldInert;active=null;
       document.removeEventListener('keydown',key,true);document.removeEventListener('visibilitychange',visibility);game.classList.remove('opening-revealing');
-      const target=previous?.isConnected&&previous!==document.body?previous:document.querySelector('#continue-game:not([hidden])')||document.getElementById('new-game');target?.focus({preventScroll:true});
+      const target=previous?.isConnected&&previous!==document.body?previous:document.querySelector('#continue-game:not([hidden]):not(:disabled)')||document.getElementById('new-game');target?.focus({preventScroll:true});
     }
     function close(reason='skip'){
       if(session.closed||session.closing)return;session.closing=true;remember();cancelAnimationFrame(session.frame);

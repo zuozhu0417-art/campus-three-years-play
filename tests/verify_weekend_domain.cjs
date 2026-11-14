@@ -1,10 +1,10 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
-const ctx={window:{}};vm.createContext(ctx);vm.runInContext(fs.readFileSync(path.join(__dirname,'../weekend.js'),'utf8'),ctx);const W=ctx.window.CampusWeekend;
+const ctx={window:{}};vm.createContext(ctx);for(const name of ['balance.js','weekend.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',name),'utf8'),ctx);const W=ctx.window.CampusWeekend;
 const state=(week=1)=>({week,energy:80,study:0,friend:0,warm:0,family:0,fitness:0,memories:[],promiseKept:false,october:{mode:'undecided',poster:false},weekend:W.initial(week)});
 const clear=S=>S.weekend.current.pending=null;
 let S=state();W.begin(S);assert.equal(W.catalog(S).length,9);
 assert.equal(W.commit(S,'basketball','pass',null).ok,false);
-assert.equal(W.commit(S,'basketball','pass',{hits:2}).ok,true);assert.equal(S.weekend.current.remaining,1);assert.equal(S.energy,64);
+assert.equal(W.commit(S,'basketball','pass',{hits:2}).ok,true);assert.equal(S.weekend.current.remaining,1);assert.equal(S.energy,70);
 assert.equal(W.commit(S,'breakfast','listen').ok,false,'pending result must block another activity');clear(S);
 assert.equal(W.commit(S,'basketball','pass',{hits:2}).ok,false,'same activity cannot debit twice');
 assert.equal(W.commit(S,'breakfast','listen').ok,true);clear(S);assert.equal(S.weekend.current.remaining,0);
