@@ -1,0 +1,137 @@
+[
+  {
+    "key": "linyao-laugh",
+    "file": "assets/linyao-laugh-v14.webp",
+    "source": "exec-84f78be0-3429-4504-9189-334db8778331.png",
+    "size": [
+      1145,
+      1374
+    ],
+    "bytes": 420826,
+    "sha256": "de579754e9b8e04c893a69482a8aaf1a15338a4b86506e813adca7d6fe516db4",
+    "transparent": true,
+    "generator": "image_gen.imagegen",
+    "prompt": "Use case: identity-preserve. Create ONE new expression and gesture variant of the character in the reference image. Preserve exact character identity, age, clothing palette, nostalgic soft pencil and watercolor painting style and gentle blurred facial detail. Lin Yao, SAME girl: very long dark brown hair tied low with desaturated blue ribbon, white short-sleeved collared school blouse, dark skirt not prominent. She laughs softly with eyes gently closed, one hand covering her smile and other holding slim school notebook at waist. Slight shy lean, warm candid school friend, no exaggerated pose. Upper body head to below hips, complete hands and hair, comfortable transparent margins, centered single character. Truly transparent background alpha, no background scenery, no words or watermark, no panels. Do not change to glossy anime or photographic render.",
+    "reference": "assets/linyao.png"
+  },
+  {
+    "key": "linyao-think",
+    "file": "assets/linyao-think-v14.webp",
+    "source": "exec-5c23087c-d184-4d3e-abd5-2c794387c400.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "bytes": 404752,
+    "sha256": "26259363d53d4c712564d2b2095abd9da1b6cf33d88b9d1e74ba20fe3e5554b3",
+    "transparent": true,
+    "generator": "image_gen.imagegen",
+    "prompt": "Use case: identity-preserve. Create ONE new expression and gesture variant of the character in the reference image. Preserve exact character identity, age, clothing palette, nostalgic soft pencil and watercolor painting style and gentle blurred facial detail. Lin Yao, SAME girl, very long dark brown hair with desaturated blue ribbon, white short-sleeve collared school blouse. Thoughtful puzzled expression, gaze slightly aside under fringe, one hand lightly touching chin, other holding a small notebook. Natural academic question gesture, softly indistinct eyes. Upper body head to below hips, complete hands and hair, comfortable transparent margins, centered single character. Truly transparent background alpha, no background scenery, no words or watermark, no panels. Do not change to glossy anime or photographic render.",
+    "reference": "assets/linyao.png"
+  },
+  {
+    "key": "linyao-shy",
+    "file": "assets/linyao-shy-v14.webp",
+    "source": "exec-e85ec170-9ab5-4aa2-8f3a-8c709d6c6f1d.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "bytes": 354036,
+    "sha256": "656c56076bdaabcc743c31665aa6d5a8a4991200d26c6c390e5d4191aca4a472",
+    "transparent": true,
+    "generator": "image_gen.imagegen",
+    "prompt": "Use case: identity-preserve. Create ONE new expression and gesture variant of the character in the reference image. Preserve exact character identity, age, clothing palette, nostalgic soft pencil and watercolor painting style and gentle blurred facial detail. Lin Yao, SAME girl with long dark brown hair, small muted blue ribbon, white collared school blouse. Mildly shy smile, gaze lowered, one hand tucking loose strand by ear, other holds notebook at waist. Barely pink cheeks, sweet ordinary school moment, reserved not sexualized. Upper body head to below hips, complete hands and hair, comfortable transparent margins, centered single character. Truly transparent background alpha, no background scenery, no words or watermark, no panels. Do not change to glossy anime or photographic render.",
+    "reference": "assets/linyao.png"
+  },
+  {
+    "key": "qiaosui-wave",
+    "file": "assets/qiaosui-wave-v14.webp",
+    "source": "exec-c63a98ac-9fbe-4067-875b-8802ee8071da.png",
+    "size": [
+      1097,
+      1434
+    ],
+    "bytes": 279222,
+    "sha256": "3b37a26bd2474afcda303b3aee28f26748febff9697cdaefcdc2107788846e4b",
+    "transparent": true,
+    "generator": "image_gen.imagegen",
+    "prompt": "Use case: identity-preserve. Create ONE new expression and gesture variant of the character in the reference image. Preserve exact character identity, age, clothing palette, nostalgic soft pencil and watercolor painting style and gentle blurred facial detail. Qiao Sui, SAME schoolgirl with shoulder-length dark brown hair and small amber barrette, blue-white zip school tracksuit. Cheerful half-smile, small casual wave with one hand next to shoulder, other holds radio song notebook. Friendly lively but not cartoonish, fine facial detail softly softened. Upper body head to below hips, complete hands and hair, comfortable transparent margins, centered single character. Truly transparent background alpha, no background scenery, no words or watermark, no panels. Do not change to glossy anime or photographic render.",
+    "reference": "assets/qiaosui-v13.png"
+  },
+  {
+    "key": "qiaosui-pause",
+    "file": "assets/qiaosui-pause-v14.webp",
+    "source": "exec-5ce50aa8-31e4-4fda-b2f4-c2740af99724.png",
+    "size": [
+      1097,
+      1434
+    ],
+    "bytes": 270244,
+    "sha256": "e50b7cad21fafaf1caac7c8110760e73c30b527923309626da8ce68b2ac9ba99",
+    "transparent": true,
+    "generator": "image_gen.imagegen",
+    "prompt": "Use case: identity-preserve. Create ONE new expression and gesture variant of the character in the reference image. Preserve exact character identity, age, clothing palette, nostalgic soft pencil and watercolor painting style and gentle blurred facial detail. Qiao Sui, SAME schoolgirl with shoulder-length dark brown hair and small amber barrette, blue-white school zip tracksuit. Slightly embarrassed yet candid expression, gaze aside, both hands hold radio notebook against waist, shoulders relax. A quiet accepting pause after a friendly conversation, no tears, no pleading. Upper body head to below hips, complete hands and hair, comfortable transparent margins, centered single character. Truly transparent background alpha, no background scenery, no words or watermark, no panels. Do not change to glossy anime or photographic render.",
+    "reference": "assets/qiaosui-v13.png"
+  },
+  {
+    "key": "orange",
+    "file": "assets/canteen-orange-v14.jpg",
+    "source": "exec-b4b7012e-ec74-4d48-b85b-ea9bf91582fa.png",
+    "size": [
+      1672,
+      941
+    ],
+    "bytes": 409233,
+    "sha256": "6cd7cd6a02f7bf492c100a6f73261a9ec44e55a6a7682457be81a2cefb4ff0f4",
+    "transparent": false,
+    "generator": "image_gen.imagegen",
+    "prompt": "Use case: illustration-story. Create ONE new 16:9 landscape game CG. Reference image is character identity and painted style reference, not an edit target. Preserve face identity, hair/ribbon and school clothing. Nostalgic fine pencil and watercolor, desaturated cream and blue, soft atmospheric natural light, softly obscured faces, natural proportions. First-person seated at Chinese high-school cafeteria table across from Lin Yao, same long dark low ponytail with muted blue ribbon and white collared school blouse. She separates a small mandarin orange into two portions on a clean tissue, pushing one portion toward viewer, shy candid smile, face softly shaded by fringe. Two simple meal trays and metal soup bowls, late-autumn window light, mundane innocent sweetness. No protagonist face or gender shown. Single coherent picture, no panels, logos, watermark or subtitles.",
+    "reference": "assets/linyao.png"
+  },
+  {
+    "key": "receipt",
+    "file": "assets/canteen-receipt-v14.jpg",
+    "source": "exec-10053524-6955-4fb8-b2cf-6712cddf2768.png",
+    "size": [
+      1672,
+      941
+    ],
+    "bytes": 414296,
+    "sha256": "8db135a0c1ff044458276b2457d1d5d83894e6b104bf4e4bb6912b8014a0f55c",
+    "transparent": false,
+    "generator": "image_gen.imagegen",
+    "prompt": "Use case: illustration-story. Create ONE new 16:9 landscape game CG. Reference image is character identity and painted style reference, not an edit target. Preserve face identity, hair/ribbon and school clothing. Nostalgic fine pencil and watercolor, desaturated cream and blue, soft atmospheric natural light, softly obscured faces, natural proportions. First-person seated at Chinese school cafeteria table. Lin Yao, same dark long low ponytail and blue ribbon, white school blouse, drawing a tiny crooked bird on the BACK of an unreadable lunch receipt beside an empty meal tray, pencil lifted, laughing quietly as she looks toward viewer. Afternoon spring light, natural hands, detailed nostalgic environment, lower fifth quiet. No readable writing, no protagonist visible. Single coherent picture, no panels, logos, watermark or subtitles.",
+    "reference": "assets/linyao.png"
+  },
+  {
+    "key": "soup",
+    "file": "assets/canteen-soup-v14.jpg",
+    "source": "exec-708462c8-126b-4468-9548-03f6a533a32c.png",
+    "size": [
+      1672,
+      941
+    ],
+    "bytes": 466307,
+    "sha256": "887e66c77bf5a11c6b711bf62f0dba0be664f2b0f10683c7d8392ee5349cc12e",
+    "transparent": false,
+    "generator": "image_gen.imagegen",
+    "prompt": "Use case: illustration-story. Create ONE new 16:9 landscape game CG. Reference image is character identity and painted style reference, not an edit target. Preserve face identity, hair/ribbon and school clothing. Nostalgic fine pencil and watercolor, desaturated cream and blue, soft atmospheric natural light, softly obscured faces, natural proportions. Chinese high school cafeteria rainy spring afternoon, first-person table view. Lin Yao with same dark long hair blue ribbon, white school blouse and blue school jacket draped behind chair, blowing lightly on hot soup in metal bowl, amused soft smile, eyes indistinct under fringe, steam catches pale window light. She has one small napkin near hand; humble Chinese food tray, wet branches outside, natural ordinary school memory. No protagonist visible. Single coherent picture, no panels, logos, watermark or subtitles.",
+    "reference": "assets/linyao.png"
+  },
+  {
+    "key": "radio-lunch",
+    "file": "assets/canteen-radio-lunch-v14.jpg",
+    "source": "exec-101b791f-e8cc-464f-9bb8-78f6ca3b1f03.png",
+    "size": [
+      1672,
+      941
+    ],
+    "bytes": 468327,
+    "sha256": "2514e0f6919937d204fc1e3f85e29ba3c647543e01c9555616b5fee36d0cecf8",
+    "transparent": false,
+    "generator": "image_gen.imagegen",
+    "prompt": "Use case: illustration-story. Create ONE new 16:9 landscape game CG. Reference image is character identity and painted style reference, not an edit target. Preserve face identity, hair/ribbon and school clothing. Nostalgic fine pencil and watercolor, desaturated cream and blue, soft atmospheric natural light, softly obscured faces, natural proportions. Chinese school cafeteria after lunch, Qiao Sui same shoulder-length dark hair with small amber barrette and blue-white school tracksuit, holds radio notebook and a pen at table, laughing in mild embarrassment after catching her own too-grand introduction. Empty chair and simple finished meal tray across from her, friends distant soft silhouettes. Lively warm daylight, friendly natural expression, not a romantic couple, no protagonist visible, no readable text. Single coherent picture, no panels, logos, watermark or subtitles.",
+    "reference": "assets/qiaosui-v13.png"
+  }
+]

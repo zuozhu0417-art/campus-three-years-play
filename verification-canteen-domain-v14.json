@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "scenes": 288,
+  "choices": 480,
+  "unique_weekly_scenes": 40,
+  "checks": [
+    "Classroom and track share original IDs; cafeteria uses independent IDs",
+    "All 20 weeks, both genders, three relationship modes have two choices with stable line IDs and real expression assets",
+    "Cafeteria never grants photography, flag, notebook, Sunday or makeup fulfillment and never creates loan money",
+    "Different-venue events apply independently and same event cannot be applied twice",
+    "Newcomer invitation/refusal and correct gender persist in both venues",
+    "Nine generated images referenced by real portrait or CG paths"
+  ]
+}

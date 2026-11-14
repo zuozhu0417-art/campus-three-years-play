@@ -42,3 +42,17 @@
   #game:not(.at-title):not(.weekend-active) .finish-button{padding:6px;font-size:11px;min-height:38px}
   #game:not(.at-title):not(.weekend-active) .save-indicator{display:none}
 }
+/* Wide short phones need two visible rows of scene choices and one compact navigation row. */
+@media(min-width:601px) and (max-width:900px) and (max-height:450px){
+  #game:not(.at-title):not(.weekend-active) .topbar{height:36px;min-height:36px}
+  #game:not(.at-title):not(.weekend-active) .scene-heading{padding:2px 10px}
+  #game:not(.at-title):not(.weekend-active) .scene-heading h2{font-size:16px;margin:0}
+  #game:not(.at-title):not(.weekend-active) .time-budget,
+  #game:not(.at-title):not(.weekend-active) .energy-budget{padding:6px 8px}
+  #game:not(.at-title):not(.weekend-active) .energy-budget small{display:none}
+  #game:not(.at-title):not(.weekend-active) .bottom-bar{grid-template-columns:minmax(0,1fr) auto auto;align-items:center}
+  #game:not(.at-title):not(.weekend-active) .bottom-bar nav{grid-column:1}
+  #game:not(.at-title):not(.weekend-active) .bottom-bar .plan-button{min-width:112px}
+  #game:not(.at-title):not(.weekend-active) .bottom-bar .finish-button{min-width:150px}
+  #game:not(.at-title):not(.weekend-active) .reminder{max-height:30px;padding:5px 10px}
+}

@@ -11,9 +11,10 @@
   const W=window.CampusWeekend;
   const B=window.CampusBalance;
   const Y1=window.CampusYearOne;
+  const CF=window.CampusCanteen;
   let weekendFilter="全部";
   let activeSpeaker=null;
-  const COST={friend:12,girl:12,running:14,inspection:8};
+  const COST={friend:12,girl:12,running:14,inspection:8,'friend-canteen':8,'girl-canteen':8,'pursuer-canteen':8};
   const categoryName = {study:'订正功课',friend:'和人待一会儿',rest:'留一点空白'};
   let S = null, toastTimer, audio = null, soundOn = false;
   const screens = [];
@@ -85,7 +86,7 @@
     E.dialogue({title,lines:linesFor(text,activeSpeaker),detail},()=>{if(after)after();});
   }
   const CGS={rain:{scene:'rain-cg',title:'等雨小一点',text:'她没有催你。伞沿的水，落在走廊外面。',duration:5},notebook:{scene:'notebook-cg',title:'借来的那一页',text:'她把笔记推过来。纸页上，留着铅笔的温度。',duration:5.5},arrival:{scene:'classroom',title:'风经过座位',text:'窗帘被风吹起。\n你还不知道，会在这里记住谁。',duration:5},flag:{scene:'flag-cg',title:'一起留下的放学后',text:'最后一笔蓝色，还没有干。\n这一次，答应过的人真的来了。',duration:6},dinner:{scene:'home',title:'饭还温着',text:'你把台灯关小。\n门外有人，替你留了一碗热饭。',duration:4.5},track:{scene:'track',title:'最后一圈',text:'风还是从原来的方向吹来。\n你终于听清了自己的呼吸。',duration:3}};
-  Object.assign(CGS,O.cg,Y1.cg);
+  Object.assign(CGS,O.cg,Y1.cg,CF.cg);
   function playCG(id,after=()=>{}){if(!S.cgSeen.includes(id)){S.cgSeen.push(id);save();}E.cg(CGS[id],after);}
   function studyCount(){return S.done.filter(x=>x==='notebook'||x.startsWith('notebook-')).length;}
   function actionCost(id){return id==='notebook'?B.modes.steady.cost:COST[id]||0;}
@@ -135,8 +136,8 @@
   function characterAlbum(){
     const actors=window.CampusCharacters.actors;
     const visibleActors=Object.values(actors).filter(a=>!['qiaosui','chenyu'].includes(a.id)||(a.id===Y1.visitor(S).who&&S.year.pursuit!=='unmet'));
-    const m=showModal({kicker:'人物小册 · 表情与短动画',title:'慢慢熟悉他们的样子',wide:true,body:`<div class="actor-grid">${visibleActors.map(a=>`<button class="actor-card" data-actor="${a.id}"><img src="${a.base}" alt="${esc(a.name)}"><strong>${esc(a.role)}</strong><small>${a.id.startsWith('player')?esc(a.role):esc(a.name)} · 看看立绘</small></button>`).join('')}</div><p class="modal-note">原有角色保留表情帧与约两秒的短动态。新加入的来客、阿哲和爸爸，本次先接入静态头像立绘；新角色表情组与动态尚待补充。</p>`});
-    $$('[data-actor]',m).forEach(b=>b.onclick=()=>{const a=actors[b.dataset.actor];E.dialogue({title:a.role+' · '+a.name,lines:[{id:'album.'+a.id+'.neutral',who:a.id,mood:'neutral',text:'刚见面的时候，还不知道该说些什么。'},{id:'album.'+a.id+'.smile',who:a.id,mood:'smile',text:'慢慢熟起来，一抬头，就知道是在叫谁。'},...(a.poses.blink?[{id:'album.'+a.id+'.blink',who:a.id,mood:'blink',motion:false,text:'有些很短的停顿，也会被记住。'}]:[]),...(a.poses.sad?[{id:'album.'+a.id+'.sad',who:a.id,mood:'sad',motion:false,text:'有的时候，话说到一半，就没有再往下说。'}]:[])]});});
+    const m=showModal({kicker:'人物小册 · 表情与短动画',title:'慢慢熟悉他们的样子',wide:true,body:`<div class="actor-grid">${visibleActors.map(a=>`<button class="actor-card" data-actor="${a.id}"><img src="${a.base}" alt="${esc(a.name)}"><strong>${esc(a.role)}</strong><small>${a.id.startsWith('player')?esc(a.role):esc(a.name)} · 看看立绘</small></button>`).join('')}</div><p class="modal-note">林遥与乔穗新增多张表情、手势立绘，食堂剧情会实际切换使用。原有短动态保留；新增立绘目前是静态画面。</p>`});
+    $$('[data-actor]',m).forEach(b=>b.onclick=()=>{const a=actors[b.dataset.actor];E.dialogue({title:a.role+' · '+a.name,lines:[{id:'album.'+a.id+'.neutral',who:a.id,mood:'neutral',text:'刚见面的时候，还不知道该说些什么。'},{id:'album.'+a.id+'.smile',who:a.id,mood:'smile',text:'慢慢熟起来，一抬头，就知道是在叫谁。'},...Object.keys(a.poses).filter(k=>['laugh','thoughtful','shy','wave','pause'].includes(k)).map(k=>({id:'album.'+a.id+'.'+k,who:a.id,mood:k,motion:false,text:({laugh:'笑的时候，手里的本子差点拿反。',thoughtful:'等一下，这个我还没有想明白。',shy:'你先别笑。我只是想把话说清楚。',wave:'这里有空位，要不要坐一会儿？',pause:'我慢一点讲。今天不用急着想好开场白。'})[k]})),...(a.poses.blink?[{id:'album.'+a.id+'.blink',who:a.id,mood:'blink',motion:false,text:'有些很短的停顿，也会被记住。'}]:[]),...(a.poses.sad?[{id:'album.'+a.id+'.sad',who:a.id,mood:'sad',motion:false,text:'有的时候，话说到一半，就没有再往下说。'}]:[])]});});
   }
   function render(){
     const p=C.places[S.place],w=C.weeks[S.week-1];
@@ -165,7 +166,8 @@
         if(spot.id==='girl'){label='林遥';sub=S.week===5?'她把书包从椅子上拿开':'海报纸角，想请你帮忙按住';}
         if(spot.id==='lunch'&&S.week===6)sub='在窗边吃一顿午饭';
       }
-      if(S.week>=7){const story=Y1.weekday(S,spot.id);if(story){label=story.title.split(' · ')[0];sub=story.title.split(' · ').slice(1).join(' · ')||'本周新的故事';}}
+      if(CF.isCanteen(spot.id)){label=spot.id==='girl-canteen'?'林遥 · 食堂':'赵程 · 食堂';const other=CF.classroomId(spot.id);sub=S.done.includes(other)?'教室聊过了，这里还能再聊一次':'食堂独立互动 · 教室另有一次';}
+      if(S.week>=7&&!CF.isCanteen(spot.id)){const story=Y1.weekday(S,spot.id);if(story){label=story.title.split(' · ')[0];sub=story.title.split(' · ').slice(1).join(' · ')||'本周新的故事';}}
       if(S.done.includes(spot.id))sub='这周已留过时间';
       if(spot.id==='notebook')sub=studyCount()?`继续订正 · 第 ${studyCount()+1} 段 · 收益不递减`:'稳步订正 / 集中攻坚';
       const cost=actionCost(spot.id),gain={rest:36,mom:10,lunch:16}[spot.id];
@@ -174,6 +176,7 @@
       b.onclick=()=>interact(spot.id);hotspots.append(b);
     });
     if(S.week>=7&&S.place==='classroom'&&Y1.bonus(S)){const b=document.createElement('button');b.className='year-visitor-button';b.dataset.spot='pursuer';b.textContent=S.year.pursuit==='unmet'?'后门有人找你 · 新的来客':Y1.visitor(S).name+' · 走廊的一声招呼';b.disabled=S.done.includes('pursuer');b.onclick=()=>interact('pursuer');hotspots.append(b);}
+    if(S.place==='canteen'&&CF.visitorAvailable(S)){const b=document.createElement('button');b.className='hotspot';b.dataset.spot='pursuer-canteen';b.style.left='62%';b.style.top='32%';b.innerHTML=`<span class="hotspot-ring"></span><span class="hotspot-label">${esc(Y1.visitor(S).name)} · 食堂<small>${S.done.includes('pursuer-canteen')?'食堂这次已聊过':'和教室分开的一次 · 精力 −8'}</small></span>`;b.classList.toggle('done',S.done.includes('pursuer-canteen'));b.onclick=()=>interact('pursuer-canteen');hotspots.append(b);}
     const r=$('#reminder');r.hidden=true;
     if(S.week>=7){r.hidden=false;r.innerHTML='<small>本周的日历</small>'+esc(C.weeks[S.week-1].diary)+(S.week===15?' 周日纸店 / 试讲，全天安排只能选一个。':'');}
     if(S.week<=2&&S.promise==='yes'&&!S.promiseKept){r.hidden=false;r.innerHTML='<small>夹在手记里的约定</small>第二周放学后，帮赵程把班旗画完。';}
@@ -209,7 +212,7 @@
     if(id==='phone'){phone();return;}
     if(id!=='notebook'&&S.done.includes(id)){toast('这周，你已经给这件事留过时间了。还有别的地方可以看看。');return;}
     if(S.remaining<=0){result('窗外已经暗了','工作日的三段时间已经用完。\n看看消息和手记，然后点右下角，去安排周六和周日。');return;}
-    if(S.week>=7&&['friend','girl','mom','pursuer'].includes(id)){yearStory(id);return;}
+    if(CF.isCanteen(id)||S.week>=7&&['friend','girl','mom','pursuer'].includes(id)){yearStory(id);return;}
     if(!enough(id))return;
     ({notebook:exercise,friend:friend,girl:girl,lunch:lunch,mom:family,rest:rest,running:running,inspection:inspection}[id]||(()=>{}))();
   }
@@ -522,11 +525,11 @@
   }
 
   function yearStory(id){
-    const event=id==='pursuer'?Y1.bonus(S):Y1.weekday(S,id);if(!event)return;
+    const raw=CF.isCanteen(id)?CF.scene(S,id):id==='pursuer'?Y1.bonus(S):Y1.weekday(S,id),event=CF.isCanteen(id)?raw:CF.decorate(S,raw);if(!event)return;
     if(S.energy<event.cost){result('先留一点余力',`这一段需要 ${event.cost} 点精力。可以吃饭、休息，或换一个安排。`);return;}
     const choices=event.choices.map(c=>({id:'year-choice-'+c.key,text:c.text,note:Y1.available(S,event,c)||`一段工作日时间 · 精力 ${event.cost?'−'+event.cost:'+10'}${c.money?' · 零用钱 '+c.money+' 元':''}${c.repay?' · 原额还款 +'+c.repay+' 元':''}`,value:c.key}));
     choices.push({id:'year-leave',text:'先不安排，回去看看',note:'不消耗时间、精力和钱',value:'leave'});
-    const scene=id==='mom'?'home':id==='pursuer'?'year-visitor':S.week===7||id==='girl'&&[10,14,20].includes(S.week)?'track':S.place;
+    const scene=CF.isCanteen(id)?'canteen':id==='mom'?'home':id==='pursuer'?'year-visitor':S.week===7||id==='girl'&&[10,14,20].includes(S.week)?'track':S.place;
     E.dialogue({title:event.title,scene,lines:Y1.lines(event,event.lines),choices},key=>{
       if(key==='leave')return;const option=event.choices.find(x=>x.key===key);if(!option)return;
       const reason=Y1.available(S,event,option);if(reason){result('先看看自己能承担多少',reason,null,'没有消耗时间或精力，可重新打开对话选择其他回应。');return;}
@@ -609,7 +612,7 @@
     if(kind==='basketball')E.basketball({},finish);else E[kind](finish,{practice:true});
   }
   function help(){
-    const m=showModal({kicker:'给刚走进教室的你',title:'把时间留给想做的事',body:'<p class="modal-lead">工作日周一、周三、周五各一段；周六、周日每天两段。点场景里的物件或人物，先听听，再决定要不要留下。</p><div class="receipt">每天都会正常睡觉，每晚自动恢复 6 精力；按日期推进结算，一周共 42。早点睡、吃饭和散步额外恢复，不用为了获得基础睡眠而放弃一天。<br><br>稳步订正 −18，正确积累 +3；集中攻坚 −28，正确 +5；看完讲解也分别 +2、+3，按学习计划另 +1。同周多学不再削减收益。周末图书馆是较轻的复习，不等于工作日集中学习。<br><br>聊天 −12，跑步 −14，看手机 −8；早点休息额外 +36，陪家人吃饭 +10。周末全天活动占两段，同项每周一次。靠近林遥后才开放同行，仍不自动确认恋爱。<br><br>对话点正文、空格或 Enter 继续；短 CG 可以跳过。场景中 1 / 2 / 3 / 4 换地点，J 看手记，P 看安排，Esc 暂停；换地点和查看消息不花时间。<br><br>主界面的“更多玩法”能单独练习三个小游戏，练习不影响剧情存档。</div><p class="modal-note">进度自动保存在当前浏览器。点击音、人物动态可在“更多玩法”或暂停菜单设置；右上角“声”控制环境风声。</p><div class="modal-actions"><button class="secondary-button" id="help-energy">查看精力规则与例子</button><button class="primary-button" id="help-close">知道了</button></div>'});
+    const m=showModal({kicker:'给刚走进教室的你',title:'把时间留给想做的事',body:'<p class="modal-lead">工作日周一、周三、周五各一段；周六、周日每天两段。同一个人，教室与食堂每周各能聊一次：分别花一段，内容不同。食堂聊天精力 −8，教室通常 −12，来回换地点不重复解锁。同一个人在操场与教室共用原课后次数。</p><div class="receipt">每天都会正常睡觉，每晚自动恢复 6 精力；按日期推进结算，一周共 42。早点睡、吃饭和散步额外恢复，不用为了获得基础睡眠而放弃一天。<br><br>稳步订正 −18，正确积累 +3；集中攻坚 −28，正确 +5；看完讲解也分别 +2、+3，按学习计划另 +1。同周多学不再削减收益。周末图书馆是较轻的复习，不等于工作日集中学习。<br><br>聊天 −12，跑步 −14，看手机 −8；早点休息额外 +36，陪家人吃饭 +10。周末全天活动占两段，同项每周一次。靠近林遥后才开放同行，仍不自动确认恋爱。<br><br>对话点正文、空格或 Enter 继续；短 CG 可以跳过。场景中 1 / 2 / 3 / 4 换地点，J 看手记，P 看安排，Esc 暂停；换地点和查看消息不花时间。<br><br>主界面的“更多玩法”能单独练习三个小游戏，练习不影响剧情存档。</div><p class="modal-note">进度自动保存在当前浏览器。点击音、人物动态可在“更多玩法”或暂停菜单设置；右上角“声”控制环境风声。</p><div class="modal-actions"><button class="secondary-button" id="help-energy">查看精力规则与例子</button><button class="primary-button" id="help-close">知道了</button></div>'});
     $('#help-close',m).onclick=()=>closeModal();$('#help-energy',m).onclick=energyGuide;
   }
   function toggleSound(){

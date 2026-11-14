@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "url": "http://127.0.0.1:53163/",
+  "checks": [
+    "20 actual two-venue journeys: W01/W05/W07/W16/W20, Lin Yao/Zhao Cheng, both visit orders, precise 12+8 costs and scheduled sleep, reload and duplicate rejection; track cannot give a third Zhao Cheng interaction",
+    "All 40 W01–W20 cafeteria scenes completed through live choices; three Lin Yao CGs unlocked by their actual choices",
+    "Old shared-ID saves keep progress and gain only the new meal visit; insufficient energy/time and cancellation never spend; cafeteria chat does not fulfill original obligations",
+    "Correct-gender newcomer requires prior meeting, can be visited in both venues, only Qiao Sui gets the female CG; explicit stop removes invitations in both places",
+    "New Lin Yao laugh/shy/thoughtful poses actually render with matching speaker avatars; all nine generated assets decode in the browser",
+    "Four cafeteria targets fit and remain separately clickable at 390x844, 844x390 and 320x568; no horizontal overflow"
+  ],
+  "errors": [],
+  "missing_assets": []
+}

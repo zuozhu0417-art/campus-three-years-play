@@ -46,7 +46,7 @@ window.CampusYearOne = (() => {
   }
   const sweet=S=>S.october.mode==='closer';
   const visitor=S=>S.profile.gender==='female'?{who:'chenyu',name:'陈聿',pronoun:'他'}:{who:'qiaosui',name:'乔穗',pronoun:'她'};
-  const lines=(s,rows)=>rows.map(([who,text],i)=>({id:`y1.${s.id}.${Array.from(s.title||'').reduce((a,c)=>(a*31+c.charCodeAt(0))>>>0,0).toString(36)}.${i}`,who,text}));
+  const lines=(s,rows)=>rows.map(([who,text,mood],i)=>({mood,id:`y1.${s.id}.${Array.from(s.title||'').reduce((a,c)=>(a*31+c.charCodeAt(0))>>>0,0).toString(36)}.${i}`,who,text}));
   function extend(C){
     for(const [date,name,intro,diary,bg] of weeks){
       C.weeks.push({date,name,intro,diary,quiet:intro,background:bg});

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "url": "http://127.0.0.1:52460/",
+  "checks": [
+    "Mobile: actual classroom/meal transactions in both orders spend exactly two slots and survive reload",
+    "Mobile album actually renders all five added girl poses with correct matching avatars and no opposite-gender newcomer",
+    "New orange CG plays from its real story choice and records the unlocked memory"
+  ],
+  "errors": [],
+  "missing_assets": []
+}

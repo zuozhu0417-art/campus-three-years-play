@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "checks": [
+    "Actual four-week study route: 64 -> 58 -> 52 -> 34, full week returns to 64 with quiet weekend; repeated gains 4 each; exam rank 3 and unchanged October handoff",
+    "Focus is a real higher-cost/higher-gain choice; insufficient energy disables it, cancel is free and explained mistakes retain learning value",
+    "Depleted players are not charged for unavailable study; extra early sleep stacks with normal nights",
+    "Legacy ongoing save gets one 18-point credit and original backup; reload grants nothing more; promised notes and already-finalized legacy exam remain valid",
+    "New-game confirmation and identity cancel preserve old save; all three practice entries work, basketball completes/retries, no practice changes save bytes; settings and rules work from title",
+    "Running and phone practice complete through their real frame loops under a controlled browser clock, without creating a game save",
+    "Desktop, 390x844, 844x390, 320x568 menu controls remain visible; more-play list scrolls and practice pause stays on screen"
+  ],
+  "javascript_errors": [],
+  "weekday_steady_energies": [
+    58,
+    52,
+    34
+  ],
+  "weekly_base_recovery": 42,
+  "save_version": 7,
+  "actual_phone_hardware": false
+}
