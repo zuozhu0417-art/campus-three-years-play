@@ -1,0 +1,25 @@
+{
+  "checks": [
+    "Character portrait, named avatar, typewriter, history, keyboard focus and cancelling dialogue",
+    "Four-week UI playthrough, promise kept, notes kept, energy recovery, month exam and JSON export",
+    "Save/resume and replay gallery do not consume time",
+    "Repeat study costs 26/30/34, gains diminish, low energy blocks study/social with no resource loss",
+    "Unkept promise has its separate third-week echo",
+    "Rhythm running win with keyboard, pause freezes time, completion updates state once",
+    "Running timeout has a distinct failure result and bounded energy/time cost",
+    "Abandoning a minigame does not consume resources",
+    "Visible teacher vision catches a bright phone; teacher dialogue and journal persist result",
+    "Phone stealth can succeed by hiding during teacher view and reading in safe periods",
+    "390x844 pointer UI and 1280x600 layout: dialogue choices, nav and minigame controls usable",
+    "Legacy v1 browser save migrated to v4 while preserving original save",
+    "No browser JS errors or external network requests across all checks"
+  ],
+  "errors": [],
+  "remote": [],
+  "views": [
+    "1366x768",
+    "390x844",
+    "1280x600"
+  ],
+  "miniTiming": "Playwright browser clock for deterministic win/fail; real-time mobile/desktop rendering"
+}

@@ -1,0 +1,28 @@
+{
+  "checks": [
+    "First-visit muted inline H.264/AAC playback, real 18.8-second automatic completion, full moving film and safe title handoff; no gameplay save created",
+    "Seen flag suppresses automatic replay; title rewatch, pause freezes time, sound gesture unmutes and actual AAC bytes decode, pointer skip restores controls",
+    "Keyboard focus trap and Escape skip; entering gameplay still uses original male/female identity selection and opening story",
+    "Existing September save survives opening byte-for-byte and can still continue into October with chosen identity",
+    "390x844 and 844x390 real browser video decoding and pointer controls, no clipped buttons or horizontal overflow; gender selection usable afterward",
+    "Reduced-motion preference skips automatic opening while allowing explicit replay",
+    "Simulated MP4 failure uses the actual local canvas animation and keeps a working skip to gameplay",
+    "Background visibility pauses/resumes film; denied localStorage still permits opening and game access"
+  ],
+  "errors": [],
+  "metadata": {
+    "duration": 18.8,
+    "width": 1280,
+    "height": 720,
+    "muted": false,
+    "inline": true,
+    "audioBytes": 12121
+  },
+  "automatic_handoff_wall_seconds": 19.3,
+  "views": [
+    "1366x768",
+    "390x844",
+    "844x390"
+  ],
+  "actual_phone_hardware": false
+}

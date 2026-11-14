@@ -1,6 +1,14 @@
 # 校园三年 · 风经过座位
 
-十月小续篇 v4，2026-11-14。浏览器试玩，九月四周后续写两周，当前共六个关键周。
+开场短片版 v5，2026-11-14。新增约 19 秒第一视角片头，故事保持六个关键周。
+
+## 新增开场短片
+
+第一次打开先看开场：走进教室、放下书包、同学招呼、操场、雨中等候，最后是留给你的座位。默认静音，点“开启声音”听铃声、脚步和雨声；可暂停或点“先去教室”跳过，首页可随时“重看开场”。看完或跳过后，下次直接进入首页。系统开启减少动态时不会自动播放。
+
+短片为 18.8 秒、1280×720、30 fps 的 H.264/AAC MP4，约 5.5 MB。三张新生成原画与已有素材通过镜头、独立书包图层、表情帧、雨线和光尘制作成 2.5D 动画；不是连续 AI 图生视频。声音为原创程序合成，没有配音。手机竖屏完整保留画面，横屏观看更大。播放失败时使用静音画布演出，也可直接跳过。
+
+片头的观看标记独立保存，不消耗游戏时间、精力，不更改旧剧情存档。当前未新增第七周或后续结局。
 
 ## 开始游戏
 
@@ -78,7 +86,11 @@
 | assets/GENERATION-V3.json / ART-PROMPTS.md | 本次精确生成提示词与来源 |
 | tools/render_character_motion.py | 可选：从表情帧重新制作透明短片 |
 | tests/ | 可选：本机浏览器交互验证脚本 |
-| screenshots-sweet-v4 / VERIFICATION.md | 本版实际截图和验证范围；旧截图保留历史 |
+| opening.js / opening.css / opening-film.js | 开场播放、手机布局与可复现动画分镜 |
+| assets/opening | 真实 MP4、封面与新画面 |
+| tools/render_opening.py / tools/render_opening.html | 可选：重新合成开场短片 |
+| assets/GENERATION-OPENING-V5.json | 三张新画面的完整生成提示词与来源 |
+| screenshots-opening-v5 / VERIFICATION.md | 本版实际截图和验证范围；旧截图保留历史 |
 
 仅制作素材或运行验证脚本才需要 Python、Playwright（本机 Edge），制作短片还需 imageio-ffmpeg。可用 `python -m pip install playwright imageio-ffmpeg` 安装这些可选依赖；游戏本身不需要它们。
 

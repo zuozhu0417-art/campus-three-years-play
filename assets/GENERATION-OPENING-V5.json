@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-14",
+  "tool": "built-in image_gen",
+  "reference": "assets/classroom.jpg (style reference for doorway and desk only)",
+  "method": "Three newly generated illustrations for original 2.5D animation. No AI continuous video model used.",
+  "images": [
+    {
+      "id": "doorway",
+      "source": "C:/Users/Lecoo/.codex/generated_images/01a1d4a9-0fec-7082-8823-b65a5d90c440/exec-ce954d58-417a-4fd9-82b4-f06b747f6348.png",
+      "asset": "assets/opening/doorway.jpg",
+      "prompt": "Use case: illustration-story. Asset type: landscape 16:9 opening shot of a Chinese high-school visual novel, to be animated with first-person forward camera movement. Use the supplied classroom as visual style reference: delicate hazy watercolor anime, painterly dust-lit surfaces, muted sage and honey palette, late summer golden light, realistic ordinary Chinese public school. NEW composition from FIRST PERSON standing in the corridor immediately outside a fully open classroom sliding doorway. We can see an inviting sunlit classroom through the doorway, rows of familiar wooden desks and soft fluttering white curtains, green chalkboard deep inside. A weathered pale blue-gray door jamb occupies only the outer left 10 percent, and corridor wall outer right 10 percent, center view clear enough for forward movement. Subtle blurred uniformed classmates in background with no legible or distinct faces. Eye-height 160cm, straightforward natural perspective, not a wide angle distorted room. No visible protagonist, no hands, no romance, no dramatic tragedy. No text or letters anywhere, no room-number signs, no logos, watermarks or UI. Cinematic warmth of a first September morning, full-frame richly painted scene."
+    },
+    {
+      "id": "desk",
+      "source": "C:/Users/Lecoo/.codex/generated_images/01a1d4a9-0fec-7082-8823-b65a5d90c440/exec-373b4595-4eca-4266-bcf3-08eb32164d93.png",
+      "asset": "assets/opening/desk.jpg",
+      "prompt": "Use case: illustration-story. Asset type: landscape 16:9 FIRST-PERSON desk viewpoint, opening animation shot. Use supplied classroom solely as painting-style and school environment reference. Paint a new scene as if a student has just sat down at a weathered honey-brown wooden high-school desk. Foreground lower 55 percent: large empty desktop ready for schoolbag, one closed pale-blue exercise book at the far left corner and a blue pen alongside, sunlight mottled through window leaves. Beyond the desk see two backs of chairs, green chalkboard and airy white curtains along windows to left, classmates indistinct and only far away. Eye level is a seated student's eye-height, gentle downward camera angle, ordinary Chinese public high school, no university auditorium. Hazy watercolor-anime textures, delicate muted sage and warm cream, September sun, subtle dust rays. No protagonist face, body, hands or visible gender, no front-facing character in foreground. No text, writing, logos, watermark, dialogue box or user interface. Calm physical sense of arriving at a new seat."
+    },
+    {
+      "id": "backpack",
+      "source": "C:/Users/Lecoo/.codex/generated_images/01a1d4a9-0fec-7082-8823-b65a5d90c440/exec-9a4df736-0be3-49a9-98ac-0b9cf46c614e.png",
+      "asset": "assets/opening/backpack.png",
+      "prompt": "Use case: illustration-story. Asset type: isolated transparent foreground prop for a first-person hand-animated Chinese high-school opening movie. A single ordinary slightly worn blue-gray canvas high-school backpack, upright but casually slouched, three-quarter FRONT-AND-TOP view as seen looking down at it on a desk from a seated student's eyes. Zipped main pocket, soft fabric folds, small short handle, two shoulder straps tucked loosely behind, no dangling independent pieces outside footprint. Delicate warm watercolor-anime painting with muted colors, honey sunlight from upper left, softly drawn edges matching an illustrated school classroom. One coherent object, no desk, no background, no hands, no people, no writing, logos, text, ground, duplicate objects or watermark. Actual transparent alpha background. Entire bag and handle in frame with generous clear margins. Intended to be lowered onto a wooden desk in an animation."
+    }
+  ]
+}

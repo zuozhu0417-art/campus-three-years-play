@@ -1,0 +1,19 @@
+{
+  "checks": [
+    "Actual v3 completed September save continues into W05; identity, grades, promises, taste, prior memories retained, seat changed to recorded exam result",
+    "W05 approach choice, actual five-second CG opening, named player/actor dialogue, one-time resource debit and save/reload",
+    "Actual W06 poster/lunch/camera-work branches, three new unlockable CGs and period captions, phone echo, explicit W07 promise, W06 stop/resume and gallery replay",
+    "Male protagonist gets equal opportunities; leaving costs nothing; friends stays friends; poster refusal is not a broken promise; declining milk has same warmth; camera chat makes no future promise",
+    "Insufficient energy blocks actual interactions without resource loss; skipping optional sweetness yields a valid ordinary-life continuation stop",
+    "390x844 real browser pointer interaction: new CGs, approach choice, poster, milk, photography choices, ending, no horizontal overflow"
+  ],
+  "errors": [],
+  "missing_assets": [],
+  "views": [
+    "1366x768",
+    "390x844"
+  ],
+  "new_cg": 3,
+  "new_cg_wall_clock_seconds": 5.96,
+  "actual_phone_hardware_test": false
+}

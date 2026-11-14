@@ -1,0 +1,25 @@
+/* A short first-visit film, outside the game state and save system. */
+.opening-pending #game{visibility:hidden}
+.opening-screen{position:fixed;inset:0;z-index:150;background:#253b33;color:#fff8e8;overflow:hidden;isolation:isolate;font-family:var(--sans)}
+.opening-atmosphere{position:absolute;inset:-6%;background:center/cover url('assets/opening/poster.jpg');filter:blur(24px) brightness(.58);opacity:.65;z-index:-2}
+.opening-screen:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;background:linear-gradient(180deg,#122e2577,transparent 35%,#122b2180)}
+.opening-video,.opening-canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:transparent}
+.opening-header{position:absolute;top:max(25px,env(safe-area-inset-top));left:max(32px,env(safe-area-inset-left));right:max(32px,env(safe-area-inset-right));display:flex;gap:20px;justify-content:space-between;align-items:center}
+.opening-header>span{font-size:11px;letter-spacing:3px;text-shadow:0 1px 5px #152d23}
+.opening-controls{display:flex;gap:8px;align-items:center}
+.opening-controls button,.opening-skip{min-height:42px;border:1px solid #f4f0de59;background:#263d36b8;color:#f8f3e4;padding:9px 14px;font-size:12px;backdrop-filter:blur(6px)}
+.opening-controls button:hover,.opening-skip:hover{background:#e9eadb;color:#2b4a3c}
+.opening-footer{position:absolute;left:max(32px,env(safe-area-inset-left));right:max(32px,env(safe-area-inset-right));bottom:max(30px,calc(env(safe-area-inset-bottom) + 16px));display:flex;gap:20px;align-items:center;justify-content:space-between}
+.opening-footer p{font-size:11px;line-height:1.8;letter-spacing:1px;margin:0;text-shadow:0 1px 6px #152d23}
+.opening-progress{position:absolute;left:0;right:0;bottom:0;height:3px;background:#e5e3cf26;pointer-events:none}
+.opening-progress i{display:block;height:100%;background:#e4dfba;transform:scaleX(0);transform-origin:left}
+.opening-replay{margin-left:20px}
+.opening-mobile-copy{display:none}
+.opening-status{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;background:#233f35df;padding:14px 22px;font-size:13px;line-height:1.8;text-align:center;max-width:80%}
+@media(max-width:600px){
+ .opening-header{top:max(20px,env(safe-area-inset-top));left:18px;right:18px;align-items:flex-start;gap:12px}.opening-header>span{font-size:10px;letter-spacing:1px;line-height:1.8;max-width:110px}.opening-controls{gap:6px}.opening-controls button{padding:9px 11px;font-size:11px}
+ .opening-video,.opening-canvas{height:auto;width:100%;aspect-ratio:16/9;top:25%;bottom:auto}
+ .opening-mobile-copy{display:block;position:absolute;top:calc(25% + 56.25vw + 24px);left:9%;right:9%;text-align:left;border-left:1px solid #becbb478;padding-left:19px}.opening-mobile-copy strong{display:block;font-family:var(--serif);font-size:28px;font-weight:400;letter-spacing:5px}.opening-mobile-copy small{display:block;margin-top:10px;line-height:1.9;font-size:12px;color:#d4ded0;letter-spacing:2px}
+ .opening-footer{left:20px;right:20px;bottom:max(24px,calc(env(safe-area-inset-bottom) + 16px));gap:14px}.opening-footer p{max-width:165px;font-size:10px;letter-spacing:0}.opening-skip{padding:12px 15px;white-space:nowrap;font-size:12px}.opening-replay{margin-left:12px}
+}
+@media(max-height:500px) and (orientation:landscape){.opening-header{top:max(10px,env(safe-area-inset-top))}.opening-footer{bottom:max(12px,env(safe-area-inset-bottom))}.opening-header>span,.opening-footer p{font-size:10px}.opening-controls button,.opening-skip{padding:7px 12px;min-height:35px}}
