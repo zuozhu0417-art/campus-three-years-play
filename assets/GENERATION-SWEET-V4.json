@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-14",
+  "tool": "built-in image_gen",
+  "reference": "assets/notebook-cg.jpg",
+  "type": "Three newly generated illustration CGs, displayed with lightweight camera movement; not continuous AI video",
+  "images": [
+    {
+      "id": "saved-seat-cg",
+      "source": "C:/Users/Lecoo/.codex/generated_images/01a1d4a9-0fec-7082-8823-b65a5d90c440/exec-17a27f1e-9849-4209-bb01-1e91e76912c9.png",
+      "asset": "assets/saved-seat-cg.jpg",
+      "prompt": "Use case: illustration-story. Asset type: landscape 16:9 CG illustration for Chinese school-life visual novel. Reference image is style and character reference only; create a new scene. Match the muted watercolor-anime illustration, hazy softly obscured face, dusty warm sunlight, tangible Chinese classroom of the reference. Lin Yao is the same shy Chinese high-school girl, dark brown low ponytail tied with faded blue ribbon, loose pale blue short-sleeved school shirt. Scene: first-person view from across a classroom aisle after seats have been rearranged, she sits behind a wooden desk, has moved her canvas schoolbag from a spare chair to her lap, and looks toward the viewer with a small quiet smile inviting them to sit for a brief break. Hand resting on the chair, open notebook and capped pencil on desk. Afternoon soft window light and billowing white curtain. Believable high school ordinary sweetness, platonic-compatible, no physical intimacy. Viewer protagonist is never visible, suitable for either gender. Wide environmental composition with girl at right third, wide airy left half, detailed painted wooden desks, sage green blackboard. Deliberately soft eyes and facial detail, not empty mannequin face. No text, logos, watermarks, subtitles, UI, or other foreground people."
+    },
+    {
+      "id": "drawing-margin-cg",
+      "source": "C:/Users/Lecoo/.codex/generated_images/01a1d4a9-0fec-7082-8823-b65a5d90c440/exec-0aa50331-123a-448a-b6e1-e83cc0cf24c3.png",
+      "asset": "assets/drawing-margin-cg.jpg",
+      "prompt": "Use case: illustration-story. Asset type: standalone landscape 16:9 school visual novel CG. The supplied image is style and Lin Yao character reference only; paint a new composition. Same hazy watercolor-anime, muted sunlit sage and pale honey palette, softly indistinct eyes and natural anatomy. First-person view at a shared wooden desk after class in an ordinary Chinese high school. Lin Yao, dark brown low ponytail tied with faded blue ribbon and loose pale-blue short sleeve school shirt, is seated opposite-right, smiling slightly with pencil in hand, looking at a small amusing bird sketch in the MARGIN of her school sports-day poster draft. The foreground shows poster draft, eraser crumbs, pencil; a single gender-ambiguous protagonist hand from lower left holds one corner flat while she draws. Keep hands clearly separate, five fingers, no touching. She has unobtrusive graphite smudge on one knuckle, not face. Do not make an intimate couple pose. Quiet cozy shared concentration, believable adolescent daily life and collaboration, characters fully clothed. Warm late afternoon window light; no text or letters, no UI, no watermark. Wide enough to see classroom desks and window softly behind them."
+    },
+    {
+      "id": "warm-carton-cg",
+      "source": "C:/Users/Lecoo/.codex/generated_images/01a1d4a9-0fec-7082-8823-b65a5d90c440/exec-8e4491d9-afe1-430f-aad1-b7ce9647e4fc.png",
+      "asset": "assets/warm-carton-cg.jpg",
+      "prompt": "Use case: illustration-story. Asset type: standalone landscape 16:9 school visual novel CG. Reference image is for matching hazy watercolor-anime drawing style and Lin Yao character only. New scene in Chinese high-school canteen on an overcast mild October lunchtime, pale blue-gray windows, warm food steam. Lin Yao, same brown low ponytail with faded blue ribbon and loose pale blue short-sleeve shirt, sits across cafeteria table at right. She gently nudges a small plain warm milk carton across the table toward viewer's first-person viewpoint, a single hand rests on carton, other hand near own chopsticks. Carton has NO writing, logo, pattern or watermark. Two ordinary metal lunch trays, soup bowl, schoolbag on neighboring seat. Her face is soft, slightly out of focus and shyly smiling, eye detail obscured by loose fringe, no exaggerated anime eyes. No protagonist body or gender cues visible. Ordinary caring between classmates with romantic possibility, no intimacy or romantic symbols. Muted watercolor paper texture and subtle sun haze like reference, spacious wide composition, plausible hands and tabletop perspective. No text, speech bubbles, logos, UI or watermark."
+    }
+  ]
+}

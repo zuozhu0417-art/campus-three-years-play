@@ -1,0 +1,134 @@
+{
+  "edition": "v3",
+  "count": 16,
+  "items": [
+    {
+      "name": "linyao-blink",
+      "file": "assets/expressions/linyao-blink.png",
+      "sourceOriginal": "exec-1d6c2b89-0af4-4800-b03e-5d3afc08b1f2.png",
+      "prompt": "Use case: identity-preserve. Edit target: the attached transparent character cutout. Make ONE expression variant of this SAME original character for a visual novel. Only change her eyes so both eyelids are softly closed in a natural brief blink. Mouth remains a reserved tiny smile. Do not move her head, body, arms, sketchbook, hair silhouette or any other part. Invariants: identical identity, age, anatomy, hair, clothes, props, painterly soft muted campus watercolor style, lighting, framing, exact character size and position within canvas. Preserve existing real alpha transparency. Keep the same canvas aspect ratio and all edges. No new background, no text, no panels or collage, no outline border. This is an animation keyframe, so preserve all non-facial pixels as closely as possible.",
+      "method": "image_gen.imagegen built-in; original generation or reference-guided expression edit",
+      "sha256": "49f081ea1a9d69d8fa11168e32ca8afa2fe63deb85fad032c224663eaaf7b1d3"
+    },
+    {
+      "name": "linyao-smile",
+      "file": "assets/expressions/linyao-smile.png",
+      "sourceOriginal": "exec-0d9732f9-5f03-49d2-832c-cee01d445723.png",
+      "prompt": "Use case: identity-preserve. Edit target: the attached transparent character cutout. Make ONE expression variant of this SAME original character for a visual novel. Only change her expression into a warm small genuine closed-mouth smile, eyes gently lifted toward the listener, very slight blush, the shy happiness of a friend who kept a promise. Preserve exact head angle and placement, hands and sketchbook position. Invariants: identical identity, age, anatomy, hair, clothes, props, painterly soft muted campus watercolor style, lighting, framing, exact character size and position within canvas. Preserve existing real alpha transparency. Keep the same canvas aspect ratio and all edges. No new background, no text, no panels or collage, no outline border. This is an animation keyframe, so preserve all non-facial pixels as closely as possible.",
+      "method": "image_gen.imagegen built-in; original generation or reference-guided expression edit",
+      "sha256": "6c01029cccfab67ef3ae7c048fd66a59101028f66d2d7a9c19482535abf8f1e7"
+    },
+    {
+      "name": "zhaocheng-blink",
+      "file": "assets/expressions/zhaocheng-blink.png",
+      "sourceOriginal": "exec-469bb64b-b440-454b-ae7f-2b1e73540cc8.png",
+      "prompt": "Use case: identity-preserve. Edit target: the attached transparent character cutout. Make ONE expression variant of this SAME original character for a visual novel. Only change his eyes so both eyelids are closed for a natural blink. Keep his existing relaxed smile, head angle, arm behind neck and camera position identical. Invariants: identical identity, age, anatomy, hair, clothes, props, painterly soft muted campus watercolor style, lighting, framing, exact character size and position within canvas. Preserve existing real alpha transparency. Keep the same canvas aspect ratio and all edges. No new background, no text, no panels or collage, no outline border. This is an animation keyframe, so preserve all non-facial pixels as closely as possible.",
+      "method": "image_gen.imagegen built-in; original generation or reference-guided expression edit",
+      "sha256": "40fc8e96f849e60bbab9cc76a43291d75fd999148a8c1707337a27dce524155e"
+    },
+    {
+      "name": "zhaocheng-smile",
+      "file": "assets/expressions/zhaocheng-smile.png",
+      "sourceOriginal": "exec-5ab69bb2-07f5-42e1-b877-a8945a02a5b3.png",
+      "prompt": "Use case: identity-preserve. Edit target: the attached transparent character cutout. Make ONE expression variant of this SAME original character for a visual novel. Only change his face into a delighted laughing smile, eyes slightly crinkled but open, happy his classmate has arrived to help. Preserve the exact head angle, torso, arm behind neck, hands, camera and clothing. Invariants: identical identity, age, anatomy, hair, clothes, props, painterly soft muted campus watercolor style, lighting, framing, exact character size and position within canvas. Preserve existing real alpha transparency. Keep the same canvas aspect ratio and all edges. No new background, no text, no panels or collage, no outline border. This is an animation keyframe, so preserve all non-facial pixels as closely as possible.",
+      "method": "image_gen.imagegen built-in; original generation or reference-guided expression edit",
+      "sha256": "adf97e45784664e18be822cf9bf2e09543b9d3f7fff502b912cf7f3c771b3ed0"
+    },
+    {
+      "name": "mother-blink",
+      "file": "assets/expressions/mother-blink.png",
+      "sourceOriginal": "exec-6d81efa5-19c2-4280-8c0f-67d4d1349ce8.png",
+      "prompt": "Use case: identity-preserve. Edit target: the attached transparent character cutout. Make ONE expression variant of the SAME original character for a visual novel. Only close both her eyelids for a gentle natural blink. Keep the existing small smile and identical head angle. Invariants: identical identity, age, anatomy, hair, clothes, props, hands, arms, soft painterly muted campus watercolor style, lighting, framing, exact character scale and position. Preserve real alpha transparency and canvas aspect ratio, preserve all non-facial pixels as closely as possible. No new background, no panels, no text, no border. This is an animation keyframe.",
+      "method": "image_gen.imagegen built-in; original generation or reference-guided expression edit",
+      "sha256": "3aa866300d3ef7df0de398e3f38c19275893bfd81a56fb6171e65e56871f4226"
+    },
+    {
+      "name": "mother-smile",
+      "file": "assets/expressions/mother-smile.png",
+      "sourceOriginal": "exec-13562027-3c47-46dd-b413-768a31a00fcb.png",
+      "prompt": "Use case: identity-preserve. Edit target: the attached transparent character cutout. Make ONE expression variant of the SAME original character for a visual novel. Only change her facial expression into a warmer genuine smile of relief, eyes softly crinkled and open, mouth just slightly parted as if saying the food is still warm. Keep identical head angle. Invariants: identical identity, age, anatomy, hair, clothes, props, hands, arms, soft painterly muted campus watercolor style, lighting, framing, exact character scale and position. Preserve real alpha transparency and canvas aspect ratio, preserve all non-facial pixels as closely as possible. No new background, no panels, no text, no border. This is an animation keyframe.",
+      "method": "image_gen.imagegen built-in; original generation or reference-guided expression edit",
+      "sha256": "5505a64a59f289fa1066bf098ac8719c9d47f520cb346b634cc94ca53cca3dcb"
+    },
+    {
+      "name": "teacher-blink",
+      "file": "assets/expressions/teacher-blink.png",
+      "sourceOriginal": "exec-03b20dcc-6723-4804-ab23-6fc3034bbfb7.png",
+      "prompt": "Use case: identity-preserve. Edit target: the attached transparent character cutout. Make ONE expression variant of the SAME original character for a visual novel. Only close both eyelids for a natural blink behind his glasses. Keep the mouth, head angle, glasses shape and all other features identical. Invariants: identical identity, age, anatomy, hair, clothes, props, hands, arms, soft painterly muted campus watercolor style, lighting, framing, exact character scale and position. Preserve real alpha transparency and canvas aspect ratio, preserve all non-facial pixels as closely as possible. No new background, no panels, no text, no border. This is an animation keyframe.",
+      "method": "image_gen.imagegen built-in; original generation or reference-guided expression edit",
+      "sha256": "400b880363fd78f57711bf70114447530e00a6a1a76d2a9345c2098ea3e8648a"
+    },
+    {
+      "name": "teacher-smile",
+      "file": "assets/expressions/teacher-smile.png",
+      "sourceOriginal": "exec-6030ac50-0584-4732-86e5-b6de86439596.png",
+      "prompt": "Use case: identity-preserve. Edit target: the attached transparent character cutout. Make ONE expression variant of the SAME original character for a visual novel. Only change his facial expression into a restrained approving half smile, mouth closed, eyes kindly crinkled but open. He is pleased the student understood a difficult problem. Keep the exact head angle and glasses. Invariants: identical identity, age, anatomy, hair, clothes, props, hands, arms, soft painterly muted campus watercolor style, lighting, framing, exact character scale and position. Preserve real alpha transparency and canvas aspect ratio, preserve all non-facial pixels as closely as possible. No new background, no panels, no text, no border. This is an animation keyframe.",
+      "method": "image_gen.imagegen built-in; original generation or reference-guided expression edit",
+      "sha256": "c7ec9e5301ca378a198b4da724a7c6c09615de46fdafb9209c88f6f81c2a1ffb"
+    },
+    {
+      "name": "player-male",
+      "file": "assets/expressions/player-male.png",
+      "sourceOriginal": "exec-61e3dd48-b713-459b-96f1-206fc8fb0946.png",
+      "prompt": "Use case: illustration-story. A new original visual novel protagonist character cutout, waist-up at natural human proportions, transparent background. Chinese high school boy age17 with neat soft black straight hair and fringe, quiet thoughtful expression, eyes softly rendered and slightly downturned with dreamy indistinct features, not handsome glamour. Plain white short sleeve school shirt with navy narrow trim at collar, school bag strap over one shoulder, left hand loosely holding that strap, other hand carrying an old blue notebook. Different person from Zhao Cheng (no camera, no hand behind neck). Soft painterly watercolor anime campus memory aesthetic, muted bluegrey and sage palette, warm sidelight, fine paper texture, gentle nostalgy, face natural and softly painted. Front three quarter facing viewer left, whole head visible with margin, entire torso down to hips, hands complete, centered frame, canvas aspect portrait 7:8. No text, no panel, no background elements, no shadows outside character, no logos, no chibi, no photorealistic face.",
+      "method": "image_gen.imagegen built-in; original generation or reference-guided expression edit",
+      "sha256": "b72a34dba78da11fce68fb0f18c2259e3e4aa75bad2b09acad1257a9ade234fc"
+    },
+    {
+      "name": "player-female",
+      "file": "assets/expressions/player-female.png",
+      "sourceOriginal": "exec-d1a6aa91-bda4-4ba5-bd0a-5d77a62e501a.png",
+      "prompt": "Use case: illustration-story. A new original visual novel protagonist character cutout, waist-up at natural human proportions, transparent background. Chinese high school girl age17 with chin-length soft dark bob, a small plain navy hairclip near her left temple, quiet thoughtful expression, eyes softly rendered and dreamy indistinct features. Plain white short sleeve school shirt with navy narrow trim at collar, modest school outfit, school bag strap over one shoulder, left hand loosely holding strap, other hand carrying an old blue notebook. Different person from long-haired Lin Yao: this girl has short bob hair, no ribbon. Soft painterly watercolor anime campus memory aesthetic, muted bluegrey and sage palette, warm sidelight, fine paper texture, gentle nostalgia, face natural and softly painted, no makeup. Front three quarter facing viewer left, whole head visible with margin, entire torso down to hips, hands complete, centered frame, canvas aspect portrait 7:8. No text, no panels, no background elements, no shadows outside character, no logos, no chibi, no photorealistic face, no glamour or fanservice.",
+      "method": "image_gen.imagegen built-in; original generation or reference-guided expression edit",
+      "sha256": "f3035a37abc1c689440a34a103f446fb292e533b855445cba63a632c36d57c0a"
+    },
+    {
+      "name": "flag-cg",
+      "file": "assets/flag-cg.jpg",
+      "sourceOriginal": "exec-06cfb9a4-31cd-4d04-baa6-edaa43029db0.png",
+      "prompt": "Use case: illustration-story. A new cinematic 16:9 story CG for Chinese high school visual novel, soft painterly nostalgic anime watercolor, pale bluegrey sage and warm sunlight. After school late September classroom, two wooden desks pushed together with a large blue cloth class flag on them, wet blue pigment and brushes. Boy with messy short dark hair white shirt leaning over the cloth left, girl with long dark hair loosely tied with blue grey ribbon white shirt leaning over right, both faces turned down naturally indistinct and gentle. First-person protagonist is out of frame, only their unisex white school shirt cuff and hand holding the edge of the cloth in lower foreground. They paint the last stroke together. An old silver camera on desk in background, orange sky through windows, delicate quiet lived-in details. Composition mid wide with flagcenter and students on sides, no readable text, no watermarks, no logos, no UI, no panels, natural hands, modest school clothes, not glamorous. The emphasis is shared time and a kept promise.",
+      "method": "image_gen.imagegen built-in; original generation or reference-guided expression edit",
+      "sha256": "4d9740dbc87709d844815b566b6efda4d607f6c7485ae7fc428562838be5ba83"
+    },
+    {
+      "name": "rain-cg",
+      "file": "assets/rain-cg.jpg",
+      "sourceOriginal": "exec-3e8edaa9-3f27-40d5-9843-b0349bd53fc9.png",
+      "prompt": "Use case: illustration-story. A new cinematic 16:9 story CG for Chinese high school visual novel, soft hazy luminous painterly anime watercolor, desaturated blue grey sage and a little warm amber. After school September rain in a Chinese public high school corridor. Teenage schoolgirl with long dark hair tied loosely with a bluegrey ribbon in a white short sleeved school blouse, seen from rear three-quarter on right, face softened and half-hidden by hair, holding one plain navy umbrella and looking back toward the first-person viewer who is out of frame. Wet concrete courtyard, silver rain on green trees, warm light inside classroom on left, two pairs of school shoes barely visible near threshold. Quiet ordinary moment waiting for rain to get lighter, restrained emotion, no romance pose, no readable text, no UI, no logo, no watermark. Landscape composition, intimate visual storytelling, high quality delicate hands, natural student proportions.",
+      "method": "image_gen.imagegen built-in; original generation or reference-guided expression edit",
+      "sha256": "0a6c43ecf218490ffe798d52dad4de5984547e1235f8659c0447ef7bf550e77f"
+    },
+    {
+      "name": "player-male-smile",
+      "file": "assets/expressions/player-male-smile.png",
+      "sourceOriginal": "exec-ebb83193-da2f-4705-af48-65c0ebdd810e.png",
+      "prompt": "Use case: identity-preserve. Edit target: attached transparent character cutout. Make ONE facial-expression variant of the SAME character. Only change his expression into a tiny relaxed closed-mouth smile, eyes gently lifted. Keep quiet ordinary teenager identity, no glamorous expression. Strict invariants: identical head angle and location, age, facial identity, hair outline, clothing, hands, arms, props, body position, exact character scale, canvas composition and aspect ratio. Keep the same soft painterly campus watercolor style, warm soft light, muted bluegrey sage palette and paper texture. Change the face only. Preserve actual alpha transparency. No background, no border, no text, no panels or collage. Keep every other element as close to original as possible for animation keyframe consistency.",
+      "method": "image_gen.imagegen built-in; original generation or reference-guided expression edit",
+      "sha256": "1309f251672e42113c1ab2914a892aa40528cc3cec67841872790166b200f986"
+    },
+    {
+      "name": "player-female-smile",
+      "file": "assets/expressions/player-female-smile.png",
+      "sourceOriginal": "exec-8795c938-b1f4-4e16-9d35-ff30bb300d9c.png",
+      "prompt": "Use case: identity-preserve. Edit target: attached transparent character cutout. Make ONE facial-expression variant of the SAME character. Only change her expression into a tiny relaxed closed-mouth smile, eyes gently lifted. Preserve the short bob and navy hairclip, no makeup or glamorous expression. Strict invariants: identical head angle and location, age, facial identity, hair outline, clothing, hands, arms, props, body position, exact character scale, canvas composition and aspect ratio. Keep the same soft painterly campus watercolor style, warm soft light, muted bluegrey sage palette and paper texture. Change the face only. Preserve actual alpha transparency. No background, no border, no text, no panels or collage. Keep every other element as close to original as possible for animation keyframe consistency.",
+      "method": "image_gen.imagegen built-in; original generation or reference-guided expression edit",
+      "sha256": "9760d64c656a56c5219f5ea2f6bca39d2e28f7ff6f91c55cb46d9d6d9c6754fe"
+    },
+    {
+      "name": "linyao-sad",
+      "file": "assets/expressions/linyao-sad.png",
+      "sourceOriginal": "exec-9dc4c5f7-8316-46ea-b6c7-3e2e446f6477.png",
+      "prompt": "Use case: identity-preserve. Edit target: attached transparent character cutout. Make ONE facial-expression variant of the SAME character. Only change her face to a quiet disappointed expression, gaze lowered, closed mouth relaxed but no smile. She is hiding disappointment that a promise was forgotten. No tears or exaggerated sadness. Strict invariants: identical head angle and location, age, facial identity, hair outline, clothing, hands, arms, props, body position, exact character scale, canvas composition and aspect ratio. Keep the same soft painterly campus watercolor style, warm soft light, muted bluegrey sage palette and paper texture. Change the face only. Preserve actual alpha transparency. No background, no border, no text, no panels or collage. Keep every other element as close to original as possible for animation keyframe consistency.",
+      "method": "image_gen.imagegen built-in; original generation or reference-guided expression edit",
+      "sha256": "7162e3893cd5743c6eb82db26d679615996985ab7600d627fd303785e7d6d3c4"
+    },
+    {
+      "name": "zhaocheng-sad",
+      "file": "assets/expressions/zhaocheng-sad.png",
+      "sourceOriginal": "exec-bcb8637f-a219-4a40-abff-4c3394d9a1cd.png",
+      "prompt": "Use case: identity-preserve. Edit target: attached transparent character cutout. Make ONE facial-expression variant of the SAME character. Only change his face into a quiet disappointed half expression: mouth closed with no smile and eyes looking slightly down, as if saying never mind after an unkept promise. Do not exaggerate, no tears. Strict invariants: identical head angle and location, age, facial identity, hair outline, clothing, hands, arms, props, body position, exact character scale, canvas composition and aspect ratio. Keep the same soft painterly campus watercolor style, warm soft light, muted bluegrey sage palette and paper texture. Change the face only. Preserve actual alpha transparency. No background, no border, no text, no panels or collage. Keep every other element as close to original as possible for animation keyframe consistency.",
+      "method": "image_gen.imagegen built-in; original generation or reference-guided expression edit",
+      "sha256": "7cbfec29226b01ba1e7007cc836138942618176eda0cea15d204821280ce803e"
+    }
+  ]
+}

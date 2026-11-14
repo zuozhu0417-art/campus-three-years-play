@@ -1,0 +1,112 @@
+[
+  {
+    "file": "linyao-idle.webm",
+    "width": 600,
+    "height": 720,
+    "frames": 48,
+    "fps": 24,
+    "duration": 2,
+    "alpha": true,
+    "bytes": 701477,
+    "method": "Generated expression frames composited and encoded; not image-to-video generation"
+  },
+  {
+    "file": "linyao-warm.webm",
+    "width": 600,
+    "height": 720,
+    "frames": 48,
+    "fps": 24,
+    "duration": 2,
+    "alpha": true,
+    "bytes": 661158,
+    "method": "Generated expression frames composited and encoded; not image-to-video generation"
+  },
+  {
+    "file": "zhaocheng-idle.webm",
+    "width": 600,
+    "height": 656,
+    "frames": 48,
+    "fps": 24,
+    "duration": 2,
+    "alpha": true,
+    "bytes": 241837,
+    "method": "Generated expression frames composited and encoded; not image-to-video generation"
+  },
+  {
+    "file": "zhaocheng-warm.webm",
+    "width": 600,
+    "height": 656,
+    "frames": 48,
+    "fps": 24,
+    "duration": 2,
+    "alpha": true,
+    "bytes": 256069,
+    "method": "Generated expression frames composited and encoded; not image-to-video generation"
+  },
+  {
+    "file": "teacher-idle.webm",
+    "width": 600,
+    "height": 656,
+    "frames": 48,
+    "fps": 24,
+    "duration": 2,
+    "alpha": true,
+    "bytes": 189204,
+    "method": "Generated expression frames composited and encoded; not image-to-video generation"
+  },
+  {
+    "file": "teacher-warm.webm",
+    "width": 600,
+    "height": 656,
+    "frames": 48,
+    "fps": 24,
+    "duration": 2,
+    "alpha": true,
+    "bytes": 203900,
+    "method": "Generated expression frames composited and encoded; not image-to-video generation"
+  },
+  {
+    "file": "mother-idle.webm",
+    "width": 600,
+    "height": 684,
+    "frames": 48,
+    "fps": 24,
+    "duration": 2,
+    "alpha": true,
+    "bytes": 281720,
+    "method": "Generated expression frames composited and encoded; not image-to-video generation"
+  },
+  {
+    "file": "mother-warm.webm",
+    "width": 600,
+    "height": 684,
+    "frames": 48,
+    "fps": 24,
+    "duration": 2,
+    "alpha": true,
+    "bytes": 290067,
+    "method": "Generated expression frames composited and encoded; not image-to-video generation"
+  },
+  {
+    "file": "player-male-warm.webm",
+    "width": 600,
+    "height": 686,
+    "frames": 48,
+    "fps": 24,
+    "duration": 2,
+    "alpha": true,
+    "bytes": 333079,
+    "method": "Generated expression frames composited and encoded; not image-to-video generation"
+  },
+  {
+    "file": "player-female-warm.webm",
+    "width": 600,
+    "height": 686,
+    "frames": 48,
+    "fps": 24,
+    "duration": 2,
+    "alpha": true,
+    "bytes": 352290,
+    "method": "Generated expression frames composited and encoded; not image-to-video generation"
+  }
+]

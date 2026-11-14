@@ -4,7 +4,7 @@ window.CampusExperience = (() => {
   const names={linyao:'林遥',zhaocheng:'赵程',teacher:'韩老师',mother:'妈妈',you:'你',narrator:'九月 · 手记'};
   const root=document.getElementById('overlay-root');
   const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  let current=null;
+  let current=null,period='九月';
   const history=[];
   const characters=window.CampusCharacters;
   let motionOn=(()=>{try{const pref=localStorage.getItem('campus-motion-v3');return pref===null?!matchMedia('(prefers-reduced-motion: reduce)').matches:pref==='on';}catch{return false;}})();
@@ -62,7 +62,7 @@ window.CampusExperience = (() => {
     }
     function reveal(){clearInterval(timer);count=full.length;$('#dialogue-text').textContent=full;}
     function paint(){
-      clearInterval(timer);const line=lines[index],who=line.who||'narrator',actor=characters.get(who),speaker=actor?(who==='you'?characters.profile.name:actor.name):names[who]||who;
+      clearInterval(timer);const line=lines[index],who=line.who||'narrator',actor=characters.get(who),speaker=actor?(who==='you'?characters.profile.name:actor.name):who==='narrator'?period+' · 手记':names[who]||who;
       $('#speaker-name').textContent=speaker;$('#line-counter').textContent=`${index+1} / ${lines.length}`;
       $('.speaker-avatar').innerHTML=actor?`<img src="${actor.poses[line.mood]||actor.base}" alt="${escape(speaker)}的头像">`:'<span>记</span>';
       if(actor){lastPortrait=who;lastMood=line.mood||'neutral';}
@@ -86,8 +86,8 @@ window.CampusExperience = (() => {
     s.key=e=>{if(e.key==='Escape'&&logOpen){e.preventDefault();$('#log-close').click();return;}if(!e.repeat&&[' ','Enter'].includes(e.key)&&!logOpen&&!e.target.closest('.novel-choice,#dialogue-log,#dialogue-fast,#dialogue-motion')){e.preventDefault();next();}};
     s.clean.push(()=>{clearInterval(timer);clearTimeout(motionTimer);mediaToken++;const video=$('.motion-video');video.pause();video.removeAttribute('src');video.load();});paint();
   }
-  function cg({scene='classroom',title,text,duration=5},done){
-    const s=mount('cg',`<div class="cg-image" style="background-image:url('assets/${escape(scene)}.jpg');--cg-duration:${duration}s"></div><div class="cg-rays"></div><div class="cg-dust">${Array.from({length:12},(_,i)=>`<i style="--n:${i}"></i>`).join('')}</div><div class="cg-letterbox top"></div><div class="cg-letterbox bottom"></div><div class="cg-caption"><small>九月 · ${escape(title)}</small><p>${escape(text)}</p></div><button id="cg-skip">跳过短片 / 空格</button><div class="cg-progress"><i></i></div>`,done);
+  function cg({scene='classroom',title,text,duration=5,period='九月'},done){
+    const s=mount('cg',`<div class="cg-image" style="background-image:url('assets/${escape(scene)}.jpg');--cg-duration:${duration}s"></div><div class="cg-rays"></div><div class="cg-dust">${Array.from({length:12},(_,i)=>`<i style="--n:${i}"></i>`).join('')}</div><div class="cg-letterbox top"></div><div class="cg-letterbox bottom"></div><div class="cg-caption"><small>${escape(period)} · ${escape(title)}</small><p>${escape(text)}</p></div><button id="cg-skip">跳过短片 / 空格</button><div class="cg-progress"><i></i></div>`,done);
     let time=0,last=performance.now(),frame;
     const loop=now=>{if(!document.hidden)time+=Math.min((now-last)/1000,.1);last=now;s.el.querySelector('.cg-progress i').style.width=Math.min(100,time/duration*100)+'%';if(time>=duration)s.finish();else frame=requestAnimationFrame(loop);};
     frame=requestAnimationFrame(loop);s.clean.push(()=>cancelAnimationFrame(frame));s.el.querySelector('#cg-skip').onclick=()=>s.finish();
@@ -136,5 +136,5 @@ window.CampusExperience = (() => {
     }
     frame=requestAnimationFrame(loop);s.clean.push(()=>cancelAnimationFrame(frame));
   }
-  return {get busy(){return !!current;},get motionEnabled(){return motionOn;},setMotion,dialogue,cg,running:done=>mini('running',done),phone:done=>mini('phone-game',done)};
+  return {get busy(){return !!current;},get motionEnabled(){return motionOn;},setPeriod(value){period=value;},setMotion,dialogue,cg,running:done=>mini('running',done),phone:done=>mini('phone-game',done)};
 })();

@@ -68,3 +68,16 @@ Use case: illustration-story. Asset type: 16:9 1536x864 wide game room environme
 10 段 WebM 是将这些生成表情图按 24 fps、48 帧合成透明视频，参数及方法见 assets/motion/MANIFEST.json，制作源码见 tools/render_character_motion.py。眨眼和微笑是关键表情帧变化，微动来自画面的整体变换；没有连续图生视频、骨骼肢体动作或口型动画。已确认视频服务当前无可用额度，没有提交收费视频任务。内置图片工具没有报告单次金额，不据此声称图片免费。
 
 原始提示词中“只改变脸部”是生成约束，并不保证像素级一致。人物五官仍是柔和可见的朦胧校园插画风格，最终审美待你确认。
+
+
+## v4 十月小续篇 · 2026-11-14
+
+三张新插画通过内置 image_gen 生成，以现有 notebook-cg.jpg 作为角色与画风参考，未使用 DashScope 或 API/CLI。精确提示词、源文件标识与用途见 assets/GENERATION-SWEET-V4.json。原 PNG 另存交付目录“校园三年_十月CG原图_v4”，游戏中使用同尺寸的 JPEG 压缩版本；没有裁切或修改画面内容。三张均为 1672×941。
+
+saved-seat-cg.jpg：林遥把书包移开，让出课间椅子；第一人称，不固定主角性别。
+
+drawing-margin-cg.jpg：一起压住海报纸角，她画一只小鸟；手部保持分离，纯校园日常。
+
+warm-carton-cg.jpg：食堂递温牛奶；先由剧情询问是否接受，可拒绝。
+
+三幅通过轻运镜与光线制作可跳过的 5 / 5.5 / 4.5 秒 CG，不是连续 AI 动作视频。本次未新增两秒人物 WebM。
