@@ -83,7 +83,8 @@ window.CampusWeekend=(()=>{
        choices:[choice('texture','陪她比较纸纹，把意见说具体',['linyao','你说的有道理。这张看起来亮，画出来反而会抢颜色。'],{},'你和林遥一起比较了纸纹，花掉了完整的一天。'),choice('budget','一起算好需要多少，不多买',['narrator','你们把多拿的一卷放回去。需要的东西，并不比想拿的多。'],{},'你和林遥把海报用纸算清楚，没有因为来一趟不容易就多买。')]}
     );
     const echoes={breakfast:['mother','你上回坐下吃完了早饭，今天我也没急着把另一把椅子收进去。'],library:['narrator','你已经知道阅览室哪一排比较安静。今天带来的是另一页还没弄懂的问题。'],park:['narrator','还是那条河。风从熟悉的方向吹来，你已经知道哪边有台阶。'],market:['mother','豆腐放上面，你上回记住了吧？'],cook:['mother','上回那道菜还记得吗？今天换你先看着火。'],jog:['narrator','你记得上回收操时小腿的感觉，今天没有省掉拉伸。'],review:['zhaocheng','上回那步我后来自己做出来了。这次换一个地方卡住。'],letter:['narrator','旧信还放在原来的位置。新的一周，不需要把以前写过的话作废。'],bookshop:['narrator','你先看了今天的新清单，没有把上回数过的册数直接照抄下来。'],usedbooks:['narrator','上一回买的书还在包里。你先想了想自己读到了哪里，才蹲下翻新的那摞。'],film:['zhaocheng','这次还坐后面？上次那个位置看字幕其实挺清楚的。'],lamp:['narrator','上回换好的灯还亮着。今天你把备用灯泡的型号记到盒子上，不再凭印象找。'],volunteer:['narrator','这回你已经知道破损的书该放哪一边，也会先等新来的人看清流程。'],drawing:['linyao','上回那张留着没？今天别急着把第一笔擦掉。'],paperstore:['linyao','上次剩的那卷还能用。我们先记好缺多少，再出门。']};
-    return events.map(e=>({...e,day:e.day??null,money:e.money||0,lines:[...(count[e.id]&&echoes[e.id]?[echoes[e.id]]:[]),...e.lines].map(([who,text],i)=>line(`we.${n}.${e.id}.${i}`,who,text))}));
+    if(n>=7){events.push(...window.CampusYearOne.weekend(S));for(let i=events.length-1;i>=0;i--)if(events[i].id==='paperstore')events.splice(i,1);}
+    return events.map(e=>({...e,day:e.day??null,money:e.money||0,lines:[...(count[e.id]&&echoes[e.id]?[echoes[e.id]]:[]),...e.lines].map((row,i)=>Array.isArray(row)?line(`we.${n}.${e.id}.${i}`,row[0],row[1]):row)}));
   }
   function availability(S,e){
     const c=S.weekend.current;
@@ -100,7 +101,7 @@ window.CampusWeekend=(()=>{
   function commit(S,id,key,mini=null){
     const e=catalog(S).find(x=>x.id===id),option=e?.choices.find(x=>x.key===key);
     if(!e||!option)return {ok:false,reason:'这个安排已经变化，请重新打开。'};
-    const reason=availability(S,e);if(reason)return {ok:false,reason};
+    const reason=availability(S,e)||window.CampusYearOne?.available(S,e,option);if(reason)return {ok:false,reason};
     if(e.mini&&(!mini||!Number.isInteger(mini.hits)||mini.hits<0||mini.hits>3))return {ok:false,reason:'先完成球局，再收好这一段。'};
     const w=S.weekend,c=w.current,oldUnlocks=[...w.unlocks],beforeEnergy=S.energy;
     const previousMemory=S.memories.at(-1)?.text||'我还在记班里每一个人的名字。';
@@ -116,13 +117,14 @@ window.CampusWeekend=(()=>{
     if(id==='letter')w.letters.push({week:S.week,text:key==='remember'?`第 ${S.week} 周。${previousMemory}\n我把它写在这里，怕过很久以后，只记得那时候忙。`: `第 ${S.week} 周。最近有点累，我没有把每一段空闲都拿来证明自己能撑住。\n写到这里，先放下笔，明天再接着过。`});
     if(id==='photo'&&w.counts.photo>=2&&!w.unlocks.includes('photoMargin'))w.unlocks.push('photoMargin');
     const newUnlocks=w.unlocks.filter(x=>!oldUnlocks.includes(x));
+    if(S.week>=7&&e.tag==='本周故事')window.CampusYearOne.apply(S,e,option);
     const entry=option.entry;S.memories.push({week:S.week,tag:c.day?'周日':'周六',text:entry});
-    const [who,text]=option.after,lines=[line(`we.${S.week}.${id}.after`,who,text)];
+    const rows=Array.isArray(option.after[0])?option.after:[option.after],lines=rows.map(([who,text],i)=>line(`we.${S.week}.${id}.after.${i}`,who,text));
     if(mini)lines.push(line(`we.${S.week}.${id}.score`,'zhaocheng',mini.hits>=2?'可以啊！最后那个我都没准备好给你捡。':'没事，今天投丢的球，下回我还给你捡。'));
     const hints={courtSignal:'赵程抬了抬手：以后我做这个手势，你就知道该传了。球局里多了“接球暗号”。',littleBird:'你把纸角夹到本子前面。周末的“口袋里的东西”里，现在可以随时翻开它。',firstPay:'第一笔零用钱收好了。“零钱小账”里会一直记着它的来处。',futureLetter:'信已封好，放进“口袋里的东西”。下次再看，今天的字还会在。',photoMargin:'两次拿着相机走过同一条街。赵程把一张有留白的照片放进了你的口袋。'};
     for(const unlock of newUnlocks)lines.push(line(`we.unlock.${unlock}`,'narrator',hints[unlock]));
     const energyChange=S.energy-beforeEnergy;
-    c.pending={title:e.title,lines,detail:`${c.day?'周日':'周六'} · 使用 ${e.cost} 段 · 精力 ${energyChange>=0?'+':''}${energyChange}${e.money?' · 零用钱 '+(e.money>0?'+':'')+e.money+' 元':''}`,newUnlocks};
+    c.pending={title:e.title,scene:e.scene,lines,cg:option.cg||null,detail:`${c.day?'周日':'周六'} · 使用 ${e.cost} 段 · 精力 ${energyChange>=0?'+':''}${energyChange}${e.money?' · 零用钱 '+(e.money>0?'+':'')+e.money+' 元':''}`,newUnlocks};
     return {ok:true,pending:c.pending};
   }
   function finishDay(S){

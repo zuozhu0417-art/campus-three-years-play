@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "scenes": 468,
+  "branches": 844,
+  "transactions": 29,
+  "checks": [
+    "All 20 weeks have content/exercises/observations; 468 gender/route scene instances and 844 choices terminate, use valid CGs, and apply once",
+    "Explicit refusal suppresses future doorway pursuit and disables private radio invitations",
+    "Opposite-sex newcomers respect both identities; friendship never changes primary romance mode",
+    "Loans require real funds, record debt, and return original cash exactly once",
+    "Full Sunday teaching and paper-store branches are genuinely exclusive and persist distinct memories",
+    "Photography promise is settled only after actual attendance; makeup memory requires actual rescheduled activity",
+    "Explicitly renegotiated photography is distinguished from silently missing a promise",
+    "Semester exams use period-specific learning and freeze snapshots; year-end settling is idempotent",
+    "29 new weekend transactions execute through real shared cost/pending/result logic and reject double charges"
+  ]
+}

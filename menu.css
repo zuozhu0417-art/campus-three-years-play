@@ -4,3 +4,41 @@
 @media(max-width:600px){.at-title .title-screen{padding:24px 8% max(18px,env(safe-area-inset-bottom));background:linear-gradient(90deg,#f1f3e9ed,#f1f3e9bc 75%,#f1f3e95c)}.at-title h1{font-size:50px}.at-title .title-sub{font-size:18px;letter-spacing:6px}.at-title .title-prose{font-size:14px}.at-title .title-actions{margin-top:19px}.at-title .title-bottom{font-size:10px;gap:10px}.at-title .title-bottom>span{display:none}.extras-list{grid-template-columns:1fr;gap:9px}.extras-item{min-height:0;padding:13px 16px}.extras-item strong{font-size:20px;margin:4px 0 7px}.extras-item small{font-size:10px}.study-modes{gap:7px}.study-mode{padding:10px}.study-mode[aria-pressed=true]{padding:9px}.study-mode strong{font-size:13px}.study-mode small{font-size:10px}}
 @media(max-height:650px) and (min-width:601px){.at-title .title-screen{padding-top:18px;padding-bottom:14px}.at-title .title-copy{display:grid;grid-template-columns:260px 340px;grid-template-rows:auto auto 1fr auto;column-gap:40px;max-width:660px;align-content:center}.at-title .chapter-label{grid-column:1/-1;font-size:10px;margin:0 0 12px}.at-title h1{grid-column:1;grid-row:2;font-size:52px;align-self:end;letter-spacing:5px}.at-title .title-sub{grid-column:1;grid-row:3;align-self:start;font-size:18px;margin-top:12px}.at-title .title-rule{display:none}.at-title .title-prose{grid-column:1;grid-row:4;font-size:13px;margin:14px 0 20px}.at-title .title-actions{grid-column:2;grid-row:2/5;margin:0;align-self:center;width:100%}.at-title .title-save-summary{grid-column:2;grid-row:5;margin:0}.at-title .edition{grid-column:1;grid-row:5;margin:0;font-size:9px;align-self:center}.at-title .title-bottom{padding-top:20px}.title-actions>button{min-height:58px;padding:9px 15px}.title-actions>button strong{font-size:18px}.title-actions>button small{font-size:10px}.extras-list{gap:8px}.extras-item{padding:13px 11px;min-height:120px}}
 @media(max-width:360px){.at-title .title-screen{padding-top:17px}.at-title .chapter-label{font-size:9px;margin-bottom:9px}.at-title h1{font-size:44px}.at-title .title-rule{margin:14px 0}.at-title .title-prose{font-size:12px;line-height:1.8}.at-title .title-actions{margin-top:14px;gap:7px}.title-actions>button{min-height:56px;padding:9px 14px}.title-actions>button strong{font-size:18px}.title-actions>button small{font-size:9px}.at-title .edition{font-size:9px}.at-title .title-bottom .text-button{font-size:10px}}
+
+/* First-year seasonal CGs and extra encounter entry. */
+.year-visitor-button{pointer-events:auto;z-index:4}
+.year-visitor-button{position:absolute;left:50%;bottom:15%;transform:translateX(-50%);max-width:88%;padding:12px 18px;border:1px solid #c5ad80;border-radius:8px;color:#493f32;background:#fff7e9ef;box-shadow:0 5px 20px #332c291c;font:inherit;cursor:pointer}.year-visitor-button:disabled{opacity:.6}.year-visitor-button:focus-visible{outline:3px solid #476953;outline-offset:3px}.year-recap{max-width:680px;margin:auto}.year-recap p{line-height:1.85;padding:9px 0;border-bottom:1px solid #736c5c20}@media(max-height:450px){.year-visitor-button{bottom:5%;padding:7px 12px}}
+@media(max-width:600px){.year-visitor-button{position:static;grid-column:1/-1;order:-1;transform:none;max-width:none;width:100%}}
+/* Short phone screens keep the calendar controls visible; scene choices scroll. */
+@media(max-width:900px) and (max-height:700px){
+  #game:not(.at-title):not(.weekend-active){height:100dvh;min-height:0}
+  #game:not(.at-title):not(.weekend-active) .play-screen{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto minmax(0,1fr) auto auto;gap:6px;padding:8px 10px max(8px,env(safe-area-inset-bottom));height:100%;box-sizing:border-box}
+  #game:not(.at-title):not(.weekend-active) .topbar{position:static;grid-column:1/-1;padding:0;min-height:48px;gap:6px}
+  #game:not(.at-title):not(.weekend-active) .brand{gap:6px}
+  #game:not(.at-title):not(.weekend-active) .brand-name{font-size:14px;white-space:nowrap;letter-spacing:1px}
+  #game:not(.at-title):not(.weekend-active) .profile-chip{max-width:58px}
+  #game:not(.at-title):not(.weekend-active) .date-block{font-size:10px;letter-spacing:0;min-width:0}
+  #game:not(.at-title):not(.weekend-active) .tools{gap:3px}
+  #game:not(.at-title):not(.weekend-active) .icon-button{width:28px;height:28px}
+  #game:not(.at-title):not(.weekend-active) .scene-heading{position:static;grid-column:1/-1;padding:6px 10px;max-width:none}
+  #game:not(.at-title):not(.weekend-active) .scene-heading h2{font-size:19px}
+  #game:not(.at-title):not(.weekend-active) .scene-heading p{display:none}
+  #game:not(.at-title):not(.weekend-active) .time-budget{position:static;grid-column:1;grid-row:3;width:auto;max-width:none;padding:8px;flex-wrap:wrap;gap:5px;align-content:center}
+  #game:not(.at-title):not(.weekend-active) .energy-budget{position:static;grid-column:2;grid-row:3;width:auto;padding:8px}
+  #game:not(.at-title):not(.weekend-active) .energy-budget small{font-size:9px}
+  #game:not(.at-title):not(.weekend-active) .hotspots{position:static;grid-column:1/-1;grid-row:4;display:grid;grid-template-columns:1fr 1fr;gap:6px;overflow-y:auto;min-height:0;align-content:start;align-items:stretch;pointer-events:auto}
+  #game:not(.at-title):not(.weekend-active) .hotspot{position:static;transform:none;min-width:0;padding:0;white-space:normal;text-align:left;align-items:stretch;justify-content:stretch}
+  #game:not(.at-title):not(.weekend-active) .hotspot-ring{display:none}
+  #game:not(.at-title):not(.weekend-active) .hotspot-label{width:100%;min-height:56px;box-sizing:border-box;font-size:12px;padding:8px;line-height:1.5;justify-content:center}
+  #game:not(.at-title):not(.weekend-active) .hotspot-label small{font-size:10px}
+  #game:not(.at-title):not(.weekend-active) .year-visitor-button{position:static;grid-column:1/-1;order:-1;transform:none;max-width:none;min-height:44px;padding:8px}
+  #game:not(.at-title):not(.weekend-active) .reminder{position:static;grid-column:1/-1;grid-row:5;width:auto;transform:none;padding:7px 10px;font-size:11px;line-height:1.5;max-height:61px;overflow:auto;box-sizing:border-box}
+  #game:not(.at-title):not(.weekend-active) .reminder small{display:none}
+  #game:not(.at-title):not(.weekend-active) .observation{display:none}
+  #game:not(.at-title):not(.weekend-active) .bottom-bar{position:static;grid-column:1/-1;grid-row:6;display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:6px;min-height:0}
+  #game:not(.at-title):not(.weekend-active) .bottom-bar nav{grid-column:1/-1;justify-content:space-around;gap:2px;min-width:0}
+  #game:not(.at-title):not(.weekend-active) .place-button{padding:6px 7px;min-height:36px;min-width:0;flex:1;gap:4px;font-size:11px;justify-content:center}
+  #game:not(.at-title):not(.weekend-active) .plan-button{display:flex;padding:6px;font-size:11px;justify-content:center;min-height:38px}
+  #game:not(.at-title):not(.weekend-active) .finish-button{padding:6px;font-size:11px;min-height:38px}
+  #game:not(.at-title):not(.weekend-active) .save-indicator{display:none}
+}

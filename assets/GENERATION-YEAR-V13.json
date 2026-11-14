@@ -1,0 +1,144 @@
+[
+  {
+    "key": "sports",
+    "file": "assets/year-sports.jpg",
+    "source": "exec-a5401b36-9619-4b85-9535-127486f09d52.png",
+    "dimensions": [
+      1672,
+      941
+    ],
+    "mode": "RGB",
+    "sha256": "83ee578139415f9f9ead67a75362a2e099c10d0cb0dc423a092f9da1c9eae145",
+    "generator": "built-in image_gen",
+    "generated": true
+  },
+  {
+    "key": "winter",
+    "file": "assets/year-winter.jpg",
+    "source": "exec-ac57e25d-1633-42e5-8789-cf39b6cd3214.png",
+    "dimensions": [
+      1672,
+      941
+    ],
+    "mode": "RGB",
+    "sha256": "fdb0fe1700e58567fee85198b49dd365d84cd0e9c32e647d651fff9d65dde945",
+    "generator": "built-in image_gen",
+    "generated": true
+  },
+  {
+    "key": "spring",
+    "file": "assets/year-spring.jpg",
+    "source": "exec-dfa5b980-f46c-44aa-9142-c5e70c530671.png",
+    "dimensions": [
+      1672,
+      941
+    ],
+    "mode": "RGB",
+    "sha256": "b02913ef225bb912fcb319637c0fa22f73db1c45579bd25cdd5227d8478dde5c",
+    "generator": "built-in image_gen",
+    "generated": true
+  },
+  {
+    "key": "dinner",
+    "file": "assets/year-dinner.jpg",
+    "source": "exec-f8208279-aedc-4174-8c60-abc333d60548.png",
+    "dimensions": [
+      1672,
+      941
+    ],
+    "mode": "RGB",
+    "sha256": "dba6cd38e6c48d2be059bda065247c9e450b4836aa5c24cd00071e1b1862c4e1",
+    "generator": "built-in image_gen",
+    "generated": true
+  },
+  {
+    "key": "summer",
+    "file": "assets/year-summer.jpg",
+    "source": "exec-2ddd52d3-1ab0-4d03-8830-6349efc8dc8a.png",
+    "dimensions": [
+      1672,
+      941
+    ],
+    "mode": "RGB",
+    "sha256": "ac0a3ee992fa0cce297c13505c06319339e678c25536356f1c3b88a03c357e15",
+    "generator": "built-in image_gen",
+    "generated": true
+  },
+  {
+    "key": "visitor",
+    "file": "assets/year-visitor.jpg",
+    "source": "exec-62da2cad-54a8-4727-b3b0-fa77fbad5267.png",
+    "dimensions": [
+      1672,
+      941
+    ],
+    "mode": "RGB",
+    "sha256": "187f39d69b7af2cbfcac0f47afbe35afb11df333663330059354aee69f9f7784",
+    "generator": "built-in image_gen",
+    "generated": true
+  },
+  {
+    "key": "qiaosui",
+    "file": "assets/qiaosui-v13.png",
+    "source": "exec-f49d9fc1-0bd5-43e9-ad70-941984d3dfb1.png",
+    "dimensions": [
+      1097,
+      1434
+    ],
+    "mode": "RGBA",
+    "sha256": "58f6dea4c486ef02eefa4a8253ac95493137c802399da8a215d3fde8536afa48",
+    "generator": "built-in image_gen",
+    "generated": true,
+    "runtime": "assets/qiaosui-v13.webp",
+    "runtime_sha256": "0ecd2af724ba643db8bbd02e216e8117b25f918284c556fb757463233f9c4c2f",
+    "runtime_bytes": 338270
+  },
+  {
+    "key": "chenyu",
+    "file": "assets/chenyu-v13.png",
+    "source": "exec-d90678dd-7a71-454c-8a2e-ed0958ced554.png",
+    "dimensions": [
+      1086,
+      1448
+    ],
+    "mode": "RGBA",
+    "sha256": "cda0e37914dff19f6d62dfb3d5d7857e7ea233d2ecee0b3c617631e55e5b8a28",
+    "generator": "built-in image_gen",
+    "generated": true,
+    "runtime": "assets/chenyu-v13.webp",
+    "runtime_sha256": "fb711148054b90d866a9004e4f1f4bd5019793becf5b451b595d9ea094abef7d",
+    "runtime_bytes": 360046
+  },
+  {
+    "key": "azhe",
+    "file": "assets/azhe-v13.png",
+    "source": "exec-1b7c02a2-8818-45fc-9f08-7181a85f1361.png",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "sha256": "604fceb59bac2e14ec8702e58b9309f8162347d317a4e0d68f46c52266fbbccf",
+    "generator": "built-in image_gen",
+    "generated": true,
+    "runtime": "assets/azhe-v13.webp",
+    "runtime_sha256": "bbf1dd11c0b5c1cdad81c7576191dfa3ba1ba05876df567d391792a376ec0e92",
+    "runtime_bytes": 372612
+  },
+  {
+    "key": "father",
+    "file": "assets/father-v13.png",
+    "source": "exec-f98961dc-bf75-4e88-8edf-93f966bee169.png",
+    "dimensions": [
+      1086,
+      1448
+    ],
+    "mode": "RGBA",
+    "sha256": "61bf506373d6258eb34a65e5cd7b897c953bf269d68abf3ddb86e618bece5586",
+    "generator": "built-in image_gen",
+    "generated": true,
+    "runtime": "assets/father-v13.webp",
+    "runtime_sha256": "bbc840eca69667cbd8d7da313f7dfa74105f75a05220b3c1704b3ffe52f1c613",
+    "runtime_bytes": 293958
+  }
+]
