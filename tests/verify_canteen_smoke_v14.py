@@ -67,7 +67,7 @@ with sync_playwright() as pw:
             mood=p.locator('.character-still').get_attribute('data-expression');seen.add(mood)
             if mood in expected:
                 assert p.locator('.speaker-avatar img').get_attribute('src')==p.locator('.character-still').get_attribute('src')
-                assert p.locator('.character-still').evaluate('(i)=>i.complete&&i.naturalWidth>0')
+                assert p.locator('.character-still').evaluate('async i=>{await i.decode();return i.complete&&i.naturalWidth>0;}')
                 shot(p,'album-'+who+'-'+mood)
             p.locator('#dialogue-next').click()
         assert expected<=seen,(who,seen)

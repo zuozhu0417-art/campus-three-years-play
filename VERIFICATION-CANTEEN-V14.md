@@ -27,4 +27,6 @@ python tests/verify_year_browser_v14.py
 python tests/verify_rhythm_regression_v14.py
 ```
 
-对应报告为 `verification-canteen-*-v14.json`、`verification-year-regression-v14.json`、`verification-rhythm-regression-v14.json`；实拍页面截图在 `screenshots-canteen-v14`、`screenshots-canteen-smoke-v14` 以及相应回归目录。线上发布后另外核对 GitHub Pages 部署提交、线上字节与手机尺寸实际游玩，线上结果保存于本机 outputs。
+对应报告为 `verification-canteen-*-v14.json`、`verification-year-regression-v14.json`、`verification-rhythm-regression-v14.json`；实拍页面截图在 `screenshots-canteen-v14`、`screenshots-canteen-smoke-v14` 以及相应回归目录。
+
+公开站点补验已通过：十七个关键运行文件及新图片字节与发布提交一致；在线 390×844 浏览器实际完成两种顺序的双场景互动、刷新续玩、五张表情在相册与头像同步展示，以及分橘子 CG 的实际触发。没有页面异常或缺图请求。线上报告与截图保存在本机 outputs，地址为 https://zuozhu0417-art.github.io/campus-three-years-play/?v=14-two-places 。在线校验先等待图片完成解码，再断言已展示，适用于真实网络加载延迟。
