@@ -136,5 +136,26 @@ window.CampusExperience = (() => {
     }
     frame=requestAnimationFrame(loop);s.clean.push(()=>cancelAnimationFrame(frame));
   }
-  return {get busy(){return !!current;},get motionEnabled(){return motionOn;},setPeriod(value){period=value;},setMotion,dialogue,cg,running:done=>mini('running',done),phone:done=>mini('phone-game',done)};
+  function basketball({assist=false}={},done){
+    const s=mount('mini basketball',`<div class="mini-background"></div><header class="mini-header"><div><small>周末 · 半场球</small><h2>投歪了，也有人给你捡回来</h2></div><button id="ball-pause">暂停 / Esc</button></header><div class="ball-court"><div class="ball-board"><i></i></div><div class="ball-shadow"></div><div class="ball-picture" aria-hidden="true">●</div><p id="ball-score">准备好后，试投三次</p></div><div class="ball-console"><p id="ball-feedback" role="status">光点进到中间的浅色区，再按投篮。</p><div class="ball-meter"><div class="ball-target"></div><i id="ball-dot"></i></div><div class="ball-actions"><button id="ball-shoot" class="primary-button" disabled>投篮 · 空格</button>${assist?'<button id="ball-signal" class="secondary-button" disabled>看赵程的接球暗号</button>':''}</div><small>三次投篮，输赢都能好好结束这一场。中途返回不消耗时间和精力。</small></div><div class="mini-curtain"><div class="mini-instructions"><small>周六 · 和赵程</small><h2>先打半场，不急着比分数</h2><p>光点经过中央浅色区时，点“投篮”或按空格。一共三球，没有倒计时；投不进也能和同学相处。</p><button id="ball-start" class="primary-button">系好鞋带，开始</button><button id="ball-abandon" class="secondary-button">先回去，不消耗时间</button></div></div>`,done);
+    const $=q=>s.el.querySelector(q);let playing=false,paused=true,shots=0,hits=0,time=0,last=performance.now(),frame,boost=false,used=false,locked=false,cooldown=0;
+    const paint=()=>{$('#ball-score').textContent=`投了 ${shots} / 3 球 · 命中 ${hits} 球`;$('#ball-dot').style.left=((time%1.4)/1.4*100)+'%';};
+    function pause(){if(!playing||paused)return;paused=true;$('.mini-curtain').hidden=false;$('#ball-start').textContent='继续这场球';$('#ball-start').focus();}
+    function shot(){
+      if(!playing||paused||locked||shots>=3)return;locked=true;
+      const good=Math.abs((time%1.4)/1.4-.5)<=(boost?.25:.16);shots++;if(good)hits++;
+      boost=false;s.el.classList.remove('ball-assist');
+      $('#ball-feedback').textContent=good?'进了！赵程已经把球传回来了。':'差一点。赵程捡起球：再来，我接着。';
+      s.el.classList.remove('ball-hit','ball-miss');s.el.classList.add(good?'ball-hit':'ball-miss');paint();window.CampusSfx?.play(good?'confirm':'tap');
+      $('#ball-shoot').disabled=true;
+      cooldown=.7;
+    }
+    $('#ball-start').onclick=()=>{playing=true;paused=false;last=performance.now();$('.mini-curtain').hidden=true;$('#ball-shoot').disabled=locked;$('#ball-shoot').focus();if(assist)$('#ball-signal').disabled=used;paint();};
+    $('#ball-pause').onclick=pause;$('#ball-abandon').onclick=()=>s.finish(null);$('#ball-shoot').onclick=shot;
+    if(assist)$('#ball-signal').onclick=()=>{if(paused||used)return;used=true;boost=true;$('#ball-signal').disabled=true;s.el.classList.add('ball-assist');$('#ball-feedback').textContent='赵程已经站稳。这一次落点放宽，照你们的暗号投。';};
+    s.pause=pause;s.key=e=>{if(e.repeat)return;if(e.key==='Escape'){e.preventDefault();pause();}else if(e.code==='Space'){e.preventDefault();shot();}};
+    const loop=now=>{const dt=Math.max(0,Math.min(.05,(now-last)/1000));last=now;if(playing&&!paused&&!document.hidden){if(locked){cooldown-=dt;if(cooldown<=0){locked=false;s.el.classList.remove('ball-hit','ball-miss');if(shots===3){s.finish({hits,shots});return;}$('#ball-shoot').disabled=false;}}else time+=dt;}paint();frame=requestAnimationFrame(loop);};
+    frame=requestAnimationFrame(loop);s.clean.push(()=>cancelAnimationFrame(frame));
+  }
+  return {get busy(){return !!current;},get motionEnabled(){return motionOn;},setPeriod(value){period=value;},setMotion,dialogue,cg,basketball,running:done=>mini('running',done),phone:done=>mini('phone-game',done)};
 })();

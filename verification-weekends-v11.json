@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "checks": [
+    "Real weekday-to-Saturday-to-Sunday-to-next-week flow; three-shot microgame, pause, free abandonment, daily cap and pending-result recovery without double debit",
+    "Whole-day short job costs both slots, earns once and unlocks ledger; actual purchase debits money; money and Sunday progress survive reload",
+    "Romantic walk is gated; ordinary friendship drawing remains valid; approaching plus real poster and walk unlocks a free keepsake, without confirming a relationship",
+    "Previously earned court signal is a real once-per-game assistance button; abandoning still costs nothing",
+    "Light click sounds schedule actual Web Audio; sound toggle persists and silences clicks independently of wind/film audio",
+    "390x844, 844x390 and 320x568 weekend/card/minigame layouts; scrolling list, filter and visible completion controls",
+    "Week-four weekend leads to the exam and October without clearing promises or taste; completed legacy week-six saves get one backed-up weekend, preserve photography promise and cannot replay it"
+  ],
+  "javascript_errors": [],
+  "actual_phone_hardware": false,
+  "catalog_at_week6": 18,
+  "save_version": 5
+}

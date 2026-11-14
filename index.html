@@ -8,6 +8,7 @@
   <script>try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&localStorage.getItem('campus-opening-film-v10-seen')!=='yes'){document.documentElement.classList.add('opening-pending');setTimeout(()=>document.documentElement.classList.remove('opening-pending'),3500);}}catch{}</script>
   <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="experience.css"><link rel="stylesheet" href="identity.css?v=4-sweet">
   <link rel="stylesheet" href="opening.css?v=10-voiced">
+  <link rel="stylesheet" href="weekend.css?v=11-weekends">
 </head>
 <body>
 <main id="game" aria-label="校园三年">
@@ -24,7 +25,7 @@
         <button id="new-game" class="ink-button">推开教室的门 <span aria-hidden="true">↗</span></button>
         <button id="continue-game" class="quiet-button" hidden>继续上次的生活</button>
       </div>
-      <p class="edition">配音开场版 · 六个关键周 · 九段剧情 CG</p>
+      <p class="edition">周末生活版 · 六个关键周 · 十八项周末活动</p>
     </div>
     <div class="title-bottom"><span>把时间留给值得的人和事。</span><div><button id="title-help" class="text-button">怎么玩</button><button id="opening-replay" class="text-button opening-replay">重看配音开场 · 21 秒</button></div></div>
   </section>
@@ -38,6 +39,7 @@
     <div class="time-budget" aria-label="本周剩余时间"><span>课余时间</span><div id="time-dots"></div><strong id="time-label"></strong></div>
     <aside class="energy-budget" id="energy-budget" aria-label="当前精力"><header><span>精力</span><strong id="energy-number">64 / 100</strong></header><div class="energy-track" role="meter" aria-label="精力" aria-valuemin="0" aria-valuemax="100" aria-valuenow="64"><i id="energy-fill"></i></div><small id="energy-hint">学习也需要留一点余力</small></aside>
     <div id="hotspots" class="hotspots" aria-label="场景中的人物与物品"></div>
+    <section id="weekend-screen" class="weekend-screen" aria-label="周末的安排" hidden></section>
     <aside id="reminder" class="reminder" hidden></aside>
     <div id="observation" class="observation" role="status"></div>
     <footer class="bottom-bar">
@@ -53,8 +55,10 @@
 <script src="content.js?v=4-sweet"></script>
 <script src="october.js?v=4-sweet"></script>
 <script src="characters.js"></script>
-<script src="experience.js?v=4-sweet"></script>
-<script src="game.js?v=4-sweet"></script>
+<script src="sfx.js?v=11-weekends"></script>
+<script src="experience.js?v=11-weekends"></script>
+<script src="weekend.js?v=11-weekends"></script>
+<script src="game.js?v=11-weekends"></script>
 <script src="opening-film.js?v=5-opening"></script>
 <script src="opening.js?v=10-voiced"></script>
 </body>
