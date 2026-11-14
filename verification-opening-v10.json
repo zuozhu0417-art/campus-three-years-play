@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "checks": [
+    "Gesture-started audible 21.2s inline MP4 plays in real time; measured intermediate opacity and fading audio; releases to title without creating a game save",
+    "Reload suppresses already-seen opening; replay, pause, mute and skip work; skip also fades picture and sound",
+    "Female identity, name and original opening story remain playable",
+    "390x844, 844x390 and 320x568 layouts; gesture audio, visible buttons, no horizontal overflow and male story entry",
+    "Existing September save preserved byte-for-byte; continue opens the correct identity and October continuation",
+    "Reduced-motion preference skips automatic opening; MP4 failure falls back to the retained canvas film with a working exit",
+    "Background visibility pauses/resumes; storage denial still permits title and game access"
+  ],
+  "javascript_errors": [],
+  "video": {
+    "duration": 21.2,
+    "width": 1280,
+    "height": 720,
+    "muted": false,
+    "inline": true,
+    "audio_decoded_bytes": 102371
+  },
+  "handoff_wall_seconds": 21.94,
+  "mid_transition": {
+    "opacity": 0.450648,
+    "volume": 0.4180780309891715
+  },
+  "actual_phone_hardware": false,
+  "browser": "Microsoft Edge headless; isolated contexts"
+}

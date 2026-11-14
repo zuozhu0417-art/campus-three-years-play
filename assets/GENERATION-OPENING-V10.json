@@ -1,0 +1,34 @@
+{
+  "version": 10,
+  "duration_seconds": 21.2,
+  "size": [
+    1280,
+    720
+  ],
+  "fps": 30,
+  "video_model": "Jimeng Seedance 1.0 Fast (four existing 5s clips)",
+  "speech_model": "Qwen3-TTS-12Hz-1.7B-Base (local)",
+  "synthetic_voice": true,
+  "reference": "User-provided public video, first speech phrase approximately 2.35-6.30s; raw reference not distributed",
+  "reference_artist_endorsement": false,
+  "lip_sync_generated": false,
+  "new_jimeng_credits": 0,
+  "new_payment": 0,
+  "audio": "Synthetic reference-based Mandarin dialogue with original program-synthesized school ambience",
+  "video_asset": "assets/opening/campus-opening-v10.mp4",
+  "bytes": 4961545,
+  "sha256": "ee7857d8d39e433895ee038bfe81b53f014b7354f0614f989afa51562e759397",
+  "transition": {
+    "film_shots_seconds": 0.35,
+    "natural_exit_seconds": 1.15,
+    "skip_exit_seconds": 0.65,
+    "sound_start": "user gesture, on by default",
+    "seen_key": "campus-opening-film-v10-seen"
+  },
+  "lines": [
+    "那年九月，你走进了这间教室。",
+    "这里，给你留着呢。",
+    "这一角，留给你画。",
+    "再等一会儿吧。我也不急。"
+  ]
+}
