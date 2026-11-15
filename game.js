@@ -113,17 +113,21 @@
   }
   const firstDayPictures=[
     {scene:'prelude-study-v18',title:'这一页，你慢慢看。',line:'铃响过了。她把写着解题步骤的本子推过来，自己的笔却还停在上一行。',caption:'晚自习 · 一页借来的笔记'},
-    {scene:'prelude-rain-v18',title:'雨停了，还没急着走。',line:'走廊里的人渐渐散了。她收好伞，抬头看见你，原本准备迈出去的脚又停了一下。',caption:'放学后 · 雨停之前'}
+    {scene:'prelude-rain-v18',title:'雨停了，还没急着走。',line:'走廊里的人渐渐散了。她收好伞，抬头看见你，原本准备迈出去的脚又停了一下。',caption:'放学后 · 雨停之前'},
+    {scene:'prelude-sports-v19',title:'先喝口水，再说。',line:'最后一圈跑完，看台上还留着一个人。她把没拆封的水递过来，毛巾早已经放在旁边。',caption:'运动会 · 终点之后'},
+    {scene:'prelude-festival-v19',title:'这么热闹，还是听见了你。',line:'台上的音响试了好几遍。你喊她名字时，她却一下就转过脸来，手边是还没送出去的星星书签。',caption:'校园晚会 · 一颗纸星星'},
+    {scene:'prelude-winter-v19',title:'纸条，等你坐下再拆。',line:'冬天的第一节课还没开始。桌上多了一盒牛奶，旁边的小纸条折得很整齐。她抬眼看了看你，没急着解释。',caption:'冬日清晨 · 窗边的位置'}
   ];
   function prelude(after=null){
     let page=0;
-    const m=showModal({kicker:'青春片段 · 也许会有这样一天',title:'先借你看两页，往后的故事。',wide:true,closable:!after,body:'<div id="prelude-page"></div>'});
+    const m=showModal({kicker:'青春片段 · 也许会有这样一天',title:'先翻几页，往后的故事。',wide:true,closable:!after,body:'<div id="prelude-page"></div>'});
     $('.modal',m).classList.add('prelude-modal');
     function paint(){
       const c=firstDayPictures[page];
-      $('#prelude-page',m).innerHTML=`<figure class="prelude-figure"><img src="assets/${c.scene}.jpg" alt="${esc(c.caption)}"><figcaption><small>${esc(c.caption)}</small><h3>${esc(c.title)}</h3></figcaption></figure><p class="prelude-line">${esc(c.line)}</p><p class="modal-note">这是可能遇见的片段。故事从陌生开始；友情、靠近或错过，都由之后的选择慢慢发生。</p><div class="prelude-controls"><span>${page+1} / 2</span>${page?'<button class="secondary-button" id="prelude-prev">上一页</button>':''}<button class="primary-button" id="prelude-next">${page===0?'再翻一页':after?'回到九月第一天':'合上这两页'}</button>${after?'<button class="text-button" id="prelude-skip">直接去报到</button>':''}</div>`;
+      $('#prelude-page',m).innerHTML=`<figure class="prelude-figure"><img src="assets/${c.scene}.jpg" alt="${esc(c.caption)}"><figcaption><small>${esc(c.caption)}</small><h3>${esc(c.title)}</h3></figcaption></figure><div class="prelude-thumbs" aria-label="选择青春片段">${firstDayPictures.map((pic,i)=>`<button data-prelude-page="${i}" aria-label="查看${esc(pic.caption)}" aria-pressed="${i===page}"><img src="assets/${pic.scene}.jpg" alt=""><span>${i+1}</span></button>`).join('')}</div><p class="prelude-line">${esc(c.line)}</p><p class="modal-note">这是可能遇见的片段。故事从陌生开始；友情、靠近或错过，都由之后的选择慢慢发生。</p><div class="prelude-controls"><span>${page+1} / ${firstDayPictures.length}</span>${page?'<button class="secondary-button" id="prelude-prev">上一页</button>':''}<button class="primary-button" id="prelude-next">${page<firstDayPictures.length-1?'再翻一页':after?'回到九月第一天':'合上相册'}</button>${after?'<button class="text-button" id="prelude-skip">直接去报到</button>':''}</div>`;
+      $$('[data-prelude-page]',m).forEach(b=>b.onclick=()=>{page=Number(b.dataset.preludePage);paint();});
       if(page)$('#prelude-prev',m).onclick=()=>{page--;paint();};
-      $('#prelude-next',m).onclick=()=>{if(page===0){page++;paint();}else finish();};
+      $('#prelude-next',m).onclick=()=>{if(page<firstDayPictures.length-1){page++;paint();}else finish();};
       if(after)$('#prelude-skip',m).onclick=finish;
       $('#prelude-next',m).focus({preventScroll:true});
     }

@@ -31,13 +31,21 @@ with sync_playwright() as pw:
    p.set_viewport_size({'width':1366,'height':768});p.locator('#prelude-preview').click();p.set_viewport_size({'width':width,'height':height})
   assert not state(p)
   p.locator('#prelude-next').click();assert p.locator('.prelude-figure img').get_attribute('src').endswith('prelude-rain-v18.jpg')
-  p.locator('#prelude-prev').click();p.keyboard.press('Escape');assert not state(p)
+  p.locator('#prelude-prev').click()
+  assert p.locator('[data-prelude-page]').count()==5
+  for n,scene in enumerate(['prelude-study-v18','prelude-rain-v18','prelude-sports-v19','prelude-festival-v19','prelude-winter-v19']):
+   p.locator('[data-prelude-page="'+str(n)+'"]').click();p.locator('.prelude-figure img').evaluate('(i)=>i.decode()')
+   assert p.locator('.prelude-figure img').get_attribute('src').endswith(scene+'.jpg')
+   assert p.locator('.prelude-controls>span').inner_text()==str(n+1)+' / 5'
+   hit(p,'#prelude-next')
+  p.locator('#prelude-next').click();assert not state(p)
   p.locator('#new-game').click();p.locator('[data-gender='+('male' if i%2==0 else 'female')+']').click();p.locator('#player-name').fill('小禾');p.locator('#identity-confirm').click()
   assert state(p)['warm']==0 and state(p)['seat'] is None
   p.evaluate('async()=>Promise.all([...document.images].map(i=>i.decode().catch(()=>{})))')
   hit(p,'#prelude-next');p.screenshot(path=str(OUT/f'prelude-{width}.jpg'),type='jpeg',quality=88)
   if i%2:p.locator('#prelude-skip').click()
-  else:p.locator('#prelude-next').click();p.locator('#prelude-next').click()
+  else:
+   for _ in range(5):p.locator('#prelude-next').click()
   choice='help' if i%2==0 else 'joke';drain(p,choice)
   assert state(p)['firstDay']['response']==choice and state(p)['warm']==0
   p.locator('#seat-confirm').click();p.locator('#plan-confirm').click();before=state(p)

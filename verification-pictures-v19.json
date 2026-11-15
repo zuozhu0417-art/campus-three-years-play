@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "checks": [
+    "Five full-size images decode successfully; thumbnail navigation, 1–5 page counts and final close work across four viewports",
+    "Four viewports: preview navigation, controls reachable, images loaded",
+    "Preview does not write saves or unlock romance",
+    "Male/female new starts, both reporting choices and illustration skip",
+    "Optional first classroom consumes 6 energy, zero free slots; decline unchanged",
+    "Reload preserves actual progress without replaying tutorial"
+  ],
+  "errors": []
+}

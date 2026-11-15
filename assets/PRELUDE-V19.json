@@ -1,0 +1,37 @@
+{
+  "tool": "built-in image_gen",
+  "reference": "assets/notebook-cg.jpg",
+  "prompt_file": "PRELUDE-PROMPTS-V19.md",
+  "assets": [
+    {
+      "file": "prelude-sports-v19.jpg",
+      "title": "运动会后的递水",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-06c05caf-1a04-497c-a895-8f181263f9c4.png",
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "db4ba897f6658797ba18012974a65dd5f20e29ea10fa4c9a28217db09e06b20f"
+    },
+    {
+      "file": "prelude-festival-v19.jpg",
+      "title": "校园晚会的灯光",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-92c04000-3a93-4eab-80a4-52d9e9a2ad64.png",
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "d825eaddf5dc55653437e322bea304cb08df76c899b23677e946c55f2d1b45d2"
+    },
+    {
+      "file": "prelude-winter-v19.jpg",
+      "title": "冬日窗边的小纸条",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-ac8a55fe-4cfd-4bba-aa90-8cd4c6dfe052.png",
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "12621f0220a110988164c0f91483a0b00ba97bebc60073d1f856d10a16d73e0a"
+    }
+  ]
+}
