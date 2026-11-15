@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "cases": 414,
+  "checks": [
+    "Actual screenshot reproduction: early lunch never uses classroom lines",
+    "Seven contact/route stages and low-contact late-game boundary",
+    "Leave read-only; meal/quiet consume one slot; classroom remains separate",
+    "Refresh preserves contact and meal progress; no automatic route change",
+    "414 week/route/contact combinations and four viewports"
+  ],
+  "errors": []
+}

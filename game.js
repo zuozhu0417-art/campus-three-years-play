@@ -204,7 +204,7 @@
   function slowGirl(id){
     const g=G.ensure(S),n=g.contactWeeks.length,w=S.week;
     const moments=[['她把本子合上','这页我还没写完。你要问哪一道？','只问那一步，给她留出写完的时间','她把等号前的那一行指给你看，随后继续写自己的。'],['借一把尺子','用完放桌边就好，我一会儿还要用。','用完当面归还，不顺手翻她的画本','她点点头，把尺子收进笔袋。'],['值日后还没走','我在等颜料干。你先去忙吧。','问能不能帮忙收工具，等她同意再动','她把需要清洗的笔挑出来，另外两支留在手边。'],['被认出的脚步声','今天你们也拖堂了？我刚准备走。','讲讲课堂上的小插曲，不追问私事','她听到粉笔断成三截，没忍住笑了一下。'],['留了一小张纸','上次你问的那题，我找到另一种写法了。','认真看完，也告诉她自己的想法','你们对了几行步骤。铃响以后，她把纸留在桌上。'],['不再只谈题目','新画还没画完。你想看的话，下周再说。','答应等她愿意展示时再看','她把本子收好，问你周末准备做什么。']];
-    const a=moments[Math.min(n,5)];return {id,title:(id.includes('canteen')?'食堂':'课后')+' · '+a[0],cost:id.includes('canteen')?8:12,category:'friend',effects:{friend:2},lines:[['narrator',n<3?'林遥抬头看了一眼，手里的笔没有放下。':'她认出了你，给书本挪出一点位置。'],['linyao',a[1]],['you',w<10?'我就问一下，不耽误你。':'你现在方便说一会儿吗？']],choices:[{key:'respect',text:a[2],effects:{},flags:{},after:[['narrator',a[3]],['linyao',n<3?'嗯，谢谢。':'下次见。']]},{key:'brief',text:'简单打个招呼，聊几句各自的安排',effects:{},flags:{},after:[['linyao','好，我先把这点事情做完。'],['narrator','你们各自收好东西，没有把一次交谈当成更亲近的承诺。']]}]};
+    const a=moments[Math.min(n,5)];return {id,title:'课后 · '+a[0],cost:12,category:'friend',effects:{friend:2},lines:[['narrator',n<3?'林遥抬头看了一眼，手里的笔没有放下。':'她认出了你，给书本挪出一点位置。'],['linyao',a[1]],['you',w<10?'我就问一下，不耽误你。':'你现在方便说一会儿吗？']],choices:[{key:'respect',text:a[2],effects:{},flags:{},after:[['narrator',a[3]],['linyao',n<3?'嗯，谢谢。':'下次见。']]},{key:'brief',text:'简单打个招呼，聊几句各自的安排',effects:{},flags:{},after:[['linyao','好，我先把这点事情做完。'],['narrator','你们各自收好东西，没有把一次交谈当成更亲近的承诺。']]}]};
   }
   function renderGrowth(){
     const g=G.ensure(S);let bar=$('#growth-bar');if(!bar){bar=document.createElement('aside');bar.id='growth-bar';$('#play-screen').append(bar);}
@@ -704,7 +704,7 @@
   }
 
   function yearStory(id){
-    const raw=['girl','girl-canteen'].includes(id)&&G.guarded(S)?slowGirl(id):CF.isCanteen(id)?CF.scene(S,id):id==='pursuer'?Y1.bonus(S):Y1.weekday(S,id),event=CF.isCanteen(id)?raw:CF.decorate(S,raw);if(!event)return;
+    const raw=CF.isCanteen(id)?CF.scene(S,id):id==='girl'&&G.guarded(S)?slowGirl(id):id==='pursuer'?Y1.bonus(S):Y1.weekday(S,id),event=CF.isCanteen(id)?raw:CF.decorate(S,raw);if(!event)return;
     if(S.energy<event.cost){result('先留一点余力',`这一段需要 ${event.cost} 点精力。可以吃饭、休息，或换一个安排。`);return;}
     if(id==='girl'&&!G.guarded(S)&&S.october.mode==='undecided')event.choices.push({key:'closer-v16',text:'告诉她：想慢慢多了解你，先继续相处',effects:{},flags:{},route:'closer',after:[['linyao','我也想再了解你一点。但我们慢慢来，好吗？'],['narrator','你们没有马上给关系下结论。下一次见面，仍需要先问时间。']]});
     const choices=event.choices.map(c=>({id:'year-choice-'+c.key,text:c.text,note:Y1.available(S,event,c)||`一段工作日时间 · 精力 ${event.cost?'−'+event.cost:'+10'}${c.money?' · 零用钱 '+c.money+' 元':''}${c.repay?' · 原额还款 +'+c.repay+' 元':''}`,value:c.key}));
