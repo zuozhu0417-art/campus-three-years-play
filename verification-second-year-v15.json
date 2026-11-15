@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "url": "http://127.0.0.1:51713/",
+  "checks": [
+    "male actual W20 -> W21–W23 journey; old loan, exam, refusal, route and ending preserved; reload equality",
+    "female actual W20 -> W21–W23 journey; old loan, exam, refusal, route and ending preserved; reload equality",
+    "12 actual two-location order combinations W21–23; classroom/track shared ID and canteen independent",
+    "Own-method choice, no-cost leave, low energy, missed call and actual Sunday reschedule",
+    "Desktop and 3 mobile viewports: new entry center hit, actual sprite, dialogue and choice; no JS errors or missing assets"
+  ],
+  "errors": [],
+  "missing_assets": []
+}

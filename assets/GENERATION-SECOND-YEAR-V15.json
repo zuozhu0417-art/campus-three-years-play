@@ -1,0 +1,18 @@
+[
+  {
+    "file": "assets/zhouyan-v15.webp",
+    "source": "C:\\Users\\Lecoo\\Documents\\Codex\\2026-11-13\\wo\\work\\campus\\art-v15-originals\\exec-82794f10-7732-4471-985a-8afefd6a07fa.png",
+    "tool": "built-in image_gen",
+    "bytes": 184002,
+    "sha256": "d8ba0b2b2574e33c572e2fef26946281c623f014137b0f6103520b394ca50113",
+    "kind": "static sprite"
+  },
+  {
+    "file": "assets/year-newclass-v15.jpg",
+    "source": "C:\\Users\\Lecoo\\Documents\\Codex\\2026-11-13\\wo\\work\\campus\\art-v15-originals\\exec-be33eb2e-a487-4a95-bd72-d17098c524c2.png",
+    "tool": "built-in image_gen",
+    "bytes": 386208,
+    "sha256": "33c87e03ba8105f8380e51eb012b3ff28361ad880e9df35e284264fc6a65708c",
+    "kind": "static background and CG"
+  }
+]

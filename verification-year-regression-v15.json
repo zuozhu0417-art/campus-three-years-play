@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "url": "http://127.0.0.1:65430/",
+  "checks": [
+    "Actual old W06 save -> W07–W20 complete year: photography, 50-yuan loan/repayment, drawing, wait/apology/makeup, paper-store exclusive Sunday, recording/privacy, family job discussion, preparation result and two frozen exams; week 11/16 reload byte-equivalent",
+    "Year-ending resume, gallery and title preserve complete-year progress",
+    "Second complete W07–W20 run on 390x844: female identity, male newcomer, refusal stays respected through year end, friendship remains platonic, missed photography retained, academic Sunday excludes paper trip, no automatic makeup, unprepared application has reserve result",
+    "Actual W05 seat/relationship -> W06 poster/photography promise -> ordinary weekend -> W07 fulfillment, without an artificial chapter stop",
+    "Insufficient 50-yuan loan returns an explanation without spending; alternate refusal remains playable",
+    "All ten generated assets decode; mobile portrait/landscape/small-phone visitor controls fit; no page exceptions or missing assets"
+  ],
+  "route_one_energies": [
+    90,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    98,
+    100,
+    100,
+    98,
+    100
+  ],
+  "errors": [],
+  "missing_assets": []
+}

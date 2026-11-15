@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "scenes": 108,
+  "choices": 216,
+  "weekends": 36,
+  "checks": [
+    "Both genders / three relationship modes / all W21–23 weekday and canteen choices terminate with stable IDs",
+    "Duplicate story/weekend transactions cannot award resources; actual weekend cost, gate and day respected",
+    "Loan balance, original promises, friendship boundary and refusal unchanged",
+    "W21–23 settlement persists normalization and cannot repeat; W24 excluded"
+  ]
+}
