@@ -147,7 +147,7 @@
     $('#world').className=`world ${S.place}`;
     $('#world').style.backgroundImage=S.week>=21&&S.place==='classroom'?"url('assets/year-newclass-v15.jpg')":'';$('#game').classList.toggle('at-home',S.place==='home');
     $('#date-label').textContent=w.date.split('月')[0].trim()+'月 · '+['周一','周三','周五'][Math.min(2,3-S.remaining)];$('#week-label').textContent=`第 ${S.week} / ${C.weeks.length} 个关键周`;
-    $('#scene-name').textContent=p.name;$('#scene-desc').textContent=S.week>4&&S.place==='classroom'?S.week>=21?`新班第 ${Math.floor(S.seat/6)+1} 排 · 课后见旧同学要先问时间。`:`月考后第 ${Math.floor(S.seat/6)+1} 排，书又重新摞了一遍。`:p.desc;
+    $('#scene-name').textContent=S.week>=21&&S.place==='classroom'?'高二 · 新教室':p.name;$('#scene-desc').textContent=S.week>4&&S.place==='classroom'?S.week>=21?`新班第 ${Math.floor(S.seat/6)+1} 排 · 课后见旧同学要先问时间。`:`月考后第 ${Math.floor(S.seat/6)+1} 排，书又重新摞了一遍。`:p.desc;
     $('#time-dots').innerHTML=Array.from({length:3},(_,i)=>`<i class="time-dot ${i>=S.remaining?'spent':''}"></i>`).join('');
     $('#time-label').textContent=`还剩 ${S.remaining} 段`;
     $('#observation').textContent=S.week===6&&S.place==='home'?(S.october.poster&&S.october.mode==='closer'?'书包侧袋里夹着那只小鸟。纸角被折得整整齐齐。':'你把书包放到椅子上。今天的收据从侧袋里露出来。'):p.observation[S.week-1];
@@ -220,11 +220,11 @@
   function seatPicker(first){
     let selection=S.seat??14;
     const m=showModal({kicker:first?'第一天 · 教室':'教室里的位置',title:first?'你想坐在哪里？':'你的名字，还在这张表上',wide:true,closable:!first,
-      body:`<p class="modal-note">${first?'靠窗能看见树，前排能听清老师，后排离朋友近一些。选定后，这个月都坐在这里。':S.week>4?'这张表已经换成月考后的座位。你现在坐在标记的位置。':'这张表是你这个月的座位。月考之后，班主任会重新安排。'}</p><div class="seat-legend"><span>左侧是窗户</span><span>前排</span><span>右侧是走廊</span></div><div class="blackboard">黑 板</div><div class="seat-grid" id="seat-grid"></div><p class="seat-neighbor" id="seat-description"></p><div class="modal-actions"><button class="primary-button" id="seat-confirm">${first?'把书包放在这里':'记住这个位置'}</button></div>`});
+      body:`<p class="modal-note">${first?'靠窗能看见树，前排能听清老师，后排离朋友近一些。选定后，这个月都坐在这里。':S.week>=21?'这是新班安排的位置，承接高一下期末记录。周砚是新同桌，旧朋友在隔壁班。':S.week>4?'这张表已经换成月考后的座位。你现在坐在标记的位置。':'这张表是你这个月的座位。月考之后，班主任会重新安排。'}</p><div class="seat-legend"><span>左侧是窗户</span><span>前排</span><span>右侧是走廊</span></div><div class="blackboard">黑 板</div><div class="seat-grid" id="seat-grid"></div><p class="seat-neighbor" id="seat-description"></p><div class="modal-actions"><button class="primary-button" id="seat-confirm">${first?'把书包放在这里':'记住这个位置'}</button></div>`});
     const occupied=S.week>4?{}:{1:'班长',6:'林遥',13:'赵程',22:'阿哲',26:'小胖'};
     const describe=()=>{
       const row=Math.floor(selection/6)+1,col=selection%6;
-      $('#seat-description',m).textContent=`第 ${row} 排，${col<2?'靠窗，风能吹到这里。':col>3?'靠走廊，能听见别班下课。':'中间的位置，前后都是新同学。'}${selection===14?' 赵程坐在你左边。':''}`;
+      $('#seat-description',m).textContent=`第 ${row} 排，${col<2?'靠窗，风能吹到这里。':col>3?'靠走廊，能听见别班下课。':'中间的位置，前后都是新同学。'}${S.week>=21?' 周砚是你的新同桌。':selection===14?' 赵程坐在你左边。':''}`;
       $$('.seat',m).forEach(b=>b.classList.toggle('selected',Number(b.dataset.seat)===selection));
     };
     for(let i=0;i<44;i++){
@@ -317,6 +317,8 @@
     $('#rest-no',m).onclick=()=>closeModal();$('#rest-yes',m).onclick=()=>spend('rest','rest',{energy:36},'有一晚，你在十一点之前关了灯。','隔壁的琴声也停了。\n醒来时，你第一次在闹钟响之前睁开了眼睛。','明天再接着过');
   }
   function phone(){
+    if(S.week>=21){const f=S.year.flags;E.dialogue({title:'高二消息 · 看过不等于已赴约',lines:[{who:'zhaocheng',text:'我在隔壁班。找我先发一句，课表和上学期不一样了。'},{who:'mother',text:S.week===23?(f.fatherCall23?'你们刚才聊过了。下次有空再问时间，不用每天守着电话。':'你爸说周末有空可以好好讲一会儿。具体哪天，在周末安排里定。'):'周三和周五我晚班。晚饭吃什么、回不回来，提前说一声。'},{who:'narrator',text:`零用钱 ${S.weekend.wallet} 元。${S.year.loan>S.year.loanPaid?'阿哲尚有 '+(S.year.loan-S.year.loanPaid)+' 元借款未结。':'这周的具体安排仍要真正留出时间。'}`} ]});return;}
+
     if(S.week>=7){const f=S.year.flags;E.dialogue({title:'本周消息 · 不占额外时间',lines:[{who:'zhaocheng',text:S.week===7?(S.october.sportsPhoto?'摄影给你留了整段，记得在教室或操场找我确认。':'运动会按你自己的安排来。想拍照也要真留时间。'):S.week===15?'纸店和试讲都在周日，各要两段。别两边都答应。':S.week===19?'报名以后还得准备，周六见。':C.weeks[S.week-1].diary},{who:'narrator',text:`零用钱 ${S.weekend.wallet} 元。${S.year.loan>S.year.loanPaid?'阿哲尚有 '+(S.year.loan-S.year.loanPaid)+' 元借款未结。':'本周的具体安排可以到手记和周末日历里看。'}`}]});return;}
     if(S.week>4){octoberPhone();return;}
     const promise=S.promise==='yes'?(S.promiseKept?'赵程：班旗挂上去了！明天给你看。':S.week<=2?'赵程：颜料我带。你人来就行。':'赵程：没事，后来阿哲帮我弄完了。'):'赵程：班群文件里有月考安排。';

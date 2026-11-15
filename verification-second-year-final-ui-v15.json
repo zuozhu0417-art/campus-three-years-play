@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "url": "http://127.0.0.1:64699/",
+  "checks": [
+    "Final W21 class label, inherited seat and new deskmate text",
+    "All five original classroom controls and Zhou Yan remain reachable in four viewports",
+    "New-year messages consume no resources and do not grant call completion"
+  ],
+  "errors": []
+}

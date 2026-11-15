@@ -11,3 +11,5 @@
 复验：`node tests/verify_second_year_domain_v15.cjs`、`python tests/verify_second_year_v15.py`。报告：verification-second-year-domain-v15.json、verification-second-year-v15.json、verification-year-regression-v15.json；截图：screenshots-second-year-v15、screenshots-year-regression-v15。
 
 新增图为静态立绘和插画运镜，不是新增动作视频。没有手机真机、Steam、APK 验证。公开地址部署状态和线上验证见本机 outputs 中 v15 线上报告。
+
+最终界面补验通过：高二教室名、座位表与周砚同桌说明、四尺寸原五个入口及新入口中心命中，高二消息不消耗资源且不替代实际通话。复验 tests/verify_second_year_ui_v15.py，报告 verification-second-year-final-ui-v15.json。
