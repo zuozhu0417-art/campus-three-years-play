@@ -86,7 +86,7 @@ with sync_playwright() as pw:
   q.close()
  # New opening must reach seeded variable plan without a legacy migration.
  p.goto(URL,wait_until='networkidle');p.evaluate('localStorage.clear()');p.reload(wait_until='networkidle');p.locator('#new-game').click()
- p.locator('[data-gender=male]').click();p.locator('#player-name').fill('林川');p.locator('#identity-confirm').click();drain(p);p.locator('#seat-confirm').click();plan(p)
+ p.locator('[data-gender=male]').click();p.locator('#player-name').fill('林川');p.locator('#identity-confirm').click();p.locator('#prelude-skip').click();drain(p,'arrival-help');p.locator('#seat-confirm').click();p.locator('#plan-confirm').click();p.locator('#first-lesson-later').click()
  assert state(p)['growth']['origin']=='new' and state(p)['remaining'] in [5,6]
  shot(p,'04-new-campus')
  # Role application and an actual duty transaction.

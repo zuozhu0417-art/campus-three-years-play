@@ -1,0 +1,20 @@
+{
+  "tool": "built-in image_gen",
+  "assets": [
+    {
+      "file": "prelude-study-v18.jpg",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-b779984a-f969-40a3-a6b6-88fca4fe4045.png",
+      "sha256": "53cf847ca573c0dce6e3d955e8562a6e33bd876a7a91f575f21e3ac4822a79c2"
+    },
+    {
+      "file": "prelude-rain-v18.jpg",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-a1f3674c-8ae6-4d5e-a263-e3dcc2a1a7d9.png",
+      "sha256": "41bb5f46f9f9fe74d8fb3b18df24c84327cb83a8ee18128a276f2f4b4e6a875c"
+    }
+  ],
+  "rejected": [
+    "exec-f28c4f32-9d90-4f0f-a50d-6c3eb3ead38b.png",
+    "exec-fe529a49-01e5-4068-8a77-1471c74a976b.png"
+  ],
+  "direction": "Original 2D anime school illustrations; reference existing Lin Yao identity. Study: twilight desk, offered notebook, warm amber / indigo. Rain: front-facing natural stance with arms down and closed umbrella, sunlit wet corridor. Rejected backward umbrella pose versions not integrated."
+}

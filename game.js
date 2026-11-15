@@ -111,15 +111,51 @@
     $$('[data-gender]',m).forEach(b=>b.onclick=()=>{selected=b.dataset.gender;$$('[data-gender]',m).forEach(x=>{x.classList.toggle('selected',x===b);x.setAttribute('aria-pressed',String(x===b));});$('#identity-confirm',m).disabled=false;});
     $('#identity-confirm',m).onclick=()=>{if(!selected)return;const name=$('#player-name',m).value.replace(/[\u0000-\u001f\u007f]/g,'').trim().slice(0,10)||'你';if(canCancel&&saved){try{localStorage.setItem(KEY+'-before-new-v12',JSON.stringify(saved));}catch{}}S.profile={gender:selected,name};window.CampusCharacters.setProfile(S.profile);memory(`${name==='你'?'你':name}以${selected==='female'?'女生':'男生'}的身份，在九月报到。`,'报到');save();closeModal(true);render();after();};
   }
-  function opening(){
+  const firstDayPictures=[
+    {scene:'prelude-study-v18',title:'这一页，你慢慢看。',line:'铃响过了。她把写着解题步骤的本子推过来，自己的笔却还停在上一行。',caption:'晚自习 · 一页借来的笔记'},
+    {scene:'prelude-rain-v18',title:'雨停了，还没急着走。',line:'走廊里的人渐渐散了。她收好伞，抬头看见你，原本准备迈出去的脚又停了一下。',caption:'放学后 · 雨停之前'}
+  ];
+  function prelude(after=null){
+    let page=0;
+    const m=showModal({kicker:'青春片段 · 也许会有这样一天',title:'先借你看两页，往后的故事。',wide:true,closable:!after,body:'<div id="prelude-page"></div>'});
+    $('.modal',m).classList.add('prelude-modal');
+    function paint(){
+      const c=firstDayPictures[page];
+      $('#prelude-page',m).innerHTML=`<figure class="prelude-figure"><img src="assets/${c.scene}.jpg" alt="${esc(c.caption)}"><figcaption><small>${esc(c.caption)}</small><h3>${esc(c.title)}</h3></figcaption></figure><p class="prelude-line">${esc(c.line)}</p><p class="modal-note">这是可能遇见的片段。故事从陌生开始；友情、靠近或错过，都由之后的选择慢慢发生。</p><div class="prelude-controls"><span>${page+1} / 2</span>${page?'<button class="secondary-button" id="prelude-prev">上一页</button>':''}<button class="primary-button" id="prelude-next">${page===0?'再翻一页':after?'回到九月第一天':'合上这两页'}</button>${after?'<button class="text-button" id="prelude-skip">直接去报到</button>':''}</div>`;
+      if(page)$('#prelude-prev',m).onclick=()=>{page--;paint();};
+      $('#prelude-next',m).onclick=()=>{if(page===0){page++;paint();}else finish();};
+      if(after)$('#prelude-skip',m).onclick=finish;
+      $('#prelude-next',m).focus({preventScroll:true});
+    }
+    function finish(){closeModal(true);if(after)after();}
+    paint();
+  }
+  function opening(){prelude(firstDayStory);}
+  function firstDayStory(){
     const name=S.profile.name;
-    playCG('arrival',()=>E.dialogue({title:'九月 · 报到日',lines:[
-      {id:'arrival.mother',who:'mother',mood:'smile',text:(name==='你'?'':name+'，')+'饭卡放外面的袋子了。放学回来，跟我说说新同桌。'},
-      {id:'arrival.player',who:'you',mood:'smile',text:'知道啦。我先去找教室，回来再说。'},
-      {id:'arrival.register',who:'narrator',text:`名单上${S.profile.gender==='female'?'女生':'男生'}那一栏，多了一个勾。你把领来的练习册抱在怀里，站到教室门口。`},
-      {id:'arrival.teacher',who:'teacher',text:name==='你'?'新同学，先进去找个位子。书包放好了，等会儿领书。':name+'同学，先进去找个位子。书包放好了，等会儿领书。'},
-      {id:'arrival.desk',who:'zhaocheng',mood:'smile',text:'哎，同学，这边还有空位。书包先放这儿？'},
-      {id:'arrival.time',who:'narrator',text:'每周的空闲会随校园日历变化，周六、周日也能自己安排。每天都会正常睡觉，精力会随日期恢复；答应过的人，仍需要你真正留出时间。先给自己选一个座位吧。'}]},()=>seatPicker(true)));
+    E.dialogue({title:'九月一日 · 还没写名字的课本',scene:'classroom',lines:[
+      {id:'arrival.mother',who:'mother',mood:'smile',text:(name==='你'?'':name+'，')+'饭卡放外面的袋子了。别光顾着找教室，中午记得吃饭。'},
+      {id:'arrival.player',who:'you',text:'知道啦。你回去吧，门口这条路我记住了。'},
+      {id:'arrival.register',who:'narrator',text:'校门口有人抱着被褥，有人反复对着分班表找名字。你领到一摞新书，还没走到教室，最上面的课程表就滑了下去。'},
+      {id:'arrival.desk',who:'zhaocheng',mood:'smile',text:'同学，你的。差一点就让风分去隔壁班了。'},
+      {id:'arrival.books',who:'narrator',text:'他把课程表压回书上，自己怀里的练习册却歪了。封面露出一行刚写的字：赵程，高一（六）班。'}
+    ],choices:[{id:'arrival-help',text:'腾出一只手，帮他托住书',note:'先从一起把书搬进去开始',value:'help'},{id:'arrival-joke',text:'“巧了，我也差一点走去隔壁。”',note:'和他一起核对门牌',value:'joke'}]},choice=>{
+      S.firstDay={version:18,response:choice};memory(choice==='help'?'报到时，赵程替你捡回课程表。你帮他托住了快滑落的书。':'报到时，赵程替你捡回课程表。你们核对了门牌，一起进了六班。','报到');save();
+      E.dialogue({title:'高一（六）班 · 第一声预备铃',scene:'classroom',lines:[
+        {id:'arrival.reply',who:'zhaocheng',mood:'smile',text:choice==='help'?'谢了。这几本比看着沉。走，先进教室。':'我刚才已经走错一次了。这回看准了，六班。'},
+        {id:'arrival.teacher',who:'teacher',text:name==='你'?'新同学，进来吧。先找个空位，课本上写好名字。':name+'同学，进来吧。先找个空位，课本上写好名字。'},
+        {id:'arrival.girl',who:'linyao',text:'这里有人。……旁边那个位子还空着。领书表在讲台左边。'},
+        {id:'arrival.boundary',who:'narrator',text:'靠窗的女生把自己的书收齐，低头继续贴姓名条。你还没来得及问她叫什么，预备铃已经响了。'},
+        {id:'arrival.guide',who:'zhaocheng',text:'先放书包。老师等会儿要我们写这一周的安排，你不用照我的填。我写了三次打球，自己都觉得悬。'},
+        {id:'arrival.bell',who:'teacher',text:'今天先认认教室和同学。课上没听懂，可以问；安排写完，也随时能改。来，先坐好。'}
+      ]},()=>seatPicker(true));
+    });
+  }
+  function firstLessonInvite(){
+    S.firstDay.invited=true;save();
+    const m=showModal({kicker:'第一节课 · 本子刚翻开',title:'“先跟上这一道，别着急。”',body:'<p class="modal-lead">赵程把课表夹进书里，压低声音：“刚才没听清哪一科？看黑板，老师还没往下讲。”</p><p>讲台上，老师给大家留了一点思考时间。你可以试着答，也可以听老师拆开讲。</p><p class="modal-note">课堂互动属于上课时间，不占课后安排；参与消耗 6 精力。离开不会扣除。之后点“去上课”，也能找到这里。</p><div class="modal-actions"><button class="primary-button" id="first-lesson-go">抬头看看黑板</button><button class="secondary-button" id="first-lesson-later">先熟悉一下教室</button></div>'});
+    $('#first-lesson-go',m).onclick=()=>{closeModal();lesson();};
+    $('#first-lesson-later',m).onclick=()=>{closeModal();toast('去上课、和同学说话，或换个地点看看。只有确认参加，才会花掉时间。');};
   }
   function startNew(){clearModals();S=initial();markPlay();render();identitySetup(opening,true);}
   function continueGame(){
@@ -349,7 +385,7 @@
       $('#plan-done',m).onclick=()=>closeModal();return;
     }
     const m=showModal({kicker:C.weeks[S.week-1].name,title:'这一周，把时间留给什么？',closable:!required,body:`<p class="modal-lead">上课、吃饭、通勤，占去了大半日子。\n这一周有 ${G.total(S)} 段自由安排，另有一堂可参与的课堂。你想怎样过？</p><div class="plan-rows">${Array.from({length:G.total(S)},(_,i)=>['周一课后','周二课后','周三课后','周四课后','周五课后','周五社团时段'][i]).map((x,i)=>`<div class="plan-row"><label for="slot-${i}">${x}</label><select id="slot-${i}">${Object.entries(categoryName).map(([key,label])=>`<option value="${key}" ${['study','friend','rest'][i%3]===key?'selected':''}>${label}</option>`).join('')}</select></div>`).join('')}</div><p class="modal-note">只是先写下打算。实际去做，才会改变这一周。前往不同地点不花时间。工作日结束后，周六、周日各有两段独立安排。</p><div class="modal-actions"><button class="primary-button" id="plan-confirm">写好了，去看看他们</button></div>`});
-    $('#plan-confirm',m).onclick=()=>{S.plan=Array.from({length:G.total(S)},(_,i)=>i).map(i=>$(`#slot-${i}`,m).value);save();closeModal(true);render();growthDesk();};
+    $('#plan-confirm',m).onclick=()=>{S.plan=Array.from({length:G.total(S)},(_,i)=>i).map(i=>$(`#slot-${i}`,m).value);save();closeModal(true);render();if(S.week===1&&S.firstDay&&!S.firstDay.invited)firstLessonInvite();else growthDesk();};
   }
   const EXTRA=[
     {title:'再做一页 · 先把分配律写全',question:'展开：2(3x + 4)',steps:['2 × 3x + 2 × 4','6x + 4','6x + 4'],wrong:1,solution:'每一项都要乘 2，结果是 6x + 8。',hint:'一页写完，窗外又暗了一点。'},
@@ -750,6 +786,7 @@
   $('#new-game').onclick=()=>{
     if(saved){const m=showModal({kicker:'重新报到',title:'从九月的第一天重来？',body:'<p class="modal-lead">确认主角后会替换当前进度，并在本浏览器保留上一局备份。\n还没选好主角时，可以返回主界面继续原来的生活。</p><div class="modal-actions"><button class="secondary-button" id="cancel-new">再想想</button><button class="primary-button" id="confirm-new">重新走进教室</button></div>'});$('#cancel-new',m).onclick=()=>closeModal();$('#confirm-new',m).onclick=startNew;}else startNew();
   };
+  $('#prelude-preview').onclick=()=>prelude();
   updateTitle();$('#continue-game').onclick=continueGame;$('#more-play').onclick=morePlay;$('#title-help').onclick=help;
   $$('[data-place]').forEach(b=>b.onclick=()=>move(b.dataset.place));
   $('#profile-button').onclick=identityCard;

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": [
+    "Four viewports: preview navigation, controls reachable, images loaded",
+    "Preview does not write saves or unlock romance",
+    "Male/female new starts, both reporting choices and illustration skip",
+    "Optional first classroom consumes 6 energy, zero free slots; decline unchanged",
+    "Reload preserves actual progress without replaying tutorial"
+  ],
+  "errors": []
+}
