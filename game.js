@@ -17,7 +17,7 @@
   let activeSpeaker=null;
   const COST={friend:12,girl:12,running:14,inspection:8,'friend-canteen':8,'girl-canteen':8,'pursuer-canteen':8};
   const categoryName = {study:'订正功课',friend:'和人待一会儿',rest:'留一点空白'};
-  let S = null, toastTimer, audio = null, soundOn = false;
+  let S = null, toastTimer;
   const screens = [];
   let saved = readSave();
 
@@ -717,7 +717,8 @@
   }
   function menu(){
     if(!S||screens.length||E.busy)return;
-    const m=showModal({kicker:'课间 · 暂停一下',title:'书包先放在这里',narrow:true,body:'<div class="choices"><button class="choice" id="menu-actors">人物小册 · 表情与短动画</button><button class="choice" id="menu-sfx">点击音效</button><button class="choice" id="menu-motion">人物动态</button><button class="choice" id="menu-resume">继续这一周</button><button class="choice" id="menu-help">看看怎么玩</button><button class="choice" id="menu-cg">记忆放映室 · 重看短 CG</button><button class="choice" id="menu-export">导出进度记录</button><button class="choice" id="menu-title">回到标题</button></div><p class="keyboard-tip">Tab 选中 · Enter 确认 · Esc 返回<br>场景中 1 / 2 / 3 / 4 切换地点，J 打开手记，P 查看安排。</p>'});
+    const m=showModal({kicker:'课间 · 暂停一下',title:'书包先放在这里',narrow:true,body:'<div class="choices"><button class="choice" id="menu-actors">人物小册 · 表情与短动画</button><button class="choice" data-music-toggle id="menu-music">背景音乐</button><button class="choice" id="menu-sfx">点击音效</button><button class="choice" id="menu-motion">人物动态</button><button class="choice" id="menu-resume">继续这一周</button><button class="choice" id="menu-help">看看怎么玩</button><button class="choice" id="menu-cg">记忆放映室 · 重看短 CG</button><button class="choice" id="menu-export">导出进度记录</button><button class="choice" id="menu-title">回到标题</button></div><p class="keyboard-tip">Tab 选中 · Enter 确认 · Esc 返回<br>场景中 1 / 2 / 3 / 4 切换地点，J 打开手记，P 查看安排。</p>'});
+    window.CampusMusic.sync();$('#menu-music',m).onclick=toggleSound;
     const sfxButton=$('#menu-sfx',m),sfxLabel=()=>sfxButton.textContent='点击音效：'+(window.CampusSfx.enabled?'开':'关');sfxLabel();sfxButton.onclick=()=>{window.CampusSfx.set(!window.CampusSfx.enabled);sfxLabel();};
     const motionButton=$('#menu-motion',m);const motionLabel=()=>motionButton.textContent='人物动态：'+(E.motionEnabled?'开启':'关闭');motionLabel();motionButton.onclick=()=>{E.setMotion(!E.motionEnabled);motionLabel();};$('#menu-actors',m).onclick=characterAlbum;
     $('#menu-cg',m).onclick=cgGallery;$('#menu-resume',m).onclick=()=>closeModal();$('#menu-help',m).onclick=help;$('#menu-export',m).onclick=exportSave;$('#menu-title',m).onclick=()=>{save();returnTitle();};
@@ -726,7 +727,8 @@
     showModal({kicker:'精力与日常作息',title:'正常睡觉，不需要占一个选项',body:`<div class="balance-rules"><p>每天都会正常睡觉，<strong>每晚自动恢复 6 精力</strong>，上限 100。周一到周三、周三到周五各经过两晚，分别恢复 12；进入周六、周日和下周一，各恢复 6。一整周共 42 点基础恢复。</p><p>只在日期真正推进时结算一次。看说明、换地点、刷新、重开游戏都不额外恢复；现实里等多久也不会刷出精力。</p><p>早点睡额外恢复 36，吃饭、散步和留白也保留额外恢复。它们是在正常作息之外，给自己多留一点余力。</p><p><strong>稳步订正：18 精力，正确积累 +3；集中攻坚：28 精力，正确 +5。</strong>认真看完讲解也分别有 +2、+3，符合学习计划再 +1。同周重复学习不降低收益。</p><p>从 64 精力开始，工作日三次稳步订正后剩 34；周末留白加正常睡眠，下周一为 64。若周末也安排很多高消耗活动，或连续集中攻坚，就需要额外休整。时间仍然不能同时留给所有人。</p></div>${S?.rhythm?.last?`<p class="receipt">最近一次：${esc(S.rhythm.last.label)}，实际恢复 +${S.rhythm.last.amount}。达到上限时不会继续累加。</p>`:''}`});
   }
   function morePlay(){
-    const m=showModal({kicker:'更多玩法',title:'先试一试，再走进那三年',wide:true,body:'<p class="modal-lead">这里可以单独练习小游戏。不会用掉剧情里的时间、精力或钱，也不会改变约定和解锁物。</p><div class="extras-list"><button class="extras-item" id="practice-running"><small>节奏与呼吸</small><strong>操场跑一圈</strong><span>光点进到落脚区时按空格，也可以直接点击。</span></button><button class="extras-item" id="practice-basketball"><small>三次机会</small><strong>半场投篮</strong><span>试试出手时机。没有倒计时，投歪了也能再来。</span></button><button class="extras-item" id="practice-phone"><small>留意老师的视野</small><strong>晚自习的手机</strong><span>在拿出与收起之间选择，看完消息再离开。</span></button></div><div class="extras-settings"><button class="secondary-button" id="extras-rules">精力与学习规则</button><button class="secondary-button" id="extras-help">操作说明</button><button class="secondary-button" id="extras-sfx">点击音效</button><button class="secondary-button" id="extras-motion">人物动态</button><button class="primary-button" id="extras-back">返回主界面</button></div>'});
+    const m=showModal({kicker:'更多玩法',title:'先试一试，再走进那三年',wide:true,body:'<p class="modal-lead">这里可以单独练习小游戏。不会用掉剧情里的时间、精力或钱，也不会改变约定和解锁物。</p><div class="extras-list"><button class="extras-item" id="practice-running"><small>节奏与呼吸</small><strong>操场跑一圈</strong><span>光点进到落脚区时按空格，也可以直接点击。</span></button><button class="extras-item" id="practice-basketball"><small>三次机会</small><strong>半场投篮</strong><span>试试出手时机。没有倒计时，投歪了也能再来。</span></button><button class="extras-item" id="practice-phone"><small>留意老师的视野</small><strong>晚自习的手机</strong><span>在拿出与收起之间选择，看完消息再离开。</span></button></div><div class="extras-settings"><button class="secondary-button" id="extras-rules">精力与学习规则</button><button class="secondary-button" id="extras-help">操作说明</button><button class="secondary-button" data-music-toggle id="extras-music">背景音乐</button><button class="secondary-button" id="extras-sfx">点击音效</button><button class="secondary-button" id="extras-motion">人物动态</button><button class="primary-button" id="extras-back">返回主界面</button></div>'});
+    window.CampusMusic.sync();$('#extras-music',m).onclick=toggleSound;
     const sfx=$('#extras-sfx',m),motion=$('#extras-motion',m),labels=()=>{sfx.textContent='点击音效：'+(window.CampusSfx.enabled?'开':'关');motion.textContent='人物动态：'+(E.motionEnabled?'开':'关');};labels();
     sfx.onclick=()=>{window.CampusSfx.set(!window.CampusSfx.enabled);labels();};motion.onclick=()=>{E.setMotion(!E.motionEnabled);labels();};
     $('#extras-rules',m).onclick=energyGuide;$('#extras-help',m).onclick=help;$('#extras-back',m).onclick=()=>closeModal();
@@ -743,19 +745,7 @@
     const m=showModal({kicker:'给刚走进教室的你',title:'把时间留给想做的事',body:'<p class="modal-lead">工作日周一、周三、周五各一段；周六、周日每天两段。同一个人，教室与食堂每周各能聊一次：分别花一段，内容不同。食堂聊天精力 −8，教室通常 −12，来回换地点不重复解锁。同一个人在操场与教室共用原课后次数。</p><div class="receipt">每天都会正常睡觉，每晚自动恢复 6 精力；按日期推进结算，一周共 42。早点睡、吃饭和散步额外恢复，不用为了获得基础睡眠而放弃一天。<br><br>稳步订正 −18，正确积累 +3；集中攻坚 −28，正确 +5；看完讲解也分别 +2、+3，按学习计划另 +1。同周多学不再削减收益。周末图书馆是较轻的复习，不等于工作日集中学习。<br><br>聊天 −12，跑步 −14，看手机 −8；早点休息额外 +36，陪家人吃饭 +10。周末全天活动占两段，同项每周一次。靠近林遥后才开放同行，仍不自动确认恋爱。<br><br>对话点正文、空格或 Enter 继续；短 CG 可以跳过。场景中 1 / 2 / 3 / 4 换地点，J 看手记，P 看安排，Esc 暂停；换地点和查看消息不花时间。<br><br>主界面的“更多玩法”能单独练习三个小游戏，练习不影响剧情存档。</div><p class="modal-note">进度自动保存在当前浏览器。点击音、人物动态可在“更多玩法”或暂停菜单设置；右上角“声”控制环境风声。</p><div class="modal-actions"><button class="secondary-button" id="help-energy">查看精力规则与例子</button><button class="primary-button" id="help-close">知道了</button></div>'});
     $('#help-close',m).onclick=()=>closeModal();$('#help-energy',m).onclick=energyGuide;
   }
-  function toggleSound(){
-    try {
-      if(!audio){
-        const ctx=new (window.AudioContext||window.webkitAudioContext)(),master=ctx.createGain();master.gain.value=0;master.connect(ctx.destination);
-        const buffer=ctx.createBuffer(1,ctx.sampleRate*4,ctx.sampleRate),data=buffer.getChannelData(0);let last=0;
-        for(let i=0;i<data.length;i++){last=(last+Math.random()*.04-.02)*.98;data[i]=last;}
-        const source=ctx.createBufferSource();source.buffer=buffer;source.loop=true;
-        const filter=ctx.createBiquadFilter();filter.type='lowpass';filter.frequency.value=800;source.connect(filter);filter.connect(master);source.start();audio={ctx,master};
-      }
-      soundOn=!soundOn;audio.ctx.resume().catch(()=>{});audio.master.gain.setTargetAtTime(soundOn?.28:0,audio.ctx.currentTime,.5);
-      $('#sound-button').textContent=soundOn?'静':'声';$('#sound-button').setAttribute('aria-label',soundOn?'关闭环境声':'开启环境声');$('#sound-button').title=soundOn?'关闭合成风声':'开启合成风声';toast(soundOn?'窗外的风声，轻轻打开了。':'环境声已关闭。');
-    }catch{toast('这个浏览器暂时不能播放环境声，游戏可以继续。');}
-  }
+  function toggleSound(){window.CampusMusic.toggle();toast(window.CampusMusic.enabled?'背景音乐已轻轻打开。':'背景音乐已关闭。');}
 
   $('#new-game').onclick=()=>{
     if(saved){const m=showModal({kicker:'重新报到',title:'从九月的第一天重来？',body:'<p class="modal-lead">确认主角后会替换当前进度，并在本浏览器保留上一局备份。\n还没选好主角时，可以返回主界面继续原来的生活。</p><div class="modal-actions"><button class="secondary-button" id="cancel-new">再想想</button><button class="primary-button" id="confirm-new">重新走进教室</button></div>'});$('#cancel-new',m).onclick=()=>closeModal();$('#confirm-new',m).onclick=startNew;}else startNew();
