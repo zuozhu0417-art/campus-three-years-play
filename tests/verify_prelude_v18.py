@@ -39,7 +39,7 @@ with sync_playwright() as pw:
    assert p.locator('.prelude-controls>span').inner_text()==str(n+1)+' / 5'
    hit(p,'#prelude-next')
   p.locator('#prelude-next').click();assert not state(p)
-  p.locator('#new-game').click();p.locator('[data-gender='+('male' if i%2==0 else 'female')+']').click();p.locator('#player-name').fill('小禾');p.locator('#identity-confirm').click()
+  p.locator('#new-game').click();p.locator('[data-gender='+('male' if i%2==0 else 'female')+']').click();p.locator('#player-name').fill('小禾');p.locator('#identity-confirm').click();p.locator('#reader-continue').click()
   assert state(p)['warm']==0 and state(p)['seat'] is None
   p.evaluate('async()=>Promise.all([...document.images].map(i=>i.decode().catch(()=>{})))')
   hit(p,'#prelude-next');p.screenshot(path=str(OUT/f'prelude-{width}.jpg'),type='jpeg',quality=88)

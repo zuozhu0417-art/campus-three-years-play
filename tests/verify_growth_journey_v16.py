@@ -18,7 +18,8 @@ KEY='campus-three-years-portraits-v3';errors=[];bad=[];checks=[]
 def state(p):return p.evaluate('(k)=>JSON.parse(localStorage.getItem(k))',KEY)
 def drain(p,choice=None):
     for _ in range(25):
-        if p.locator('#cg-skip').count():p.locator('#cg-skip').click()
+        if p.locator('#reader-continue').count():p.locator('#reader-continue').click()
+        elif p.locator('#cg-skip').count():p.locator('#cg-skip').click()
         elif p.locator('#dialogue-fast').count():
             p.locator('#dialogue-fast').click()
             if p.locator('.novel-choice:visible').count():

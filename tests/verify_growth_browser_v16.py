@@ -18,7 +18,8 @@ KEY='campus-three-years-portraits-v3';errors=[];bad=[];checks=[]
 def state(p):return p.evaluate('(k)=>JSON.parse(localStorage.getItem(k))',KEY)
 def drain(p,choice=None):
     for _ in range(25):
-        if p.locator('#cg-skip').count():p.locator('#cg-skip').click()
+        if p.locator('#reader-continue').count():p.locator('#reader-continue').click()
+        elif p.locator('#cg-skip').count():p.locator('#cg-skip').click()
         elif p.locator('#dialogue-fast').count():
             p.locator('#dialogue-fast').click()
             if p.locator('.novel-choice:visible').count():
@@ -86,7 +87,7 @@ with sync_playwright() as pw:
   q.close()
  # New opening must reach seeded variable plan without a legacy migration.
  p.goto(URL,wait_until='networkidle');p.evaluate('localStorage.clear()');p.reload(wait_until='networkidle');p.locator('#new-game').click()
- p.locator('[data-gender=male]').click();p.locator('#player-name').fill('林川');p.locator('#identity-confirm').click();p.locator('#prelude-skip').click();drain(p,'arrival-help');p.locator('#seat-confirm').click();p.locator('#plan-confirm').click();p.locator('#first-lesson-later').click()
+ p.locator('[data-gender=male]').click();p.locator('#player-name').fill('林川');p.locator('#identity-confirm').click();p.locator('#reader-continue').click();p.locator('#prelude-skip').click();drain(p,'arrival-help');p.locator('#seat-confirm').click();p.locator('#plan-confirm').click();p.locator('#first-lesson-later').click()
  assert state(p)['growth']['origin']=='new' and state(p)['remaining'] in [5,6]
  shot(p,'04-new-campus')
  # Role application and an actual duty transaction.

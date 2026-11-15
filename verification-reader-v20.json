@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "checks": [
+    "Seven illustrated letters at six chapter entries and W23 closing",
+    "Read acknowledgement only: no energy/time/score/relationship reward",
+    "Dismissal persists across reload; old saves receive current chapter only",
+    "Four viewport long-letter layout and reachable continue",
+    "Collapsed opt-in study trial: no state changes or real plan selection",
+    "Archive only contains read letters; replay is read-only"
+  ],
+  "errors": []
+}
