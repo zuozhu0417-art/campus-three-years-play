@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "checks": [
+    "Old save migration / backup; classroom once, self study sequence, event, slow relationship, actual W04 report, reload, variable W05 calendar",
+    "Fresh named male opening uses saved random stats and variable schedule; actual sports committee appointment and duty consumes one slot"
+  ],
+  "errors": []
+}

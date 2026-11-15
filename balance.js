@@ -27,8 +27,8 @@ window.CampusBalance=(()=>{
     const names={'mon-wed':'周一到周三','wed-fri':'周三到周五','fri-sat':'周五到周六','sat-sun':'周六到周日','sun-mon':'周日到下周一'};
     S.rhythm.last={label:names[span]+' · '+nights+' 晚正常睡眠',amount:S.energy-before};return S.energy-before;
   }
-  function afterWeekday(S,index){return index<2?sleep(S,index===0?'mon-wed':'wed-fri',2):0;}
-  function leaveWeekdays(S){let gained=0;for(let i=3-S.remaining;i<3;i++)gained+=afterWeekday(S,i);return gained;}
+  function afterWeekday(S,index){const n=window.CampusGrowth?window.CampusGrowth.total(S):3;let gain=0;if(index===Math.floor((n-1)/2))gain+=sleep(S,'mon-wed',2);if(index===n-1)gain+=sleep(S,'wed-fri',2);return gain;}
+  function leaveWeekdays(S){let gained=0;for(let i=(window.CampusGrowth?window.CampusGrowth.total(S):3)-S.remaining;i<(window.CampusGrowth?window.CampusGrowth.total(S):3);i++)gained+=afterWeekday(S,i);return gained;}
   function migrate(S,version){
     S.rhythm=normalize(S.rhythm);
     if(version<6&&!S.ended&&!S.rhythm.legacyCredit){const before=S.energy;S.energy=clamp(S.energy+18);S.rhythm.legacyCredit=18;S.rhythm.last={label:'旧进度补回基础睡眠 · 本次更新一次',amount:S.energy-before};}

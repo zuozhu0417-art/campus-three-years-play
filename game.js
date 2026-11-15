@@ -12,6 +12,7 @@
   const B=window.CampusBalance;
   const Y1=window.CampusYearOne;
   const CF=window.CampusCanteen;
+  const G=window.CampusGrowth;
   let weekendFilter="全部";
   let activeSpeaker=null;
   const COST={friend:12,girl:12,running:14,inspection:8,'friend-canteen':8,'girl-canteen':8,'pursuer-canteen':8};
@@ -29,18 +30,18 @@
   $$('[data-icon]').forEach(el => el.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[el.dataset.icon]||''}</svg>`);
 
   function initial() {
-    return {version:7,year:Y1.fresh(),rhythm:B.fresh(),weekend:W.initial(1),october:O.initial(),profile:{gender:null,name:'你'},fitness:0,caught:0,cgSeen:[],week:1,place:'classroom',remaining:3,seat:null,plan:null,done:[],
+    return {version:8,growth:G.fresh(),year:Y1.fresh(),rhythm:B.fresh(),weekend:W.initial(1),october:O.initial(),profile:{gender:null,name:'你'},fitness:0,caught:0,cgSeen:[],week:1,place:'classroom',remaining:3,seat:null,plan:null,done:[],
       study:0,friend:0,warm:0,family:0,energy:64,promise:null,promiseKept:false,echoResolved:false,
       taste:null,notePromise:false,noteKept:false,memories:[],diaries:[],ended:false};
   }
   function readSave() {
     try {
       const d = JSON.parse(localStorage.getItem(KEY)||localStorage.getItem('campus-three-years-dynamic-v2')||localStorage.getItem('campus-three-years-chapter1-v1'));
-      if (!d || ![1,2,3,4,5,6,7].includes(d.version) || !Number.isInteger(d.week) || d.week<1 || d.week>C.weeks.length || !C.places[d.place]) return null;
-      if (!Number.isInteger(d.remaining) || d.remaining<0 || d.remaining>3 || !Array.isArray(d.done) || !Array.isArray(d.memories) || !Array.isArray(d.diaries)) return null;
+      if (!d || ![1,2,3,4,5,6,7,8].includes(d.version) || !Number.isInteger(d.week) || d.week<1 || d.week>C.weeks.length || !C.places[d.place]) return null;
+      if (!Number.isInteger(d.remaining) || d.remaining<0 || d.remaining>6 || !Array.isArray(d.done) || !Array.isArray(d.memories) || !Array.isArray(d.diaries)) return null;
       if (!['study','friend','warm','family','energy'].every(k=>Number.isFinite(d[k]))) return null;
       if (d.seat!==null && (!Number.isInteger(d.seat) || d.seat<0 || d.seat>43)) return null;
-      if (d.plan!==null && (!Array.isArray(d.plan) || d.plan.length!==3 || !d.plan.every(k=>categoryName[k]))) return null;
+      if (d.plan!==null && (!Array.isArray(d.plan) || (d.plan.length<3||d.plan.length>6) || !d.plan.every(k=>categoryName[k]))) return null;
       const legacyOctober=d.october&&typeof d.october==='object'?d.october:{};
       d.october={...O.initial(),...legacyOctober};
       if(!['undecided','closer','friends'].includes(d.october.mode))d.october.mode='undecided';
@@ -48,8 +49,8 @@
       if(!legacyOctober.tasteShared)d.october.tasteShared=d.memories.some(x=>typeof x?.text==='string'&&x.text.includes('和他们坐在一起'));
       if(d.week>4&&(!d.october.exam||!Number.isInteger(d.october.exam.rank)||d.october.exam.rank<1||d.october.exam.rank>44||!Number.isInteger(d.october.exam.oldSeat)||d.october.exam.oldSeat<0||d.october.exam.oldSeat>43))return null;
       if(d.version<6&&d.week===4&&d.ended&&!d.october.exam)d.october.exam={rank:Math.max(1,Math.min(44,Math.round(29-d.study*1.15+(d.energy<35?4:d.energy<50?2:0)))),oldSeat:d.seat,energy:d.energy};
-      const oldVersion=d.version;d.energy=Math.max(0,Math.min(100,d.energy));B.migrate(d,oldVersion);
-      d.year=Y1.normalize(d.year,d);d.version=7;d.weekend=W.normalize(d.weekend,d.week);d.profile={gender:['male','female'].includes(d.profile?.gender)?d.profile.gender:null,name:typeof d.profile?.name==='string'?d.profile.name.slice(0,10):'你'};d.fitness=Number.isFinite(d.fitness)?d.fitness:0;d.caught=Number.isFinite(d.caught)?d.caught:0;d.cgSeen=Array.isArray(d.cgSeen)?d.cgSeen:[];return d;
+      const oldVersion=d.version;if(oldVersion<8&&!localStorage.getItem(KEY+'-before-growth-v16'))localStorage.setItem(KEY+'-before-growth-v16',JSON.stringify(d));d.energy=Math.max(0,Math.min(100,d.energy));B.migrate(d,oldVersion);
+      d.year=Y1.normalize(d.year,d);G.ensure(d);d.version=8;d.weekend=W.normalize(d.weekend,d.week);d.profile={gender:['male','female'].includes(d.profile?.gender)?d.profile.gender:null,name:typeof d.profile?.name==='string'?d.profile.name.slice(0,10):'你'};d.fitness=Number.isFinite(d.fitness)?d.fitness:0;d.caught=Number.isFinite(d.caught)?d.caught:0;d.cgSeen=Array.isArray(d.cgSeen)?d.cgSeen:[];return d;
     } catch { return null; }
   }
   function save() {
@@ -104,7 +105,7 @@
   function returnTitle(){clearModals();$('#play-screen').hidden=true;$('#title-screen').hidden=false;$('#game').classList.add('at-title');$('#world').className='world classroom';updateTitle();(saved?$('#continue-game'):$('#new-game')).focus({preventScroll:true});}
   function identitySetup(after,canCancel=false){
     let selected=null;
-    const m=showModal({kicker:'报到之前 · 先认识你',title:'这三年，由谁来度过？',wide:true,closable:false,body:`<p class="modal-note">选择你的主角，再写下名字。两种身份的初始能力相同，也都可以认识同一群人。</p><div class="identity-cards">${['female','male'].map(g=>`<button class="identity-card" data-gender="${g}" aria-pressed="false"><div class="identity-art"><img src="assets/expressions/player-${g}.png" alt="${g==='female'?'女生':'男生'}主角立绘"></div><strong>${g==='female'?'以女生的身份':'以男生的身份'}</strong><span>从同一个九月开始</span></button>`).join('')}</div><label class="identity-name" for="player-name">你的名字 <input id="player-name" maxlength="10" placeholder="可以先不填，故事里会称呼你" autocomplete="off"></label><div class="modal-actions"><button class="primary-button" id="identity-confirm" disabled>选好了，去报到</button></div>`});
+    const m=showModal({kicker:'报到之前 · 先认识你',title:'这三年，由谁来度过？',wide:true,closable:false,body:`<p class="modal-note">选择主角并写下名字。能力起点随机，与性别无关；每种起点都能通过后续投入成长。</p><div class="identity-cards">${['female','male'].map(g=>`<button class="identity-card" data-gender="${g}" aria-pressed="false"><div class="identity-art"><img src="assets/expressions/player-${g}.png" alt="${g==='female'?'女生':'男生'}主角立绘"></div><strong>${g==='female'?'以女生的身份':'以男生的身份'}</strong><span>从同一个九月开始</span></button>`).join('')}</div><div class="receipt">这一局的起点：理解力 ${Math.round(G.ensure(S).aptitude)} / 身体素质 ${Math.round(G.ensure(S).body)} / 人缘 ${Math.round(G.ensure(S).social)}<br>没有不可改变的天赋标签，之后会记录你实际做过的事。</div><label class="identity-name" for="player-name">你的名字 <input id="player-name" maxlength="10" placeholder="可以先不填，故事里会称呼你" autocomplete="off"></label><div class="modal-actions"><button class="primary-button" id="identity-confirm" disabled>选好了，去报到</button></div>`});
     $('.modal',m).classList.add('identity-setup');
     if(canCancel){const back=document.createElement('button');back.id='identity-back';back.className='secondary-button';back.textContent='返回主界面';back.onclick=()=>{S=null;returnTitle();};$('.modal-actions',m).prepend(back);}
     $$('[data-gender]',m).forEach(b=>b.onclick=()=>{selected=b.dataset.gender;$$('[data-gender]',m).forEach(x=>{x.classList.toggle('selected',x===b);x.setAttribute('aria-pressed',String(x===b));});$('#identity-confirm',m).disabled=false;});
@@ -118,7 +119,7 @@
       {id:'arrival.register',who:'narrator',text:`名单上${S.profile.gender==='female'?'女生':'男生'}那一栏，多了一个勾。你把领来的练习册抱在怀里，站到教室门口。`},
       {id:'arrival.teacher',who:'teacher',text:name==='你'?'新同学，先进去找个位子。书包放好了，等会儿领书。':name+'同学，先进去找个位子。书包放好了，等会儿领书。'},
       {id:'arrival.desk',who:'zhaocheng',mood:'smile',text:'哎，同学，这边还有空位。书包先放这儿？'},
-      {id:'arrival.time',who:'narrator',text:'工作日有三段自由时间，周六、周日也能自己安排。每天都会正常睡觉，精力会随日期恢复；答应过的人，仍需要你真正留出时间。先给自己选一个座位吧。'}]},()=>seatPicker(true)));
+      {id:'arrival.time',who:'narrator',text:'每周的空闲会随校园日历变化，周六、周日也能自己安排。每天都会正常睡觉，精力会随日期恢复；答应过的人，仍需要你真正留出时间。先给自己选一个座位吧。'}]},()=>seatPicker(true)));
   }
   function startNew(){clearModals();S=initial();markPlay();render();identitySetup(opening,true);}
   function continueGame(){
@@ -139,16 +140,117 @@
     const m=showModal({kicker:'人物小册 · 表情与短动画',title:'慢慢熟悉他们的样子',wide:true,body:`<div class="actor-grid">${visibleActors.map(a=>`<button class="actor-card" data-actor="${a.id}"><img src="${a.base}" alt="${esc(a.name)}"><strong>${esc(a.role)}</strong><small>${a.id.startsWith('player')?esc(a.role):esc(a.name)} · 看看立绘</small></button>`).join('')}</div><p class="modal-note">林遥与乔穗新增多张表情、手势立绘，食堂剧情会实际切换使用。原有短动态保留；新增立绘目前是静态画面。</p>`});
     $$('[data-actor]',m).forEach(b=>b.onclick=()=>{const a=actors[b.dataset.actor];E.dialogue({title:a.role+' · '+a.name,lines:[{id:'album.'+a.id+'.neutral',who:a.id,mood:'neutral',text:'刚见面的时候，还不知道该说些什么。'},{id:'album.'+a.id+'.smile',who:a.id,mood:'smile',text:'慢慢熟起来，一抬头，就知道是在叫谁。'},...Object.keys(a.poses).filter(k=>['laugh','thoughtful','shy','wave','pause'].includes(k)).map(k=>({id:'album.'+a.id+'.'+k,who:a.id,mood:k,motion:false,text:({laugh:'笑的时候，手里的本子差点拿反。',thoughtful:'等一下，这个我还没有想明白。',shy:'你先别笑。我只是想把话说清楚。',wave:'这里有空位，要不要坐一会儿？',pause:'我慢一点讲。今天不用急着想好开场白。'})[k]})),...(a.poses.blink?[{id:'album.'+a.id+'.blink',who:a.id,mood:'blink',motion:false,text:'有些很短的停顿，也会被记住。'}]:[]),...(a.poses.sad?[{id:'album.'+a.id+'.sad',who:a.id,mood:'sad',motion:false,text:'有的时候，话说到一半，就没有再往下说。'}]:[])]});});
   }
+  function slowGirl(id){
+    const g=G.ensure(S),n=g.contactWeeks.length,w=S.week;
+    const moments=[['她把本子合上','这页我还没写完。你要问哪一道？','只问那一步，给她留出写完的时间','她把等号前的那一行指给你看，随后继续写自己的。'],['借一把尺子','用完放桌边就好，我一会儿还要用。','用完当面归还，不顺手翻她的画本','她点点头，把尺子收进笔袋。'],['值日后还没走','我在等颜料干。你先去忙吧。','问能不能帮忙收工具，等她同意再动','她把需要清洗的笔挑出来，另外两支留在手边。'],['被认出的脚步声','今天你们也拖堂了？我刚准备走。','讲讲课堂上的小插曲，不追问私事','她听到粉笔断成三截，没忍住笑了一下。'],['留了一小张纸','上次你问的那题，我找到另一种写法了。','认真看完，也告诉她自己的想法','你们对了几行步骤。铃响以后，她把纸留在桌上。'],['不再只谈题目','新画还没画完。你想看的话，下周再说。','答应等她愿意展示时再看','她把本子收好，问你周末准备做什么。']];
+    const a=moments[Math.min(n,5)];return {id,title:(id.includes('canteen')?'食堂':'课后')+' · '+a[0],cost:id.includes('canteen')?8:12,category:'friend',effects:{friend:2},lines:[['narrator',n<3?'林遥抬头看了一眼，手里的笔没有放下。':'她认出了你，给书本挪出一点位置。'],['linyao',a[1]],['you',w<10?'我就问一下，不耽误你。':'你现在方便说一会儿吗？']],choices:[{key:'respect',text:a[2],effects:{},flags:{},after:[['narrator',a[3]],['linyao',n<3?'嗯，谢谢。':'下次见。']]},{key:'brief',text:'简单打个招呼，聊几句各自的安排',effects:{},flags:{},after:[['linyao','好，我先把这点事情做完。'],['narrator','你们各自收好东西，没有把一次交谈当成更亲近的承诺。']]}]};
+  }
+  function renderGrowth(){
+    const g=G.ensure(S);let bar=$('#growth-bar');if(!bar){bar=document.createElement('aside');bar.id='growth-bar';$('#play-screen').append(bar);}
+    bar.innerHTML=`<button id="growth-open"><span>我的成长手册</span><strong>理解 ${Math.round(g.aptitude)} · 体能 ${Math.round(g.body)} · 人缘 ${Math.round(g.social)}</strong><small>${esc(g.role)} / ${esc(G.stage(S))} / 压力 ${Math.round(g.stress)}</small></button><button id="school-open">${g.schoolDone.includes('lesson')?'本周课堂已完成':'去上课'}<small>看课表与校园事件</small></button>`;
+    $('#growth-open').onclick=()=>{if(!E.busy&&!screens.length)growthDesk();};$('#school-open').onclick=()=>{if(!E.busy&&!screens.length)growthDesk();};
+  }
+  const campusEvents=[
+    ['临时的值日搭档','分工时有人把最脏的那一排留给了你。','把分工讲清，一起收尾','你把桌椅和垃圾分开列出来。原本闷着的人也接过扫帚。','social',3],
+    ['广播里念错的名字','新来的播音员卡住了，后排有人起哄。','给他递一张写清读音的纸条','下一段顺利念完。他下楼来道谢，说自己手心全是汗。','social',3],
+    ['食堂窗口的零钱','队伍很长，前面的同学发现饭卡没钱了。','陪他问清补卡窗口，不替他许诺借款','他借到临时卡，转头问你平时在哪张桌吃饭。','social',2],
+    ['输掉的接力预赛','最后一棒交接掉了，队友都不说话。','重新试一次交接，看看错在哪里','你们换了起跑位置，第二次接稳了。成绩仍然记着第一次。','body',3],
+    ['画稿被退回来','林遥把没选中的画压在书下面。','问她想说说，还是先安静一会儿','她说想自己改改。第二天见到你时，她主动说已经改了一角。','social',2],
+    ['排名后的沉默','赵程看完榜单，把卷子折了两次。','先听他说最不甘心的那道题','他没让你安慰分数，只把那一步擦掉重新写了。','aptitude',1],
+    ['妈妈发来的排班','周末有半天她要加班，冰箱上留着一张纸。','确认自己能承担的一件家务','你把需要买的东西圈出来。妈妈回了一句：两样就够，别拿不动。','reliable',2],
+    ['第一份班刊','编辑空了一栏，征集大家的普通一天。','写自己真正经历过的一件小事','你的名字排在文章下面，没有奖状。课间有人说他也遇到过。','social',3],
+    ['被借走的练习册','练习册还没回来，晚自习就要开始。','当面说清归还时间，今晚先拿回来','同学把本子递给你，说明只差一题。你们约定下次先问。','reliable',2],
+    ['走廊上的雨','伞架挤在一起，放学的人迟迟没走。','和同学一起把滴水的伞移到门外','路让出来了，你的裤脚也湿了一点。有人借来拖把，没让你一个人收。','social',2],
+    ['跑道边的替补','原本参加跳远的同学脚疼，老师问谁愿意补位。','先试动作，量力参加训练','你没有一下跳得很远，但知道起跳那一步该踩哪里。','body',3],
+    ['一张没交的报名表','两个社团同一天开会，报名表还空着。','选自己更想试的一项，告诉另一边','两边都说收到。没参加的那组照常合了影。','reliable',2],
+    ['午睡时的包装声','阿哲越想轻点拆饼干，塑料袋越响。','收好零食，给午睡的人留安静','放学后三个人才分完那包饼干。碎屑全落在赵程手心。','social',2],
+    ['没来得及说的解释','走廊里有人聊起：答应别人的事临时做不了怎么办？','说清应该提前联系，也要认真听对方的意见','大家没给出万能答案。你说，至少别让等的人一直猜。','reliable',2],
+    ['挤在同一天','学习小组和旧同学的安排撞在一起。','先对日历，只承诺能到场的部分','没有被选的安排照常进行。对方知道不用再等你。','reliable',2],
+    ['第二次发来的时间','上回没碰上的朋友这次提前发了时间。','确认以后，先把自己的安排讲清','对方回了一个收到。谁也没把这句话算成已经见过。','social',2],
+    ['纸上的外地地址','父亲把宿舍地址写在一张旧信封背面。','问清路线，把电话号码存好','电话里的人有了具体住处。那里的站名你还念不熟。','reliable',2],
+    ['成绩不是唯一的话题','晚饭时妈妈先问了排名，你有点不想回答。','也说说这周做过的、还没做好的事','她听完，把原本准备追问的话停住了。饭还没凉。','social',2],
+    ['讲台前的一分钟','试讲时突然卡住，后排有人轻轻提示。','承认卡住，从自己懂的一步重新讲','讲得不快，但最后几个人真的跟上了。','aptitude',2],
+    ['空出来的教室','旧桌子要搬出去，抽屉里还有一张没署名的画。','放进失物袋，不擅自当作别人送的礼物','第二天有人来认领。你把纸角压平再还回去。','reliable',2],
+    ['新班的门牌','你照旧走到老教室门前，里面全是不熟的脸。','和同样走错路的人一起找新班','一路数着门牌，你们终于在铃响前坐下。','social',2],
+    ['晚饭的份数','你多做了一份，妈妈说她已经在单位吃过了。','先分装保存，下次提前问需要多少','她夸的是你愿意商量，没有让你把剩饭硬吃掉。','reliable',2],
+    ['电话里的背景声','父亲回消息慢了，过了一会儿说刚下公交。','问什么时候方便，再说自己想聊的事','他发来晚饭照片，约了一个两边都不赶的时间。','social',2]
+  ];
+  function growthDesk(){
+    const g=G.ensure(S),cal=G.calendar(S),done=g.schoolDone,active=W.active(S)||S.ended;
+    const m=showModal({title:'我的高中生活',kicker:`${C.weeks[S.week-1].name} · ${cal.title}`,wide:true,body:`<div class="growth-layout"><section class="growth-profile"><img src="assets/expressions/player-${S.profile.gender||'male'}.png" alt="主角"><h3>${esc(S.profile.name==='你'?'新同学':S.profile.name)}</h3><p>${esc(g.role)}</p><dl>${[['理解力',g.aptitude],['身体素质',g.body],['人缘',g.social],['压力',g.stress]].map(([k,v])=>`<div><dt>${k}</dt><dd>${Math.round(v)}<meter min="0" max="100" value="${v}"></meter></dd></div>`).join('')}</dl><p class="modal-note">起点各有长处，能力可以练习。理解力影响听课吸收，体能影响自习耐力，人缘帮助承担班级职责。</p><p>与林遥：${G.stage(S)}<br><small>已经在 ${g.contactWeeks.length} 个不同周有过相处。熟悉需要时间，数值不能替别人答应。</small></p></section><section class="growth-main"><div class="growth-tabs"><button id="report-open">全班成绩单</button><button id="role-open">竞选与职责</button></div><h3>这周怎么过</h3><p>${cal.note} 本周 ${g.slots} 段自由安排，还剩 ${S.remaining} 段。</p><div class="school-grid"><button id="lesson-open" ${done.includes('lesson')||active?'disabled':''}><b>课堂 · 听懂一个问题</b><small>${done.includes('lesson')?'已完成，笔记已收好':'必修课内互动 · 不占课余时段 · 精力 −6'}</small></button><button id="study-open" ${S.remaining===0||active?'disabled':''}><b>晚自习 · 自己排复习顺序</b><small>专注科目与学习强度 · 1 段自由时间</small></button><button id="incident-open" ${done.includes('incident')||S.remaining===0||active?'disabled':''}><b>校园里正在发生</b><small>${done.includes('incident')?'本周事件已留下回响':campusEvents[(S.week-1)%campusEvents.length][0]+' · 1 段'}</small></button><button id="training-open" ${S.remaining===0||active?'disabled':''}><b>体能训练 · 挑一种节奏</b><small>慢跑 / 间歇训练 · 1 段</small></button></div><h3>六科掌握度</h3><div class="mastery-grid">${G.subjects.map((x,i)=>`<button data-focus="${i}" aria-pressed="${i===g.focus}"><span>${x}</span><strong>${Math.round(g.mastery[i])}</strong><meter min="0" max="100" value="${g.mastery[i]}"></meter></button>`).join('')}</div><p class="modal-note">点选科目，订正与课堂就围绕它积累。全班成绩由六科累计形成；考试周：W04、08、10、14、18、20、23。每科 150 分，总分 900。分数属于本作的综合教学模型。</p><div class="receipt">${g.reports.length?`最近一次检测：班级第 ${g.reports.at(-1).rank} 名 / 44 人`:'第一次月考在 W04。此前可以安心试试自己的学习方法。'}</div><p class="modal-note">必修课即使不操作也正常上课；亲自完成互动会有额外理解。周末仍能打球、兼职、约朋友和休息。</p></section></div>`});
+    $('#report-open',m).onclick=reportCard;$('#role-open',m).onclick=roles;
+    $$('[data-focus]',m).forEach(b=>b.onclick=()=>{g.focus=Number(b.dataset.focus);save();closeModal(true);growthDesk();});
+    $('#lesson-open',m).onclick=()=>{closeModal(true);lesson();};$('#study-open',m).onclick=()=>{closeModal(true);selfStudy();};$('#incident-open',m).onclick=()=>{closeModal(true);incident();};$('#training-open',m).onclick=()=>{closeModal(true);training();};
+  }
+  const schoolQuestions=[
+    ['读到“他把话咽了回去”，最适合怎样理解人物？',['联系上下文看他为什么停住','直接认定他胆小','只统计这句话字数'],0,'人物表现需要结合当时的处境，不能只贴一个标签。'],
+    ['等差数列首项 3，公差 2，第五项是多少？',['11','13','10'],0,'从第一项到第五项是四个间隔：3 + 4×2 = 11。'],
+    ['She has lived here ___ 2020. 应填？',['for','since','during'],1,'since 接一个起始时间点；for 接持续的时间长度。'],
+    ['匀速直线运动中，物体的合力怎样？',['为零','一定与速度同向','速度越大合力越大'],0,'匀速直线运动加速度为零，因此合力为零。'],
+    ['化学反应前后，封闭体系中什么保持不变？',['所有分子的数目','总质量','各物质的种类'],1,'质量守恒；分子数和物质种类可以变化。'],
+    ['细胞中主要承担遗传信息储存的是？',['DNA','水','葡萄糖'],0,'DNA 储存主要遗传信息，其他物质有不同的作用。']
+  ];
+  const moreQuestions=[
+    [
+      ['概括一段文章，先抓什么？',['核心事件与作者着重表达的意思','只抄第一句话','选最长的句子'],0,'结合整段结构和反复出现的重点概括，不能只看句子长短。'],
+      ['“风把信翻到了最后一页”主要用了什么修辞？',['比喻','拟人','排比'],1,'把风写成会翻信的人，赋予人的动作，是拟人。']
+    ],
+    [
+      ['函数 f(x)=2x+3，f(4) 等于？',['7','11','14'],1,'把 x 换成 4，2×4+3=11。'],
+      ['袋里 3 个红球、2 个白球，随机取一个是红球的概率？',['3/5','2/3','1/3'],0,'共有五个等可能的球，红球三个，概率为 3/5。']
+    ],
+    [
+      ['If it rains tomorrow, we ___ at home.',['stayed','will stay','have stayed'],1,'if 条件从句用一般现在时表示将来，主句用 will stay。'],
+      ['This is the book ___ I borrowed yesterday.',['who','where','that'],2,'先行词是 book，在从句中作 borrowed 的宾语，可用 that。']
+    ],
+    [
+      ['质量 2 kg 的物体，加速度 3 m/s²，合力是多少？',['6 N','1.5 N','5 N'],0,'牛顿第二定律 F=ma，2×3=6 N。'],
+      ['忽略空气阻力，自由下落时哪项随时间增加？',['质量','重力加速度','速度大小'],2,'重力加速度近似不变，速度大小随下落时间增加。']
+    ],
+    [
+      ['pH=2 的水溶液呈什么性？',['酸性','中性','碱性'],0,'常温下 pH 小于 7 呈酸性。'],
+      ['1 mol 氧气与 1 mol 氮气相同的是？',['质量','分子数','每个分子的质量'],1,'相同物质的量对应相同微粒数，摩尔质量可以不同。']
+    ],
+    [
+      ['绿色植物光合作用把什么能转为有机物中的化学能？',['光能','声能','机械能'],0,'光合作用将光能转化并储存在有机物的化学能中。'],
+      ['有丝分裂前 DNA 复制主要发生在哪个阶段？',['间期','末期','后期'],0,'细胞在分裂间期进行 DNA 复制，为后续分裂做准备。']
+    ]
+  ];
+  function lessonQuestion(S){const i=G.ensure(S).focus,n=(S.week-1)%3;return n===0?schoolQuestions[i]:moreQuestions[i][n-1];}
+  function lesson(){
+    const g=G.ensure(S),q=lessonQuestion(S);if(g.schoolDone.includes('lesson'))return;
+    const m=showModal({kicker:`${G.subjects[g.focus]}课 · ${S.week>=21?'新班':'高一（六）班'}`,title:'老师停在了这一步',body:`<div class="lesson-board"><small>本节重点</small><h3>${q[0]}</h3><p>先想一想，再听讲解。不会也可以提问。</p></div><p>老师没有马上往下讲。你可以试着回答，也可以请老师再解释一遍。</p><div class="school-answers">${q[1].map((x,i)=>`<button data-answer="${i}">${x}</button>`).join('')}<button data-answer="review">先听老师拆开讲</button></div><p class="modal-note">本周一次课堂互动，精力 −6；离开不扣除。</p>`});
+    $$('[data-answer]',m).forEach(b=>b.onclick=()=>{if(g.schoolDone.includes('lesson'))return;if(S.energy<6){toast('先休息一下，精力不足 6。');return;}const correct=Number(b.dataset.answer)===q[2],gain=correct?4+Math.floor(g.aptitude/25):3;G.schoolCommit(S,'lesson',{mastery:gain,aptitude:.4,stress:correct?-2:1});S.energy-=6;S.study+=correct?2:1;memory(`你在${G.subjects[g.focus]}课上${correct?'答出了问题':'听完了讲解'}：${q[3]}`,'课堂');save();closeModal(true);render();E.dialogue({title:'黑板上的粉笔还没擦',scene:'classroom',lines:[{who:'teacher',text:correct?'这一步说清楚了，再换一道题也试试。':'先把原因弄懂。答错的那一步，留下来订正就行。'},{who:'narrator',text:`${G.subjects[g.focus]}掌握度 +${gain}。${q[3]}`}]});});
+  }
+  function selfStudy(){
+    const g=G.ensure(S);let selected=[];
+    const m=showModal({kicker:'晚自习 · 教室的灯还亮着',title:'先做什么，后做什么',body:`<p>选两件事排进今晚。先回忆再练习，比一上来对答案更扎实；疲惫时可以留一半时间整理。</p><div class="study-order">${['闭卷回忆知识点','做一组典型题','核对答案找原因','整理明天的问题'].map((x,i)=>`<button data-order="${i}">${x}</button>`).join('')}</div><p id="order-preview">尚未安排</p><label>今晚的科目 <select id="study-subject">${G.subjects.map((x,i)=>`<option value="${i}" ${g.focus===i?'selected':''}>${x}</option>`).join('')}</select></label><div class="modal-actions"><button id="study-steady" disabled>认真复习 · 精力 −16</button><button id="study-intensive" disabled>加练攻坚 · 精力 −25</button></div><p class="modal-note">都占 1 段自由时间。高压力会影响发挥；体能较好时能少一些疲劳。</p>`});
+    $$('[data-order]',m).forEach(b=>b.onclick=()=>{const i=Number(b.dataset.order);if(selected.includes(i))selected=selected.filter(x=>x!==i);else if(selected.length<2)selected.push(i);$$('[data-order]',m).forEach(x=>x.classList.toggle('selected',selected.includes(Number(x.dataset.order))));$('#order-preview',m).textContent=selected.map(i=>['回忆','练题','核对','整理'][i]).join(' → ');$('#study-steady',m).disabled=$('#study-intensive',m).disabled=selected.length!==2;});
+    function commit(intense){const cost=intense?25:16;if(S.energy<cost){toast('精力不足，换一种安排或先休息。');return;}const good=selected[0]===0&&selected[1]===1||selected[0]===1&&selected[1]===2,subject=Number($('#study-subject',m).value),gain=(intense?7:5)+(good?2:0)+Math.floor(g.aptitude/30),id='selfstudy-'+S.done.length;g.focus=subject;const ok=spend(id,'study',{study:intense?5:3,energy:-cost},`你用“${selected.map(i=>['回忆','练题','核对','整理'][i]).join('再')}”复习了${G.subjects[subject]}。`,'', '晚自习', '',()=>{});if(!ok)return;g.mastery[subject]=G.clamp(g.mastery[subject]+gain);g.stress=G.clamp(g.stress+(intense?10:3)-Math.floor(g.body/25));g.records.push({week:S.week,id,subject,gain});save();render();E.dialogue({title:'熄灯前的最后一页',scene:'classroom',lines:[{who:'teacher',text:'把没解决的题标出来，明天再问。别把困着抄完当成学会。'},{who:'narrator',text:`${G.subjects[subject]}掌握度增加 ${gain+2}，学习积累增加 ${intense?5:3}。${good?'这个顺序帮你把原因串了起来。':'今晚整理出的问题，下次仍有用。'}`}]});}
+    $('#study-steady',m).onclick=()=>commit(false);$('#study-intensive',m).onclick=()=>commit(true);
+  }
+  function incident(){
+    const g=G.ensure(S),e=campusEvents[(S.week-1)%campusEvents.length];E.dialogue({title:e[0],scene:S.place,lines:[{who:'narrator',text:e[1]}],choices:[{text:e[2],note:'1 段自由时间 · 精力 −8',value:'join'},{text:'先说明自己的时间，只帮忙一小部分',note:'1 段自由时间 · 精力 −4 · 少一点压力',value:'limited'},{text:'今天有别的安排，先说明',note:'不消耗时间，仍可稍后回来',value:'leave'}]},v=>{if(v==='leave'||g.schoolDone.includes('incident'))return;const cost=v==='limited'?4:8;const after=v==='limited'?'你先说明自己能做的部分，其他人接着分工。事情没有全落在你一个人身上。':e[3];if(S.energy<cost){result('先缓一缓','精力不够，先休息或吃饭再来。');return;}const ok=spend('incident','friend',{energy:-cost,friend:1},after,'',e[0],'',()=>{});if(!ok)return;G.schoolCommit(S,'incident',v==='limited'?{social:1,stress:-2,reliable:1}:{[e[4]]:e[5],reliable:1});save();render();E.dialogue({title:e[0],lines:[{who:'narrator',text:after}]});});
+  }
+  function training(){const g=G.ensure(S);const m=showModal({title:'先找到自己的呼吸',kicker:'体育课后 · 一段训练',body:'<p>慢跑让身体适应节奏，间歇训练提升更多，也需要更多余力。</p><div class="school-answers"><button id="train-light">慢跑与拉伸 · 精力 −10 / 体能 +2 / 压力 −8</button><button id="train-hard">间歇训练 · 精力 −20 / 体能 +4 / 压力 −3</button></div>'});for(const [id,cost,body,stress] of [['light',10,2,-8],['hard',20,4,-3]])$('#train-'+id,m).onclick=()=>{if(S.energy<cost){toast('先恢复一点精力。');return;}if(spend('training-'+S.done.length,'rest',{energy:-cost},'你完成了'+(id==='light'?'慢跑和拉伸。':'一组间歇训练。'),'呼吸慢慢平稳下来，今天先练到这里。','训练结束')){g.body=G.clamp(g.body+body);g.stress=G.clamp(g.stress+stress);save();render();}};}
+  function roles(){
+    const g=G.ensure(S),can=S.week>=3;
+    const m=showModal({kicker:'班级里的一份职责',title:'不是戴上袖章就结束了',body:`<p>班委从第三周开放。能力与实际参与达到条件才能承担；没有当班干部也能完整生活。</p><div class="school-answers">${[['学习委员',g.aptitude>=60&&S.study>=12,'理解力 ≥60，学习积累 ≥12'],['体育委员',g.body>=60,'体能 ≥60'],['班长',g.social>=60&&g.reliable>=3,'人缘 ≥60，实际事务参与 ≥3']].map(([name,ok,note])=>`<button data-role="${name}" ${!can||!ok||g.role!=='普通同学'?'disabled':''}>${name}<small>${note}</small></button>`).join('')}</div><p>当前：${g.role} · 完成职责 ${g.duty} 次</p><button id="role-duty" ${g.role==='普通同学'||g.schoolDone.includes('duty')||S.remaining===0||W.active(S)||S.ended?'disabled':''}>履行本周职责 · 1 段 / 精力 −10</button><p class="modal-note">竞选不会消耗时段；做出职责才有成长。可以不申请，班级事务仍会由别人完成。</p>`});
+    $$('[data-role]',m).forEach(b=>b.onclick=()=>{if(W.active(S)||S.ended)return;g.role=b.dataset.role;memory(`你承担了${g.role}的职责。`,'班级');save();closeModal(true);render();roles();});$('#role-duty',m).onclick=()=>{if(S.energy<10){toast('精力不足。');return;}if(spend('role-duty','friend',{energy:-10,friend:2},`你为${g.role}的本周事务真正留出一段时间。`,'大家把各自负责的事情对清，终于不用临下课再挨个问。','职责完成')){G.schoolCommit(S,'duty',{duty:1,social:2,reliable:1});save();render();}};
+  }
+  function addReportButton(m){if(!G.ensure(S).reports.length)return;const b=document.createElement('button');b.className='secondary-button';b.id='ending-report';b.textContent='查看全班成绩单';b.onclick=reportCard.bind(null,null);$('.modal-actions',m).append(b);}
+  function reportCard(index=null){const g=G.ensure(S);if(!g.reports.length){result('成绩单还没发下来','第一次月考在第四周结束。每科的掌握度、精力和压力都会影响发挥。');return;}const r=g.reports[index===null?g.reports.length-1:index],me=r.rows.find(x=>x.id==='player'),previous=g.reports[g.reports.indexOf(r)-1];const m=showModal({title:r.title,kicker:`第 ${r.week} 周 · 班级学情公示`,wide:true,body:`<div class="report-summary"><strong>${me.total}<small> / 900 分</small></strong><span>班级第 ${me.rank} / 44 名${previous?` · 上次第 ${previous.rank} 名`:''}</span></div><div class="growth-tabs">${g.reports.map((x,i)=>`<button data-report="${i}">W${x.week}</button>`).join('')}</div><p class="modal-note">全班 44 人，六科各 150 分；同分并列排名。姓名和发挥随同一周目保存，刷新不会重新抽成绩。</p><div class="report-scroll"><table><thead><tr><th>排名</th><th>姓名</th>${G.subjects.map(x=>`<th>${x}</th>`).join('')}<th>总分</th></tr></thead><tbody>${r.rows.map(x=>`<tr class="${x.id==='player'?'player-row':''}"><td>${x.rank}</td><th>${esc(x.name)}${x.id==='player'?'（你）':''}</th>${x.scores.map(n=>`<td>${n}</td>`).join('')}<td><b>${x.total}</b></td></tr>`).join('')}</tbody></table></div>`});$$('[data-report]',m).forEach(b=>b.onclick=()=>{closeModal(true);reportCard(Number(b.dataset.report));});}
+
   function render(){
     const p=C.places[S.place],w=C.weeks[S.week-1];
-    S.year=Y1.normalize(S.year,S);
+    S.year=Y1.normalize(S.year,S);G.enter(S);
     E.setPeriod(C.weeks[S.week-1].date.split('月')[0].trim()+'月');
     $('#profile-avatar').hidden=!S.profile.gender;if(S.profile.gender)$('#profile-avatar').src=`assets/expressions/player-${S.profile.gender}.png`;$('#profile-name').textContent=S.profile.name==='你'?(S.week>=21?'高二 · 上学期':`高一 · ${S.week<11?'上学期':'下学期'}`):S.profile.name;
     $('#world').className=`world ${S.place}`;
     $('#world').style.backgroundImage=S.week>=21&&S.place==='classroom'?"url('assets/year-newclass-v15.jpg')":'';$('#game').classList.toggle('at-home',S.place==='home');
-    $('#date-label').textContent=w.date.split('月')[0].trim()+'月 · '+['周一','周三','周五'][Math.min(2,3-S.remaining)];$('#week-label').textContent=`第 ${S.week} / ${C.weeks.length} 个关键周`;
+    $('#date-label').textContent=w.date.split('月')[0].trim()+'月 · '+['周一','周二','周三','周四','周五','周五'][Math.min(5,G.total(S)-S.remaining)];$('#week-label').textContent=`第 ${S.week} / ${C.weeks.length} 个关键周`;
     $('#scene-name').textContent=S.week>=21&&S.place==='classroom'?'高二 · 新教室':p.name;$('#scene-desc').textContent=S.week>4&&S.place==='classroom'?S.week>=21?`新班第 ${Math.floor(S.seat/6)+1} 排 · 课后见旧同学要先问时间。`:`月考后第 ${Math.floor(S.seat/6)+1} 排，书又重新摞了一遍。`:p.desc;
-    $('#time-dots').innerHTML=Array.from({length:3},(_,i)=>`<i class="time-dot ${i>=S.remaining?'spent':''}"></i>`).join('');
+    $('#time-dots').innerHTML=Array.from({length:G.total(S)},(_,i)=>`<i class="time-dot ${i>=S.remaining?'spent':''}"></i>`).join('');
     $('#time-label').textContent=`还剩 ${S.remaining} 段`;
     $('#observation').textContent=S.week===6&&S.place==='home'?(S.october.poster&&S.october.mode==='closer'?'书包侧袋里夹着那只小鸟。纸角被折得整整齐齐。':'你把书包放到椅子上。今天的收据从侧袋里露出来。'):p.observation[S.week-1];
     $('#energy-number').textContent=`${S.energy} / 100`;$('#energy-fill').style.width=S.energy+'%';$('#energy-budget').classList.toggle('low',S.energy<18);$('.energy-track').setAttribute('aria-valuenow',S.energy);$('#energy-hint').textContent=S.energy<18?'先恢复一点余力 · 每晚自动 +6':'每晚自动 +6 · 点此看恢复规则';
@@ -169,8 +271,9 @@
       if(CF.isCanteen(spot.id)){label=spot.id==='girl-canteen'?'林遥 · 食堂':'赵程 · 食堂';const other=CF.classroomId(spot.id);sub=S.done.includes(other)?'教室聊过了，这里还能再聊一次':'食堂独立互动 · 教室另有一次';}
       if(S.week>=7&&!CF.isCanteen(spot.id)){const story=Y1.weekday(S,spot.id);if(story){label=story.title.split(' · ')[0];sub=story.title.split(' · ').slice(1).join(' · ')||'本周新的故事';}}
       if(S.done.includes(spot.id))sub='这周已留过时间';
+      if(spot.id==='inspection'){label='晚自习安排';sub='排复习顺序 · 自选科目与强度';}
       if(spot.id==='notebook')sub=studyCount()?`继续订正 · 第 ${studyCount()+1} 段 · 收益不递减`:'稳步订正 / 集中攻坚';
-      const cost=actionCost(spot.id),gain={rest:36,mom:10,lunch:16}[spot.id];
+      const cost=spot.id==='inspection'?0:actionCost(spot.id),gain={rest:36,mom:10,lunch:16}[spot.id];
       if(cost)sub+=` · 精力 −${cost}`;else if(gain)sub+=` · 精力 +${gain}${spot.id==='lunch'?' / 同桌吃 +8':''}`;
       b.innerHTML=`<span class="hotspot-ring" aria-hidden="true"></span><span class="hotspot-label">${esc(label)}<small>${esc(sub)}</small></span>`;
       b.onclick=()=>interact(spot.id);hotspots.append(b);
@@ -185,6 +288,7 @@
     else if(S.week===4){r.hidden=false;r.innerHTML='<small>黑板右边的新通知</small>这周结束后月考。成绩出来，就要换座位了。';}
     else if(S.week===5){r.hidden=false;r.innerHTML='<small>十月 · 慢慢熟起来</small>换了座位，也可以自己走过去说句话。';}
     else if(S.week===6){r.hidden=false;r.innerHTML='<small>运动会在下周</small>'+ (S.october.sportsPhoto?'已接摄影工作：下周要留出完整一段。':'拍摄、海报、练跑，先问清时间再决定。');}
+    renderGrowth();
     const isWeekend=W.active(S);$('#game').classList.toggle('weekend-active',isWeekend);$('#weekend-screen').hidden=!isWeekend;if(isWeekend)renderWeekend();
     $('#finish-week').classList.toggle('ready',S.remaining===0);
     $('#finish-week').innerHTML=S.weekend.current.finished?'写下这一周 <span aria-hidden="true">→</span>':S.weekend.current.started?'继续这个周末 <span aria-hidden="true">→</span>':'去过周六、周日 <span aria-hidden="true">→</span>';
@@ -193,8 +297,8 @@
   function spend(id,category,effects,entry,text,title='这一小段时间',detail='',presentation=null,flags=null){
     if(S.done.includes(id)||S.remaining<=0){toast('这周能自己安排的时间，已经用完了。');return false;}
     const cost=id.startsWith('notebook')?(effects.energy<0?-effects.energy:B.modes.steady.cost):COST[id]||0;if(S.energy<cost)return false;if(cost)effects.energy=-cost;
-    const index=3-S.remaining,matched=S.plan?.[index]===category;
-    S.remaining--;S.done.push(id);
+    const index=G.total(S)-S.remaining,matched=S.plan?.[index]===category;
+    S.remaining--;S.done.push(id);G.afterAction(S,id,category);
     Object.entries(effects).forEach(([key,value])=>S[key]+=value);
     if(matched){if(category==='study')S.study+=1;if(category==='friend')S.friend+=1;if(category==='rest')S.energy+=3;}
     S.energy=Math.max(0,Math.min(100,S.energy));
@@ -209,10 +313,12 @@
   }
   function interact(id){
     if(screens.length||E.busy||W.active(S))return;activeSpeaker={friend:'zhaocheng',girl:'linyao',mom:'mother',inspection:'teacher',running:'zhaocheng'}[id]||null;
+    if(['girl','girl-canteen'].includes(id)&&G.guarded(S)){if(S.remaining>0&&!S.done.includes(id))yearStory(id);return;}
+    if(id==='inspection'){selfStudy();return;}
     if(id==='seat'){seatPicker(false);return;}
     if(id==='phone'){phone();return;}
     if(id!=='notebook'&&S.done.includes(id)){toast('这周，你已经给这件事留过时间了。还有别的地方可以看看。');return;}
-    if(S.remaining<=0){result('窗外已经暗了','工作日的三段时间已经用完。\n看看消息和手记，然后点右下角，去安排周六和周日。');return;}
+    if(S.remaining<=0){result('窗外已经暗了','本周的自由时段已经用完。\n看看消息和手记，然后点右下角，去安排周六和周日。');return;}
     if(CF.isCanteen(id)||S.week>=7&&['friend','girl','mom','pursuer','zhouyan'].includes(id)){yearStory(id);return;}
     if(!enough(id))return;
     ({notebook:exercise,friend:friend,girl:girl,lunch:lunch,mom:family,rest:rest,running:running,inspection:inspection}[id]||(()=>{}))();
@@ -236,14 +342,14 @@
     }
     describe();$('#seat-confirm',m).onclick=()=>{if(first){S.seat=selection;memory(`你把书包放在第 ${Math.floor(selection/6)+1} 排。`,'开学');save();}closeModal(true);if(first)openPlan(true);};
   }
-  function openPlan(required=false){
+  function openPlan(required=false){G.enter(S);
     if(W.active(S)){weekendOverview();return;}
     if(S.plan){
-      const m=showModal({kicker:'三段能自己安排的时间',title:'你这一周原本想这样过',body:`<div class="plan-preview">${S.plan.map((p,i)=>`<div class="plan-chip"><small>第 ${i+1} 段 ${i<3-S.remaining?'· 已经过了':''}</small>${categoryName[p]}</div>`).join('')}</div><p class="modal-lead">计划写下来了，到了那一刻，仍然由你决定。</p><p class="modal-note">按原计划行动，会有一点额外收获。改变计划也可以，但时间不会多出来。</p><div class="modal-actions"><button class="primary-button" id="plan-done">合上本子</button></div>`});
+      const m=showModal({kicker:'本周能自己安排的时间',title:'你这一周原本想这样过',body:`<div class="plan-preview">${S.plan.map((p,i)=>`<div class="plan-chip"><small>第 ${i+1} 段 ${i<G.total(S)-S.remaining?'· 已经过了':''}</small>${categoryName[p]}</div>`).join('')}</div><p class="modal-lead">计划写下来了，到了那一刻，仍然由你决定。</p><p class="modal-note">按原计划行动，会有一点额外收获。改变计划也可以，但时间不会多出来。</p><div class="modal-actions"><button class="primary-button" id="plan-done">合上本子</button></div>`});
       $('#plan-done',m).onclick=()=>closeModal();return;
     }
-    const m=showModal({kicker:C.weeks[S.week-1].name,title:'这一周，把时间留给什么？',closable:!required,body:`<p class="modal-lead">上课、吃饭、通勤，占去了大半日子。\n剩下的三段时间，你想先留给谁？</p><div class="plan-rows">${['周一放学后','周三放学后','周五放学后'].map((x,i)=>`<div class="plan-row"><label for="slot-${i}">${x}</label><select id="slot-${i}">${Object.entries(categoryName).map(([key,label])=>`<option value="${key}" ${['study','friend','rest'][i]===key?'selected':''}>${label}</option>`).join('')}</select></div>`).join('')}</div><p class="modal-note">只是先写下打算。实际去做，才会改变这一周。前往不同地点不花时间。工作日结束后，周六、周日各有两段独立安排。</p><div class="modal-actions"><button class="primary-button" id="plan-confirm">写好了，去看看他们</button></div>`});
-    $('#plan-confirm',m).onclick=()=>{S.plan=[0,1,2].map(i=>$(`#slot-${i}`,m).value);save();closeModal(true);render();toast('先点点桌上的错题本，或找同桌说句话。');};
+    const m=showModal({kicker:C.weeks[S.week-1].name,title:'这一周，把时间留给什么？',closable:!required,body:`<p class="modal-lead">上课、吃饭、通勤，占去了大半日子。\n这一周有 ${G.total(S)} 段自由安排，另有一堂可参与的课堂。你想怎样过？</p><div class="plan-rows">${Array.from({length:G.total(S)},(_,i)=>['周一课后','周二课后','周三课后','周四课后','周五课后','周五社团时段'][i]).map((x,i)=>`<div class="plan-row"><label for="slot-${i}">${x}</label><select id="slot-${i}">${Object.entries(categoryName).map(([key,label])=>`<option value="${key}" ${['study','friend','rest'][i%3]===key?'selected':''}>${label}</option>`).join('')}</select></div>`).join('')}</div><p class="modal-note">只是先写下打算。实际去做，才会改变这一周。前往不同地点不花时间。工作日结束后，周六、周日各有两段独立安排。</p><div class="modal-actions"><button class="primary-button" id="plan-confirm">写好了，去看看他们</button></div>`});
+    $('#plan-confirm',m).onclick=()=>{S.plan=Array.from({length:G.total(S)},(_,i)=>i).map(i=>$(`#slot-${i}`,m).value);save();closeModal(true);render();growthDesk();};
   }
   const EXTRA=[
     {title:'再做一页 · 先把分配律写全',question:'展开：2(3x + 4)',steps:['2 × 3x + 2 × 4','6x + 4','6x + 4'],wrong:1,solution:'每一项都要乘 2，结果是 6x + 8。',hint:'一页写完，窗外又暗了一点。'},
@@ -388,11 +494,16 @@
   }
   function weekIntro(){
     const w=C.weeks[S.week-1];
-    const m=showModal({kicker:w.date,title:w.name,closable:false,body:`<p class="modal-lead">${esc(w.intro)}</p><div class="modal-actions"><button class="primary-button" id="week-start">翻开这一周</button></div>`});
+    const m=showModal({kicker:w.date,title:w.name,closable:false,body:`<p class="modal-lead">${esc(w.intro)}</p><div class="receipt">${esc(G.calendar(S).title)} · 本周 ${G.total(S)} 段自由安排。${G.ensure(S).reports.at(-1)?.week===S.week-1?'刚发下的成绩单：班级第 '+G.ensure(S).reports.at(-1).rank+' 名。可在成长手册查看全班六科成绩。':''}</div><div class="modal-actions"><button class="primary-button" id="week-start">翻开这一周</button></div>`});
     $('#week-start',m).onclick=()=>{closeModal(true);openPlan(true);};
+  }
+  function examMoment(){
+    const g=G.ensure(S);const m=showModal({title:'试卷发下来之前',kicker:'阶段考试 · 考前十分钟',closable:false,body:'<p>教室比平时安静。有人还在翻书，有人已经把笔排好。你想怎样用最后这十分钟？</p><div class="school-answers"><button data-exam="calm">收好书，呼吸放缓 · 压力 −8</button><button data-exam="review">只看最不熟的一处 · 当前科目掌握 +2，压力 +3</button><button data-exam="plan">先规划答题顺序 · 压力 −3，理解力 +0.3</button></div><p class="modal-note">属于考试本身，不占课余时间。只结算一次，最终分数仍由整个阶段的积累决定。</p>'});
+    $$('[data-exam]',m).forEach(b=>b.onclick=()=>{const v=b.dataset.exam;if(!G.schoolCommit(S,'examPrep',v==='calm'?{stress:-8}:v==='review'?{mastery:2,stress:3}:{stress:-3,aptitude:.3}))return;memory('考前十分钟，你选择了'+({calm:'让呼吸慢下来。',review:'只复习一处不熟的知识点。',plan:'规划答题顺序。'})[v],'考试');save();closeModal(true);finishWeek();});
   }
   function finishWeek(){
     if(screens.length||E.busy)return;
+    if(G.examWeek(S.week)&&!G.ensure(S).schoolDone.includes('examPrep')){examMoment();return;}
     if(W.active(S)){finishWeekendDay();return;}
     if(S.weekend.current.finished){diary();return;}
     activeSpeaker=null;if(S.remaining>0){
@@ -405,7 +516,7 @@
     const text=entries.length?entries.slice(-4).map(x=>x.text).join('\n'):'这周没安排什么特别的事。日子也照样过去了。';
     const m=showModal({kicker:`${w.date}这一周 · 周日晚上`,title:'这一页，先写到这里',closable:false,body:`<p class="handwritten">${esc(text)}</p><div class="receipt">${esc(w.diary)}</div><p class="recovery-note">收好手记，经过一晚正常睡眠，到下周一再恢复最多 6 精力。不需要额外选择休息。</p><div class="modal-actions"><button class="primary-button" id="next-week">${S.week===4?'收起手记，去考试':S.week===20?'收好高一的最后一页':'翻到下一周'}</button></div>`});
     $('#next-week',m).onclick=()=>{
-      const previousWeek=S.week,notes=Y1.settle(S);notes.forEach(x=>memory(x,'学年回响'));
+      const previousWeek=S.week,notes=Y1.settle(S);G.settle(S);notes.forEach(x=>memory(x,'学年回响'));
       B.sleep(S,'sun-mon',1);S.diaries=S.diaries.filter(x=>x.week!==S.week);S.diaries.push({week:S.week,text});closeModal(true);
       if(S.week===4||S.week===20||S.week===C.weeks.length){if(S.week===4)S.october.exam={rank:rank(),oldSeat:S.seat,energy:S.energy};S.ended=true;save();render();showEnding();return;}
       S.week++;S.weekend.current=W.fresh(S.week);S.remaining=3;S.plan=null;S.done=[];S.place='classroom';save();render();
@@ -523,13 +634,14 @@
     const m=showModal({kicker:'第二章 · 运动会前的旧存档',title:sweet&&items.length?'下课以后，可以再坐一会儿':'十月，也慢慢有了熟悉的日常',wide:true,closable:false,body:`<div class="photo-strip">${moments}</div><p class="modal-lead">${sweet&&S.october.poster?'书包里那张小鸟没有名字。你还是知道该还给谁。':S.october.seatBreak?'你走到过道那边，已经不用先想一句开场白。':'这一周结束，你合上练习册，准备回家。'}</p><div class="receipt">${S.october.sportsPhoto?'已接下下周运动会摄影，后续需要真正留出一整段时间。':'没有接下运动会摄影工作。之后可以继续选择自己的安排。'}</div><p class="modal-note">高一后续已经开放，可以继续到第二十个关键周。你和林遥${sweet?'正在慢慢靠近，还没有确认恋爱':'仍是同学或朋友'}。运动会当天将接回已答应的摄影工作，之后有期末、寒假和整个高一下学期。</p><div class="modal-actions">${!S.weekend.current.started?'<button class="primary-button" id="oct-weekend">补完这个周末 · 保留六周进度</button>':'<button class="primary-button" id="year-continue">继续高一 · 从运动会当天开始 →</button>'}<button class="secondary-button" id="oct-journal">看看这段时间的手记</button><button class="secondary-button" id="oct-gallery">重看新 CG</button><button class="secondary-button" id="oct-export">导出进度</button><button class="primary-button" id="oct-title">先把书包放好</button></div>`});
     if($('#year-continue',m))$('#year-continue',m).onclick=enterYear;
     if($('#oct-weekend',m))$('#oct-weekend',m).onclick=()=>{try{localStorage.setItem(KEY+'-before-weekend-v11',JSON.stringify(S));}catch{}clearModals();S.ended=false;beginWeekend();};
-    $('.modal',m).classList.add('ending');$('#oct-journal',m).onclick=journal;$('#oct-gallery',m).onclick=cgGallery;$('#oct-export',m).onclick=exportSave;
+    addReportButton(m);$('.modal',m).classList.add('ending');$('#oct-journal',m).onclick=journal;$('#oct-gallery',m).onclick=cgGallery;$('#oct-export',m).onclick=exportSave;
     $('#oct-title',m).onclick=returnTitle;
   }
 
   function yearStory(id){
-    const raw=CF.isCanteen(id)?CF.scene(S,id):id==='pursuer'?Y1.bonus(S):Y1.weekday(S,id),event=CF.isCanteen(id)?raw:CF.decorate(S,raw);if(!event)return;
+    const raw=['girl','girl-canteen'].includes(id)&&G.guarded(S)?slowGirl(id):CF.isCanteen(id)?CF.scene(S,id):id==='pursuer'?Y1.bonus(S):Y1.weekday(S,id),event=CF.isCanteen(id)?raw:CF.decorate(S,raw);if(!event)return;
     if(S.energy<event.cost){result('先留一点余力',`这一段需要 ${event.cost} 点精力。可以吃饭、休息，或换一个安排。`);return;}
+    if(id==='girl'&&!G.guarded(S)&&S.october.mode==='undecided')event.choices.push({key:'closer-v16',text:'告诉她：想慢慢多了解你，先继续相处',effects:{},flags:{},route:'closer',after:[['linyao','我也想再了解你一点。但我们慢慢来，好吗？'],['narrator','你们没有马上给关系下结论。下一次见面，仍需要先问时间。']]});
     const choices=event.choices.map(c=>({id:'year-choice-'+c.key,text:c.text,note:Y1.available(S,event,c)||`一段工作日时间 · 精力 ${event.cost?'−'+event.cost:'+10'}${c.money?' · 零用钱 '+c.money+' 元':''}${c.repay?' · 原额还款 +'+c.repay+' 元':''}`,value:c.key}));
     choices.push({id:'year-leave',text:'先不安排，回去看看',note:'不消耗时间、精力和钱',value:'leave'});
     const scene=S.week>=21&&S.place==='classroom'?'year-newclass-v15':CF.isCanteen(id)?'canteen':id==='mom'?'home':id==='pursuer'?'year-visitor':S.week===7||id==='girl'&&[10,14,20].includes(S.week)?'track':S.place;
@@ -559,9 +671,9 @@
   function showYearEnding(){
     const rows=Y1.recap(S),exams=S.year.exams;
     const m=showModal({kicker:'高一 · 二十个关键周之后',title:'下一间教室见',wide:true,closable:false,body:`<div class="photo-strip"><div class="polaroid"><img src="assets/year-summer.jpg" alt="高一最后一天的空教室"><p>把高一收进书包</p></div></div><div class="year-recap">${rows.map(x=>`<p>${esc(x)}</p>`).join('')}</div><div class="receipt">${exams.map(x=>`${x.week===10?'高一上':'高一下'}期末：第 ${x.rank}/44`).join(' · ')}<br>排名按对应学段的学习积累和精力记录。它影响座位，不替你决定三年的价值。</div><p class="handwritten">分班名单还没贴出来。<br>暑假有消息，可以自己先发一句。</p><p class="modal-note">可以接着进入高二开篇 W21—W23。保留现有存档、借款、约定和关系边界；林遥搬家、关系确认与之后的人生结局尚未制作。</p><div class="modal-actions"><button class="primary-button" id="second-year-continue">继续高二 · 看分班名单</button><button class="secondary-button" id="year-journal">翻看这一年的手记</button><button class="secondary-button" id="year-gallery">重看走过的画面</button><button class="secondary-button" id="year-export">导出高一进度</button><button class="secondary-button" id="year-title">回到主界面</button></div>`});
-    $('#second-year-continue',m).onclick=enterSecondYear;$('#year-journal',m).onclick=journal;$('#year-gallery',m).onclick=cgGallery;$('#year-export',m).onclick=exportSave;$('#year-title',m).onclick=returnTitle;
+    addReportButton(m);$('#second-year-continue',m).onclick=enterSecondYear;$('#year-journal',m).onclick=journal;$('#year-gallery',m).onclick=cgGallery;$('#year-export',m).onclick=exportSave;$('#year-title',m).onclick=returnTitle;
   }
-  function rank(){return S.week===4&&S.ended&&S.october.exam?S.october.exam.rank:B.rank(S.study,S.energy);}
+  function rank(){if(G.ensure(S).reports.some(x=>x.week===S.week))return G.ensure(S).reports.find(x=>x.week===S.week).rank;return S.week===4&&S.ended&&S.october.exam?S.october.exam.rank:B.rank(S.study,S.energy);}
   function enterSecondYear(){
     if(S.week!==20||!S.ended)return;
     try{if(!localStorage.getItem(KEY+'-before-year-v15'))localStorage.setItem(KEY+'-before-year-v15',JSON.stringify(S));}catch{}
@@ -572,7 +684,7 @@
   function showSecondYearEnding(){
     const f=S.year.flags;
     const m=showModal({kicker:'高二开篇 · W21—W23',title:'电话挂断以后',closable:false,body:`<p class="handwritten">${f.fatherCall23?(f.callTopic23==='school'?'挂电话前，父亲又问了一遍你没讲完的那道题。你说，下回把本子拿近一点。':'你把刚记下的站名放在电话旁。下次问路，不用再从头拼那个字。'):'父亲发来晚饭的照片。没接通的那段话，留到下次再问时间。'}</p><div class="year-recap"><p>${f.zhouMet?'你认识了新同桌周砚。方法可以不同，本子要按时归还。':'新同桌仍有自己的学习安排。还没聊过的，不补成共同经历。'}</p><p>${f.dinner22?'那顿晚饭按实际需要准备了份数。':'妈妈继续按排班工作，没安排过的晚饭不记成已经做过。'}</p><p>林遥仍是${Y1.sweet(S)?'正在靠近的朋友，双方尚未确认恋爱':'同学或朋友'}。旧同学在隔壁班，见面要重新对时间。</p></div><p class="modal-note">本版可玩到 W23。W24 告知搬家、W25 搬走、W26 双方确认关系和三年结局尚未制作。存档已保留，后续从这里继续。</p><div class="modal-actions"><button class="primary-button" id="second-journal">翻看手记</button><button class="secondary-button" id="second-export">导出进度</button><button class="secondary-button" id="second-title">回到主界面</button></div>`});
-    $('#second-journal',m).onclick=journal;$('#second-export',m).onclick=exportSave;$('#second-title',m).onclick=returnTitle;
+    addReportButton(m);$('#second-journal',m).onclick=journal;$('#second-export',m).onclick=exportSave;$('#second-title',m).onclick=returnTitle;
   }
   function showEnding(){
     if(S.week>=21){showSecondYearEnding();return;}
@@ -586,7 +698,7 @@
     else if(S.warm>=7){title='她记得你坐在哪里';line='教室重新排了座位。林遥还笔记的时候，绕了半间教室，还是走到了你桌边。';}
     const cost=S.study<5?'这一个月，你给学习留的时间不多。卷子上还有几处不会。':S.friend<3?'你把不少时间留给了题目。赵程说的几个笑话，你后来才听别人讲。':S.family<3?'你在学校里认识了更多人。回家之后，却没怎么坐下来讲给妈妈听。':'你给几件在意的事留了时间，也还是有没做完的题。';
     const m=showModal({kicker:'第一章试玩 · 九月的最后一天',title,wide:true,closable:false,body:`<div class="photo-strip"><div class="polaroid"><img src="assets/classroom.jpg" alt="九月的教室"><p>${S.promiseKept?'一起留下的放学后':'你坐过的教室'}</p></div><div class="polaroid"><img src="assets/canteen.jpg" alt="食堂里的餐盘"><p>${S.taste?`记得你${esc(S.taste)}`:'午间的食堂'}</p></div><div class="polaroid"><img src="assets/home.jpg" alt="家里的灯"><p>${S.family>0?'门外那碗热饭':'台灯亮着的晚上'}</p></div></div><p class="modal-lead">${esc(line)}</p><div class="stat-line"><span>第一次月考 · 班级排名</span><strong class="exam-number">${r}<small>/ 44</small></strong></div><p class="modal-note">原来坐在第 ${oldRow} 排，月考后按成绩安排在第 ${row} 排。${S.energy<35?'这次精力不足，也影响了发挥。':'卷子上，有你这一个月留下的痕迹。'}</p><div class="receipt">${esc(cost)}</div><p class="handwritten">窗外的树还绿着。\n十月快到了。</p><p class="modal-note">九月先写到这里。现在可以接着进入十月，原来的约定、口味和月考结果都会保留。</p><div class="modal-actions"><button class="secondary-button" id="end-journal">翻看这一个月的手记</button><button class="secondary-button" id="end-seat">看看新座位</button><button class="secondary-button" id="end-export">导出进度</button><button class="secondary-button" id="end-title">回到标题</button><button class="primary-button" id="end-october">接着过十月 →</button></div>`});
-    $('.modal',m).classList.add('ending');$('#end-october',m).onclick=enterOctober;$('#end-seat',m).onclick=seatAfterExam;$('#end-journal',m).onclick=journal;$('#end-export',m).onclick=exportSave;$('#end-title',m).onclick=returnTitle;
+    addReportButton(m);$('.modal',m).classList.add('ending');$('#end-october',m).onclick=enterOctober;$('#end-seat',m).onclick=seatAfterExam;$('#end-journal',m).onclick=journal;$('#end-export',m).onclick=exportSave;$('#end-title',m).onclick=returnTitle;
   }
   function seatAfterExam(){
     const position=rank()-1;

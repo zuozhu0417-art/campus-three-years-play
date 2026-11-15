@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checks": [
+    "Four viewport center-hit tests for both new and original controls",
+    "Evening study directly reachable from classroom",
+    "Leave consumes nothing; limited participation consumes one real slot",
+    "Low-energy lesson and self-study cannot award points or consume time"
+  ],
+  "errors": []
+}

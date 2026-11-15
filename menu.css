@@ -10,7 +10,7 @@
 .year-visitor-button{position:absolute;left:50%;bottom:15%;transform:translateX(-50%);max-width:88%;padding:12px 18px;border:1px solid #c5ad80;border-radius:8px;color:#493f32;background:#fff7e9ef;box-shadow:0 5px 20px #332c291c;font:inherit;cursor:pointer}.year-visitor-button:disabled{opacity:.6}.year-visitor-button:focus-visible{outline:3px solid #476953;outline-offset:3px}.year-recap{max-width:680px;margin:auto}.year-recap p{line-height:1.85;padding:9px 0;border-bottom:1px solid #736c5c20}@media(max-height:450px){.year-visitor-button{bottom:5%;padding:7px 12px}}
 @media(max-width:600px){.year-visitor-button{position:static;grid-column:1/-1;order:-1;transform:none;max-width:none;width:100%}}
 /* Short phone screens keep the calendar controls visible; scene choices scroll. */
-@media(max-width:900px) and (max-height:700px){
+@media(max-width:600px), (max-width:900px) and (max-height:700px){
   #game:not(.at-title):not(.weekend-active){height:100dvh;min-height:0}
   #game:not(.at-title):not(.weekend-active) .play-screen{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto minmax(0,1fr) auto auto;gap:6px;padding:8px 10px max(8px,env(safe-area-inset-bottom));height:100%;box-sizing:border-box}
   #game:not(.at-title):not(.weekend-active) .topbar{position:static;grid-column:1/-1;padding:0;min-height:48px;gap:6px}
