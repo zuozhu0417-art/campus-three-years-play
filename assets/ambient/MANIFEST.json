@@ -1,0 +1,53 @@
+{
+  "version": 22,
+  "provider": "豆包桌面端",
+  "model": "Seedance 2.0 Fast",
+  "files": [
+    {
+      "file": "assets/ambient/classroom-study.mp4",
+      "scene": "教室自习",
+      "source": "教室_豆包Seedance_五秒原片.mp4",
+      "duration": 5.04,
+      "width": 1280,
+      "height": 720,
+      "fps": 24.0,
+      "bytes": 1130042,
+      "sha256": "61241c3354df922bc017246684c25ad3c7f3813df065e5905c8472d5012981d2",
+      "audio": false
+    },
+    {
+      "file": "assets/ambient/classroom-lesson.mp4",
+      "scene": "教室讲课",
+      "source": "classroom-lesson-5s-original.mp4",
+      "duration": 5.04,
+      "width": 1280,
+      "height": 720,
+      "fps": 24.0,
+      "bytes": 1027652,
+      "sha256": "5d69fd6df68d150c45d94928d4b6c87e7afb08cf2ee8cbec54867e6a86ff29b7",
+      "audio": false
+    },
+    {
+      "file": "assets/ambient/canteen-lunch.mp4",
+      "scene": "食堂午饭",
+      "source": "canteen-lunch-original.mp4",
+      "duration": 5.0,
+      "width": 1280,
+      "height": 720,
+      "fps": 24.0,
+      "bytes": 1081492,
+      "sha256": "8e1b69d8f3ec37e0446625d0ad2c422bd6ac92a838bc19c805f7f0f06fc4148c",
+      "audio": false
+    }
+  ],
+  "pending": [
+    "操场跑步",
+    "高二新教室动态"
+  ],
+  "limitations": [
+    "非严格无缝循环",
+    "食堂有轻微镜头漂移，使用前5秒",
+    "食堂远景盛菜动作较小"
+  ],
+  "generation_block": "豆包免费体验套餐不可用于创作；OpenArt Free credits=0"
+}

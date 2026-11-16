@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "errors": [],
+  "checks": [
+    "actual video playback",
+    "classroom lesson variant",
+    "dialogue video",
+    "motion toggle",
+    "static fallback",
+    "reduced motion no download",
+    "home pause",
+    "year-two layout preserved",
+    "three mobile viewports",
+    "save unchanged by lesson preview"
+  ]
+}

@@ -8,7 +8,7 @@ window.CampusExperience = (() => {
   const history=[];
   const characters=window.CampusCharacters;
   let motionOn=(()=>{try{const pref=localStorage.getItem('campus-motion-v3');return pref===null?!matchMedia('(prefers-reduced-motion: reduce)').matches:pref==='on';}catch{return false;}})();
-  function setMotion(value){motionOn=Boolean(value);try{localStorage.setItem('campus-motion-v3',motionOn?'on':'off');}catch{}current?.refreshMotion?.();}
+  function setMotion(value){motionOn=Boolean(value);try{localStorage.setItem('campus-motion-v3',motionOn?'on':'off');}catch{}current?.refreshMotion?.();document.dispatchEvent(new Event('campus-motion-change'));}
   function mount(kind,html,done){
     if(current)throw Error('An experience is already open');
     const previous=document.activeElement,el=document.createElement('section');
@@ -45,6 +45,7 @@ window.CampusExperience = (() => {
     let index=0,full='',count=0,timer,logOpen=false,lastPortrait=null,lastMood='neutral',motionTimer,mediaToken=0;
     const s=mount('novel',`<div class="novel-vignette"></div><img class="novel-character character-still" alt=""><video class="novel-character motion-video" hidden muted playsinline preload="none" aria-hidden="true"></video><div class="novel-caption">${escape(title)}</div><div class="novel-toolbar"><button id="dialogue-motion">人物动态</button><button id="dialogue-log">回看对话</button><button id="dialogue-fast">读完本段</button></div><div class="dialogue-box"><div class="dialogue-identity"><div class="speaker-avatar"></div><strong id="speaker-name"></strong><small id="line-counter"></small></div><div id="dialogue-text" class="dialogue-text" aria-live="polite"></div><div class="dialogue-foot"><span>${escape(detail||'点击正文 / 空格 / Enter 继续')}</span><button id="dialogue-next">继续 <span>▾</span></button></div><div id="dialogue-choices" class="dialogue-choices" hidden></div></div><div class="dialogue-log" hidden><h2>刚才说过的话</h2><div class="log-lines"></div><button id="log-close" class="primary-button">回到对话</button></div>`,done);
     if(scene&&/^[a-z0-9-]+$/.test(scene))s.el.style.background=`url("assets/${scene}.jpg") center / cover`;
+    if(['classroom','canteen','track'].includes(scene))s.el.dataset.ambientPlace=scene;
     const $=q=>s.el.querySelector(q);
     function renderActor(){
       clearTimeout(motionTimer);mediaToken++;const token=mediaToken,video=$('.motion-video'),image=$('.character-still');
