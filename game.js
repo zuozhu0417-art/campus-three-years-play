@@ -158,10 +158,14 @@
   function opening(){readerLetter('start',()=>prelude(firstDayStory));}
   function firstDayStory(){
     const name=S.profile.name;
-    E.dialogue({title:'九月一日 · 还没写名字的课本',scene:'classroom',lines:[
+    E.dialogue({title:'九月一日 · 还没写名字的课本',scene:'home',lines:[
+      {id:'arrival.night',who:'narrator',text:'报到前一晚，书包已经收好，你还是把拉链又打开了一次。笔、空本子、录取通知书，都在。'},
+      {id:'arrival.name',who:'narrator',text:'桌上的闹钟调早了二十分钟。你想了想，把准备写在新本子上的名字，留到了明天。'},
+      {id:'arrival.campus',who:'narrator',scene:'track',text:'第二天，穿过操场边的小路时，教学楼里传来试话筒的声音。新的班级在二楼，窗户都开着。'},
+      {id:'arrival.pause',who:'narrator',text:'妈妈替你理了一下书包带。到这里，原本一路说不完的叮嘱，忽然只剩下一句。'},
       {id:'arrival.mother',who:'mother',mood:'smile',text:(name==='你'?'':name+'，')+'饭卡放外面的袋子了。别光顾着找教室，中午记得吃饭。'},
       {id:'arrival.player',who:'you',text:'知道啦。你回去吧，门口这条路我记住了。'},
-      {id:'arrival.register',who:'narrator',text:'校门口有人抱着被褥，有人反复对着分班表找名字。你领到一摞新书，还没走到教室，最上面的课程表就滑了下去。'},
+      {id:'arrival.register',who:'narrator',scene:'classroom',text:'领完新书，你循着门牌找到六班。还没把怀里的一摞书放下，最上面的课程表就滑了下去。'},
       {id:'arrival.desk',who:'zhaocheng',mood:'smile',text:'同学，你的。差一点就让风分去隔壁班了。'},
       {id:'arrival.books',who:'narrator',text:'他把课程表压回书上，自己怀里的练习册却歪了。封面露出一行刚写的字：赵程，高一（六）班。'}
     ],choices:[{id:'arrival-help',text:'腾出一只手，帮他托住书',note:'先从一起把书搬进去开始',value:'help'},{id:'arrival-joke',text:'“巧了，我也差一点走去隔壁。”',note:'和他一起核对门牌',value:'joke'}]},choice=>{

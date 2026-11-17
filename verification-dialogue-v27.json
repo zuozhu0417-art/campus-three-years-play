@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "checks": [
+    "Four viewports: image-led narration, B actor bubble and independent mint replies",
+    "Story advances only on click; scene inherited until an authored change",
+    "Narration hides actors; spoken line restores correct actor",
+    "Log traps focus across separate choices; Escape restores choice focus",
+    "Long prose/three replies reachable on 844x390 and 320x568; no horizontal overflow",
+    "False and zero values preserved; preview does not write game saves",
+    "Actual opening: home/campus/classroom scene sequence, same branch IDs, planning and reload",
+    "Normal motion: first click reveals, second advances; 550ms scene dissolve",
+    "Ambient classroom video pauses on home scene; invalid scene paths ignored",
+    "Double completion is guarded; timers and scene animation cleaned up"
+  ],
+  "errors": []
+}

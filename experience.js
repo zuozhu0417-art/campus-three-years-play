@@ -42,11 +42,21 @@ window.CampusExperience = (() => {
   document.addEventListener('visibilitychange',()=>{if(document.hidden)current?.pause?.();});
   function dialogue({lines,choices=[],title='',detail='',scene=null},done){
     lines=lines.map((line,i)=>characters.enrich(line,i));
-    let index=0,full='',count=0,timer,logOpen=false,lastPortrait=null,lastMood='neutral',motionTimer,mediaToken=0;
-    const s=mount('novel',`<div class="novel-vignette"></div><img class="novel-character character-still" alt=""><video class="novel-character motion-video" hidden muted playsinline preload="none" aria-hidden="true"></video><div class="novel-caption">${escape(title)}</div><div class="novel-toolbar"><button id="dialogue-motion">人物动态</button><button id="dialogue-log">回看对话</button><button id="dialogue-fast">读完本段</button></div><div class="dialogue-box"><div class="dialogue-identity"><div class="speaker-avatar"></div><strong id="speaker-name"></strong><small id="line-counter"></small></div><div id="dialogue-text" class="dialogue-text" aria-live="polite"></div><div class="dialogue-foot"><span>${escape(detail||'点击正文 / 空格 / Enter 继续')}</span><button id="dialogue-next">继续 <span>▾</span></button></div><div id="dialogue-choices" class="dialogue-choices" hidden></div></div><div class="dialogue-log" hidden><h2>刚才说过的话</h2><div class="log-lines"></div><button id="log-close" class="primary-button">回到对话</button></div>`,done);
-    if(scene&&/^[a-z0-9-]+$/.test(scene))s.el.style.background=`url("assets/${scene}.jpg") center / cover`;
-    if(['classroom','canteen','track'].includes(scene))s.el.dataset.ambientPlace=scene;
+    if(!lines.length){done?.();return;}
+    let index=0,full='',count=0,timer,logOpen=false,choosing=false,lastPortrait=null,lastMood='neutral',motionTimer,mediaToken=0,activeScene=null,sceneAnimation;
+    const s=mount('novel',`<div class="novel-scene-veil" aria-hidden="true"></div><div class="novel-vignette"></div><img class="novel-character character-still" alt=""><video class="novel-character motion-video" hidden muted playsinline preload="none" aria-hidden="true"></video><div class="novel-caption">${escape(title)}</div><div class="novel-toolbar"><button id="dialogue-motion">人物动态</button><button id="dialogue-log">回看对话</button><button id="dialogue-fast">读完本段</button></div><div class="dialogue-dock"><div class="dialogue-box"><div class="dialogue-identity"><div class="speaker-avatar"></div><strong id="speaker-name"></strong><small id="line-counter"></small></div><div class="dialogue-bubble"><div id="dialogue-text" class="dialogue-text" aria-live="polite"></div></div><div class="dialogue-foot"><span>${escape(detail||'轻点文字，慢慢往下读')}</span><button id="dialogue-next">继续 <span>▾</span></button></div></div><div id="dialogue-choices" class="dialogue-choices" role="group" aria-label="你的回应" hidden></div></div><div class="dialogue-log" hidden><h2>刚才说过的话</h2><div class="log-lines"></div><button id="log-close" class="primary-button">回到对话</button></div>`,done);
     const $=q=>s.el.querySelector(q);
+    // A scene belongs to a story beat, not a timer. Lines without one inherit it.
+    function setScene(value){
+      if(!value||!/^[a-z0-9-]+$/.test(value)||value===activeScene)return;
+      const previous=activeScene;sceneAnimation?.cancel();
+      const veil=$('.novel-scene-veil');veil.style.background=previous?`url("assets/${previous}.jpg") center / cover`:'';
+      activeScene=value;s.el.dataset.scene=value;s.el.style.background=`url("assets/${value}.jpg") center / cover`;
+      if(['classroom','canteen','track'].includes(value))s.el.dataset.ambientPlace=value;else delete s.el.dataset.ambientPlace;
+      window.CampusAmbient?.refresh();
+      if(previous&&motionOn&&!matchMedia('(prefers-reduced-motion: reduce)').matches)sceneAnimation=veil.animate([{opacity:1},{opacity:0}],{duration:550,easing:'ease-out'});
+    }
+    setScene(scene);
     function renderActor(){
       clearTimeout(motionTimer);mediaToken++;const token=mediaToken,video=$('.motion-video'),image=$('.character-still');
       video.onplaying=null;video.onended=null;video.onerror=null;video.pause();video.hidden=true;image.style.visibility='';
@@ -67,26 +77,33 @@ window.CampusExperience = (() => {
       clearInterval(timer);const line=lines[index],who=line.who||'narrator',actor=characters.get(who),speaker=actor?(who==='you'?characters.profile.name:actor.name):who==='narrator'?period+' · 手记':names[who]||who;
       $('#speaker-name').textContent=speaker;$('#line-counter').textContent=`${index+1} / ${lines.length}`;
       $('.speaker-avatar').innerHTML=actor?`<img src="${actor.poses[line.mood]||actor.base}" alt="${escape(speaker)}的头像">`:'<span>记</span>';
-      if(actor){lastPortrait=who;lastMood=line.mood||'neutral';}
+      setScene(line.scene);
+      const narration=who==='narrator';s.el.classList.toggle('is-narration',narration);s.el.dataset.line=line.id;
+      // Narration gives the illustration room; the next spoken line brings its actor back.
+      lastPortrait=actor?who:null;if(actor)lastMood=line.mood||'neutral';
       renderActor();
       full=line.text;count=0;$('#dialogue-text').textContent='';history.push({who:speaker,text:full});if(history.length>150)history.shift();
-      $('#dialogue-choices').hidden=true;$('#dialogue-next').hidden=false;$('#dialogue-next').textContent=index===lines.length-1?(choices.length?'作出选择 ▾':'回到生活里 ▾'):'继续 ▾';
+      choosing=false;s.el.classList.remove('has-choices');$('.dialogue-dock').scrollTop=0;
+      $('.dialogue-foot>span').textContent=detail||'轻点文字，慢慢往下读';
+      $('#dialogue-choices').hidden=true;$('#dialogue-next').hidden=false;$('#dialogue-next').textContent=index===lines.length-1?(choices.length?'想一想，怎么回应':'回到生活里 ▾'):'继续 ▾';
       if(matchMedia('(prefers-reduced-motion: reduce)').matches)reveal();
       else timer=setInterval(()=>{count=Math.min(count+1,full.length);$('#dialogue-text').textContent=full.slice(0,count);if(count===full.length)clearInterval(timer);},23);
     }
     function options(){
+      if(choosing)return;choosing=true;s.el.classList.add('has-choices');
+      $('.dialogue-foot>span').textContent='选一句你的回应';
       const box=$('#dialogue-choices');box.innerHTML='';box.hidden=false;$('#dialogue-next').hidden=true;
-      choices.forEach((choice,i)=>{const b=document.createElement('button');b.className='novel-choice';b.id=choice.id||'dialogue-choice-'+i;b.innerHTML=`<span>${escape(choice.text)}</span><small>${escape(choice.note||'')}</small>`;b.onclick=()=>s.finish(choice.value??i);box.append(b);});
+      choices.forEach((choice,i)=>{const b=document.createElement('button');b.className='novel-choice';b.id=choice.id||'dialogue-choice-'+i;b.innerHTML=`<svg class="choice-sprout" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20v-9M12 15C5 15 4 10 4 7c5 0 8 3 8 8ZM12 11c0-5 3-7 8-7 0 5-3 8-8 8"/></svg><span>${escape(choice.text)}${choice.note?`<small>${escape(choice.note)}</small>`:''}</span>`;b.onclick=()=>s.finish(choice.value??i);box.append(b);});
       box.querySelector('button')?.focus();
     }
-    function next(){if(logOpen)return;if(count<full.length){reveal();return;}if(index<lines.length-1){index++;paint();}else if(choices.length)options();else s.finish();}
+    function next(){if(logOpen||choosing)return;if(count<full.length){reveal();return;}if(index<lines.length-1){index++;paint();}else if(choices.length)options();else s.finish();}
     $('#dialogue-next').onclick=next;$('#dialogue-text').onclick=next;
     $('#dialogue-motion').onclick=()=>setMotion(!motionOn);s.refreshMotion=renderActor;
     $('#dialogue-fast').onclick=()=>{while(index<lines.length-1){reveal();index++;paint();}reveal();if(choices.length)options();};
-    $('#dialogue-log').onclick=()=>{reveal();logOpen=true;$('.dialogue-box').inert=true;$('.novel-toolbar').inert=true;$('.dialogue-log').hidden=false;$('.log-lines').innerHTML=history.map(l=>`<p><strong>${escape(l.who)}</strong>${escape(l.text)}</p>`).join('');$('#log-close').focus();};
-    $('#log-close').onclick=()=>{logOpen=false;$('.dialogue-box').inert=false;$('.novel-toolbar').inert=false;$('.dialogue-log').hidden=true;$('#dialogue-next').focus();};
+    $('#dialogue-log').onclick=()=>{reveal();logOpen=true;$('.dialogue-dock').inert=true;$('.novel-toolbar').inert=true;$('.dialogue-log').hidden=false;$('.log-lines').innerHTML=history.map(l=>`<p><strong>${escape(l.who)}</strong>${escape(l.text)}</p>`).join('');$('#log-close').focus();};
+    $('#log-close').onclick=()=>{logOpen=false;$('.dialogue-dock').inert=false;$('.novel-toolbar').inert=false;$('.dialogue-log').hidden=true;(choosing?$('.novel-choice'):$('#dialogue-next')).focus();};
     s.key=e=>{if(e.key==='Escape'&&logOpen){e.preventDefault();$('#log-close').click();return;}if(!e.repeat&&[' ','Enter'].includes(e.key)&&!logOpen&&!e.target.closest('.novel-choice,#dialogue-log,#dialogue-fast,#dialogue-motion')){e.preventDefault();next();}};
-    s.clean.push(()=>{clearInterval(timer);clearTimeout(motionTimer);mediaToken++;const video=$('.motion-video');video.pause();video.removeAttribute('src');video.load();});paint();
+    s.clean.push(()=>{clearInterval(timer);clearTimeout(motionTimer);sceneAnimation?.cancel();mediaToken++;const video=$('.motion-video');video.pause();video.removeAttribute('src');video.load();});paint();
   }
   function cg({scene='classroom',title,text,duration=5,period='九月'},done){
     const s=mount('cg',`<div class="cg-image" style="background-image:url('assets/${escape(scene)}.jpg');--cg-duration:${duration}s"></div><div class="cg-rays"></div><div class="cg-dust">${Array.from({length:12},(_,i)=>`<i style="--n:${i}"></i>`).join('')}</div><div class="cg-letterbox top"></div><div class="cg-letterbox bottom"></div><div class="cg-caption"><small>${escape(period)} · ${escape(title)}</small><p>${escape(text)}</p></div><button id="cg-skip">跳过短片 / 空格</button><div class="cg-progress"><i></i></div>`,done);

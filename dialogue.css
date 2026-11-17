@@ -1,0 +1,74 @@
+/* B: a spoken bubble, then separate little replies. Narration leaves the image open. */
+.novel{--bubble-paper:#fffef8f5;--bubble-mint:#e2f1eaf5;--bubble-ink:#314b43}
+.novel .novel-scene-veil{position:absolute;inset:0;z-index:0;opacity:0;pointer-events:none}
+.novel .novel-vignette{z-index:1;pointer-events:none;background:linear-gradient(0deg,#122a2bcc,transparent 64%)}
+.novel .novel-character{z-index:1}
+.novel .novel-caption{z-index:3;top:max(28px,env(safe-area-inset-top));left:4%;max-width:58%;padding:9px 17px;border-radius:5px 18px 18px 5px;font-size:14px;letter-spacing:.12em;background:#fffef3db}
+.novel .novel-toolbar{z-index:3;top:max(28px,env(safe-area-inset-top));right:4%;gap:6px}
+.novel .novel-toolbar button{min-height:36px;padding:8px 12px;border:1px solid #f2f7e855;border-radius:18px;background:#29433bba;color:#f3f7ed;font-size:11px;backdrop-filter:blur(8px)}
+.novel .dialogue-dock{position:absolute;z-index:2;left:50%;bottom:max(25px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(1000px,88%);max-height:calc(100% - 116px);overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#b3cfbb70 transparent;padding:5px 8px 8px;scroll-padding:12px}
+.novel .dialogue-box{position:relative;inset:auto;min-height:0;max-height:none;width:auto;padding:0;margin:0;overflow:visible;border:0;box-shadow:none;background:transparent;backdrop-filter:none;color:var(--bubble-ink)}
+.novel .dialogue-identity{display:flex;align-items:center;gap:9px;width:max-content;max-width:100%;margin:0 0 8px;padding:6px 13px 6px 7px;border-radius:23px 23px 23px 8px;background:var(--bubble-mint);box-shadow:0 3px 12px #193b2725}
+.novel .speaker-avatar{width:32px;height:32px;border:1px solid #fff9;background:#a8c4b3;font-size:17px;color:#fff;overflow:hidden;border-radius:50%}
+.novel .speaker-avatar img{width:100%;height:100%;object-fit:cover;object-position:50% 13%}
+.novel #speaker-name{font-family:"Microsoft YaHei",sans-serif;font-size:14px;font-weight:500;color:#416a57;letter-spacing:.04em}
+.novel #line-counter{margin-left:16px;font-size:10px;color:#728c7b;letter-spacing:.08em}
+.novel .dialogue-bubble{background:var(--bubble-paper);border-radius:5px 25px 25px 25px;box-shadow:0 5px 20px #15392528;padding:19px 27px 20px}
+.novel .dialogue-text{min-height:2.05em;max-width:none;padding:0;font-family:KaiTi,"STKaiti","Noto Serif SC",SimSun,serif;font-size:22px;line-height:2.05;letter-spacing:.04em;white-space:pre-line;overflow-wrap:anywhere;cursor:pointer}
+.novel .dialogue-foot{min-height:32px;display:flex;justify-content:space-between;align-items:center;gap:12px;margin:8px 7px 0;color:#f3f8ee;text-shadow:0 1px 4px #122a2b}
+.novel .dialogue-foot>span{font-size:11px;letter-spacing:.05em}
+.novel #dialogue-next{min-height:38px;flex-shrink:0;padding:8px 5px 8px 14px;color:inherit;font-size:12px;border:0;border-radius:16px;background:transparent;text-shadow:inherit}
+.novel .dialogue-choices{display:grid;grid-template-columns:1fr;gap:12px;width:min(670px,92%);margin:12px 0 0 auto;padding:0 3px 3px}
+.novel .novel-choice{display:flex;align-items:center;gap:13px;width:calc(100% - 16px);margin:0 0 0 16px;padding:16px 22px;border:1px solid #d2e4d5;border-radius:24px 24px 7px 24px;background:#e5f2e8f7;box-shadow:0 4px 12px #244d3725;color:#314c40;text-align:left;transition:background .18s,transform .18s;cursor:pointer}
+.novel .novel-choice:nth-child(even){margin-left:0;border-radius:24px 24px 24px 7px}
+.novel .novel-choice>span{font-family:"Microsoft YaHei",sans-serif;font-size:15px;line-height:1.65;overflow-wrap:anywhere}
+.novel .novel-choice small{display:block;margin-top:5px;color:#667e6c;font-size:11px;line-height:1.6}
+.novel .choice-sprout{width:23px;height:23px;flex:none;fill:none;stroke:#749d81;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.novel .novel-choice:hover{background:#f5fff4;transform:translateY(-2px)}
+.novel .novel-choice:active{transform:translateY(0)}
+.novel button:focus-visible{outline:2px solid #bde7cd;outline-offset:3px}
+.novel.is-narration .dialogue-identity{display:none}
+.novel.is-narration .dialogue-bubble{background:transparent;box-shadow:none;border-radius:0;padding:16px 18px 8px}
+.novel.is-narration .dialogue-text{color:#fffdf4;text-shadow:0 2px 5px #112322,0 0 24px #11232290;font-size:23px;line-height:1.95}
+.novel.is-narration .dialogue-foot{margin:7px 20px 0;color:#f2f5e4d9}
+.novel .dialogue-log{z-index:5;border-radius:10px 27px 27px 27px;box-shadow:0 8px 45px #132c3860}
+@media(min-width:1000px){
+  .novel.is-narration:not(.has-choices) .dialogue-dock{width:min(1100px,88%);bottom:max(35px,env(safe-area-inset-bottom))}
+}
+@media(max-width:600px){
+  .novel .novel-caption{top:max(18px,env(safe-area-inset-top));left:5%;max-width:90%;font-size:12px;padding:9px 12px;letter-spacing:.07em}
+  .novel .novel-toolbar{top:70px;right:5%;gap:5px}
+  .novel .novel-toolbar button{min-height:34px;font-size:10px;padding:7px 10px}
+  .novel .dialogue-dock{width:94%;bottom:max(17px,env(safe-area-inset-bottom));max-height:calc(100% - 130px);padding:5px 5px 8px}
+  .novel .dialogue-bubble{padding:17px 20px 18px;border-radius:5px 23px 23px 23px}
+  .novel .dialogue-text{font-size:18px;line-height:2.05;min-height:2.05em}
+  .novel .dialogue-identity{padding:5px 12px 5px 6px;gap:8px}
+  .novel .speaker-avatar{width:28px;height:28px}
+  .novel #speaker-name{font-size:13px}
+  .novel .dialogue-foot{margin:6px 5px 0;gap:5px}
+  .novel .dialogue-foot>span{font-size:10px}
+  .novel #dialogue-next{font-size:11px;min-height:36px;padding-left:4px}
+  .novel .dialogue-choices{width:96%;gap:11px;margin-top:13px}
+  .novel .novel-choice{gap:10px;padding:15px 17px}
+  .novel .novel-choice>span{font-size:14px}
+  .novel .novel-choice small{font-size:11px}
+  .novel.is-narration .dialogue-bubble{padding:12px 13px 5px}
+  .novel.is-narration .dialogue-text{font-size:19px;line-height:2}
+  .novel.is-narration .dialogue-foot{margin:6px 13px 0}
+  .novel .dialogue-log{inset:12% 5%;padding:22px}
+}
+@media(max-height:500px){
+  .novel .novel-caption{top:max(12px,env(safe-area-inset-top));left:3%;max-width:48%;font-size:11px;padding:7px 12px}
+  .novel .novel-toolbar{top:max(12px,env(safe-area-inset-top));right:3%}
+  .novel .novel-toolbar button{min-height:32px;padding:6px 10px;font-size:10px}
+  .novel .dialogue-dock{width:92%;bottom:max(8px,env(safe-area-inset-bottom));max-height:calc(100% - 74px)}
+  .novel .dialogue-bubble{padding:12px 20px}
+  .novel .dialogue-text,.novel.is-narration .dialogue-text{font-size:17px;line-height:1.85}
+  .novel .dialogue-identity{padding:4px 11px 4px 5px;margin-bottom:6px}
+  .novel .speaker-avatar{width:25px;height:25px}
+  .novel .dialogue-foot{margin-top:3px}
+  .novel .dialogue-choices{gap:9px;margin-top:8px}
+  .novel .novel-choice{padding:11px 17px}
+  .novel .dialogue-log{inset:7% 8%;padding:18px 24px}
+}
+@media(prefers-reduced-motion:reduce){.novel .novel-choice{transition:none}.novel .novel-choice:hover{transform:none}}
