@@ -64,6 +64,7 @@ with sync_playwright() as pw:
         next_line(p);assert scene(p) == 'home'
         next_line(p);assert scene(p) == 'track'
         next_line(p);assert scene(p) == 'classroom'
+        p.locator('.character-still').evaluate('i=>i.decode()')
         assert p.locator('.character-still').is_visible()
         assert not p.locator('.novel').evaluate("e=>e.classList.contains('is-narration')")
         shot(p, f'bubble-{width}')
@@ -141,8 +142,8 @@ with sync_playwright() as pw:
         {'who':'narrator','text':'这是一段足够长的文字，用来确认第一下点击只会把当前这一句补全，不会跳到下一幅画面。'*4},
         {'who':'narrator','scene':'home','text':'灯还亮着。'},
         {'who':'narrator','scene':'../../invalid','text':'这一句继承房间的画面。'}]})
-    p.wait_for_function("document.querySelector('.ambient-film.is-playing')?.dataset.scene==='classroom'")
     next_line(p);assert p.locator('#line-counter').text_content() == '1 / 3'
+    p.wait_for_function("document.querySelector('.ambient-film.is-playing')?.dataset.scene==='classroom'")
     next_line(p);assert scene(p) == 'home'
     assert p.locator('.novel-scene-veil').evaluate('e=>e.getAnimations().length') == 1
     p.wait_for_timeout(650)
