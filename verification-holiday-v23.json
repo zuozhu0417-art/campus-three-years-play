@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "checks": [
+    "Real W10 settlement to winter and W20 ending to summer; return to W11/W21",
+    "14 winter / 20 summer half-days, full activity set and playable basketball",
+    "Money, nightly energy, one job per day, six subjects, low-energy and low-money boundaries",
+    "Midday refresh, save/title/resume and holiday-end stop without duplicate rewards",
+    "Actual-only photo recap, no school HUD, reduced motion and four viewports",
+    "Nine relationship cases and six rendered portrait previews including polite reserve and breakup",
+    "Independent holiday tryout preserves existing game save; user photo motion preference toggles"
+  ],
+  "errors": [],
+  "missing": []
+}

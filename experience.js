@@ -53,7 +53,7 @@ window.CampusExperience = (() => {
       $('#dialogue-motion').textContent=motionOn?'动态：开':'动态：关';$('#dialogue-motion').setAttribute('aria-pressed',String(motionOn));
       if(!lastPortrait){image.hidden=true;return;}
       const actor=characters.get(lastPortrait),mood=lastMood;
-      image.hidden=false;image.src=actor.poses[mood]||actor.base;image.alt=(actor.id.startsWith('player')?characters.profile.name:actor.name)+' · '+({neutral:'平静',smile:'微笑',blink:'眨眼',sad:'失落',laugh:'掩嘴笑',thoughtful:'思考',shy:'害羞',wave:'挥手',pause:'停一停'}[mood]||mood);image.dataset.expression=mood;
+      image.hidden=false;image.src=actor.poses[mood]||actor.base;image.alt=(actor.id.startsWith('player')?characters.profile.name:actor.name)+' · '+({cold:'礼貌而疏离',withdrawn:'疏远',tender:'含着笑',neutral:'平静',smile:'微笑',blink:'眨眼',sad:'失落',laugh:'掩嘴笑',thoughtful:'思考',shy:'害羞',wave:'挥手',pause:'停一停'}[mood]||mood);image.dataset.expression=mood;
       const clipName=lines[index].motion===false?null:mood==='smile'?'warm':mood==='neutral'?'idle':null;
       const clip=clipName&&actor.clips[clipName];if(!motionOn||!clip)return;
       const restore=()=>{if(token!==mediaToken)return;video.hidden=true;image.style.visibility='';};
@@ -139,8 +139,10 @@ window.CampusExperience = (() => {
     }
     frame=requestAnimationFrame(loop);s.clean.push(()=>cancelAnimationFrame(frame));
   }
-  function basketball({assist=false}={},done){
+  function basketball({assist=false,holiday=false,scene=null}={},done){
     const s=mount('mini basketball',`<div class="mini-background"></div><header class="mini-header"><div><small>周末 · 半场球</small><h2>投歪了，也有人给你捡回来</h2></div><button id="ball-pause">暂停 / Esc</button></header><div class="ball-court"><div class="ball-board"><i></i></div><div class="ball-shadow"></div><div class="ball-picture" aria-hidden="true">●</div><p id="ball-score">准备好后，试投三次</p></div><div class="ball-console"><p id="ball-feedback" role="status">光点进到中间的浅色区，再按投篮。</p><div class="ball-meter"><div class="ball-target"></div><i id="ball-dot"></i></div><div class="ball-actions"><button id="ball-shoot" class="primary-button" disabled>投篮 · 空格</button>${assist?'<button id="ball-signal" class="secondary-button" disabled>看赵程的接球暗号</button>':''}</div><small>三次投篮，输赢都能好好结束这一场。中途返回不消耗时间和精力。</small></div><div class="mini-curtain"><div class="mini-instructions"><small>周六 · 和赵程</small><h2>先打半场，不急着比分数</h2><p>光点经过中央浅色区时，点“投篮”或按空格。一共三球，没有倒计时；投不进也能和同学相处。</p><button id="ball-start" class="primary-button">系好鞋带，开始</button><button id="ball-abandon" class="secondary-button">先回去，不消耗时间</button></div></div>`,done);
+    if(holiday){s.el.querySelector('.mini-header small').textContent='假期 · 小区球场';s.el.querySelector('.mini-instructions small').textContent='今天 · 和朋友们';}
+    if(scene&&/^[a-z0-9-]+$/.test(scene))s.el.querySelector('.mini-background').style.backgroundImage=`linear-gradient(#e7efed8c,#edf1e8e8),url("assets/${scene}.jpg")`;
     const $=q=>s.el.querySelector(q);let playing=false,paused=true,shots=0,hits=0,time=0,last=performance.now(),frame,boost=false,used=false,locked=false,cooldown=0;
     const paint=()=>{$('#ball-score').textContent=`投了 ${shots} / 3 球 · 命中 ${hits} 球`;$('#ball-dot').style.left=((time%1.4)/1.4*100)+'%';};
     function pause(){if(!playing||paused)return;paused=true;$('.mini-curtain').hidden=false;$('#ball-start').textContent='继续这场球';$('#ball-start').focus();}

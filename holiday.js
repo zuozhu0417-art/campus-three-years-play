@@ -1,0 +1,60 @@
+/* Playable breaks live beside the school calendar, not inside its action budget. */
+window.CampusHoliday=(()=>{
+ 'use strict';
+ const clamp=n=>Math.max(0,Math.min(100,n)),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const activities=[
+  {id:'ball',name:'和兄弟们打球',where:'小区球场',cost:18,photo:'prelude-sports-v19.jpg',effect:{body:2,social:1,stress:-5},lines:['赵程把球传得太高，你们追到围栏边，笑了好一阵。','阿哲带来一瓶温水。最后一场没计分，你们打到路灯亮起来。','你投丢了关键的一球。赵程拍了拍你：“明天再打。”']},
+  {id:'girl',name:'问她今天有没有空',where:'消息与见面',cost:8,photo:'prelude-winter-v19.jpg',effect:{social:1,stress:-2},lines:[]},
+  {id:'work',name:'去书店帮半天忙',where:'整理书架 · 报酬 ¥45',cost:22,money:45,photo:'year-paper-shop.jpg',effect:{reliable:1,stress:2},lines:['店主让你先把退回来的书按书号排好。半天过去，腰有些酸。你第一次留意到，四十五块钱要搬好几摞书。','一个小朋友找不到练习册。你和店主翻了两排书架，终于找着。收工时，手心沾了一层纸灰。','你把同一本书摆错了两次。店主没催，只让你慢慢核对。离开前，你把今天的报酬放进单独的信封。']},
+  {id:'tuition',name:'上半天线上补习',where:'在家连线 · 花费 ¥35',cost:14,money:-35,photo:'notebook-cg.jpg',effect:{stress:3},lines:['补课老师没有重新讲整章，只让你把一道错题解释给他听。讲到第三步，你发现自己一直跳过的原因。','你记下三种解法，却只在下课前真正做明白一种。回家后，还有两道例题值得再试。','屏幕里的人写得很快。你把目光收回自己的草稿纸，重新算了一遍。']},
+  {id:'study',name:'留在家里自学',where:'自己的书桌',cost:12,photo:'prelude-study-v18.jpg',effect:{stress:1},lines:['手机留在客厅。你先合上答案做一遍，卡住的地方用铅笔圈起来。今天只弄懂了两道，但确实是自己会了。','窗外的声音断断续续。你给自己留了四十分钟，结束时把明天要问的问题写在纸角。','一本旧练习册翻到最后几页。你没有把整章抄下来，只补上了自己缺的那一步。']},
+  {id:'game',name:'在家打游戏',where:'耳机里有人喊你上线',cost:4,photo:'home.jpg',effect:{stress:-9},lines:['你们连输两局，第三局终于配合上了。摘下耳机时，才发现妈妈把切好的水果放在门口。','熟悉的开场音乐响起来。你暂时不用证明什么，玩到约好的时间就关掉了游戏。','阿哲掉线了一会儿，再回来时被大家念叨。你笑着给他留了位置。']},
+  {id:'rest',name:'给今天留一点空白',where:'散步、吃饭、陪家人',cost:-26,photo:'home.jpg',effect:{stress:-7},lines:['你跟着妈妈去买菜。她挑了很久的橘子，说最近这家便宜一点。你替她拎了一路。','没有特别的安排。你把乱了很久的抽屉理好，下午睡了一小觉。','晚饭后出去走了一圈。路过小区球场时，里面还有人在拍球。']}
+ ];
+ activities.find(a=>a.id==='ball').photo='holiday-court-v23.jpg';
+ activities.find(a=>a.id==='work').photo='holiday-bookshop-v23.jpg';
+ const photoFor=(a,h)=>['study','tuition'].includes(a.id)?'home.jpg':h.kind==='summer'&&['ball','work'].includes(a.id)?a.photo.replace('-v23','-summer-v23'):a.id==='girl'?'home.jpg':a.photo;
+ let el=null,api=null,state=null,busy=false;
+ function valid(S){const h=S.holiday;return !!(h&&['winter','summer'].includes(h.kind)&&S.week===(h.kind==='winter'?10:20)&&Array.isArray(h.records)&&Number.isInteger(h.pos)&&h.pos>=0&&h.pos<=h.days*2&&h.records.length===h.pos&&h.days===(h.kind==='winter'?7:10)&&Number.isInteger(h.subject)&&h.subject>=0&&h.subject<6&&['intro','days','recap','complete'].includes(h.phase)&&(h.phase==='intro'?h.pos===0:h.phase==='days'?h.pos<h.days*2:h.pos===h.days*2)&&h.records.every((r,i)=>r&&activities.some(a=>a.id===r.id&&(photoFor(a,h)===r.photo||a.id==='girl'&&photoFor(activities[2],h)===r.photo))&&r.day===Math.floor(i/2)&&r.slot===i%2&&typeof r.text==='string'&&Number.isFinite(r.money)));}
+ function begin(S,kind){if(!valid(S)||S.holiday.kind!==kind)S.holiday={kind,active:true,days:kind==='winter'?7:10,pos:0,records:[],phase:'intro',subject:0};else S.holiday.active=true;return S.holiday;}
+ function unmount(){el?.remove();el=null;document.getElementById('game').classList.remove('on-holiday');busy=false;}
+ function photoList(){const seen=[...new Set(state.holiday.records.map(r=>r.photo))];return (seen.length?seen:['home.jpg']).slice(-6);}
+ function recap(){const rows=state.holiday.records,count=id=>rows.filter(r=>r.id===id).length;
+  return [count('work')?`你去了 ${count('work')} 次书店，挣的钱里，有一部分终于可以自己安排。`:'这次没有去兼职，钱仍要掂量着花。',count('girl')?`你发过 ${count('girl')} 次消息，有 ${rows.filter(r=>r.id==='girl'&&r.met).length} 次约到了见面。其余时候，各自也有自己的安排。`:'这个假期，你没有主动约她。没说出口的话，也暂时留在了心里。',count('study')+count('tuition')?`有 ${count('study')+count('tuition')} 个半天留给了功课。下次翻开本子，那几道题或许会熟悉一点。`:'这次没有专门安排学习。回到课本时，还要重新找找手感。',count('game')?`游戏玩了 ${count('game')} 个半天，也留下了耳机里的笑声。`:'有些下午没有开电脑。', '假期不是只剩下做了多少事。你慢慢发现，时间花在哪里，哪里就会多一点自己的痕迹。'];}
+ function montage(ending){const h=state.holiday,photos=ending?photoList():['home.jpg',photoFor(activities[0],h),photoFor(activities[2],h)];
+  el.innerHTML=`<div class="holiday-film"><div class="holiday-photo-wall">${photos.map((p,i)=>`<figure style="--i:${i}"><img src="assets/${p}" alt="${ending?'这个假期留下的片段':'假期生活的想象'}"></figure>`).join('')}</div><div class="holiday-film-copy"><small>${h.kind==='winter'?'寒假':'暑假'} · ${ending?'收起这一册':'校门以外'}</small><h1>${ending?'日子就这样过了一些':'闹钟，可以晚一点响'}</h1>${(ending?recap():['放假的第一天，你习惯性地去找校服。手碰到衣架，才想起今天不用赶铃声。','球场、书店、家里的书桌，都在等你自己做安排。有人可以见，也有人要先问一句有没有空。','接下来选取假期里几个日子，上午和下午分别由你安排。其余日子会在照片里慢慢过去。']).map(t=>`<p>${esc(t)}</p>`).join('')}<button id="holiday-film-next">${ending?'收好假期，暂时停在这里':'打开我的假期日历'} →</button>${ending?'<button id="holiday-school-next" class="holiday-link">回到已有的返校故事</button>':''}<button id="holiday-film-title" class="holiday-link">保存，回到主界面</button><button id="holiday-motion" class="holiday-link">照片动态</button></div></div>`;
+  el.querySelector('#holiday-motion').onclick=()=>CampusExperience.setMotion(!CampusExperience.motionEnabled);syncMotion();
+  el.querySelector('#holiday-film-next').onclick=()=>{h.phase=ending?'complete':'days';api.save();paint();};
+  el.querySelector('#holiday-film-title').onclick=api.exit;
+  const back=el.querySelector('#holiday-school-next');if(back)back.onclick=leave;
+ }
+ function leave(){state.holiday.active=false;state.holidayArchive={...state.holidayArchive,[state.holiday.kind]:structuredClone(state.holiday)};api.save();unmount();api.finish();}
+ function draw(){if(!el)return;const h=state.holiday;busy=false;
+  if(h.phase==='intro'||h.phase==='recap'){montage(h.phase==='recap');return;}
+  if(h.phase==='complete'){el.innerHTML=`<div class="holiday-complete"><small>假期手记 · 已保存</small><h1>这一段，先停在假期里。</h1><p>你安排的生活已经记下。回到主界面后仍会留在这里，也可以接着读已有的返校故事。</p><button id="holiday-return">保存，回到主界面</button><button id="holiday-resume">继续返校故事 →</button></div>`;el.querySelector('#holiday-return').onclick=api.exit;el.querySelector('#holiday-resume').onclick=leave;return;}
+  const day=Math.floor(h.pos/2),slot=h.pos%2,wallet=state.weekend.wallet;
+  el.innerHTML=`<header class="holiday-header"><a href="#" id="holiday-title">校园三年 / 保存离开</a><span>${h.kind==='winter'?'寒假':'暑假'}手记 · 第 ${day+1} / ${h.days} 个日子</span></header><div class="holiday-layout"><section class="holiday-life"><small>${slot?'下午，日子还有一半':'上午，窗外已经亮了'}</small><h1>今天不用去学校。</h1><div class="holiday-pocket"><span>精力 ${Math.round(state.energy)}</span><span>口袋里 ¥${wallet}</span><span>心里有些${state.growth.stress>60?'紧绷':state.growth.stress>30?'惦记':'松快'}</span></div><div class="holiday-snapshot"><img src="assets/${h.records.at(-1)?.photo||'home.jpg'}" alt="家与假期生活"><p>${esc(h.records.at(-1)?.text||'书包靠在椅脚边。你打开通讯录，又看了一眼窗外。')}</p></div><div class="holiday-calendar" aria-label="假期日历">${Array.from({length:h.days},(_,i)=>`<span class="${i===day?'today':i<day?'past':''}">${String(i+1).padStart(2,'0')}<small>${i<day?'已记下':i===day?'今天':'待安排'}</small></span>`).join('')}</div></section><section class="holiday-choices"><div class="holiday-section-title"><h2>这半天，想怎么过？</h2><span>每项使用半天</span></div><label class="holiday-subject">给补课或自学选一本书 <select id="holiday-subject">${CampusGrowth.subjects.map((s,i)=>`<option value="${i}" ${h.subject===i?'selected':''}>${s}</option>`).join('')}</select></label><div class="holiday-actions">${activities.map(a=>{const repeated=['work','girl'].includes(a.id)&&h.records.some(r=>r.day===day&&r.id===a.id);const reason=repeated?(a.id==='work'?'今天已经去过书店':'今天已经问过她了'):a.cost>state.energy?'先恢复一点精力':a.money<0&&wallet<-a.money?'口袋里的钱不够':'';return `<button data-holiday-action="${a.id}" ${reason?'disabled':''}><strong>${a.name}</strong><span>${reason||a.where}</span><small>${a.cost<0?'恢复精力 '+(-a.cost):'精力 −'+a.cost}${a.money?' / ¥'+(a.money>0?'+':'')+a.money:''}</small></button>`;}).join('')}</div><p class="holiday-note">不安排兼职也能过完假期。补课要付费，自学不用；打游戏和休息也都是你自己的选择。每天晚上自动恢复 22 精力。</p></section></div>`;
+  el.querySelector('#holiday-title').onclick=e=>{e.preventDefault();api.exit();};el.querySelector('#holiday-subject').onchange=e=>{h.subject=Number(e.target.value);api.save();};el.querySelectorAll('[data-holiday-action]').forEach(b=>b.onclick=()=>act(b.dataset.holidayAction));
+ }
+ function paint(){draw();if(api.preview&&el){el.dataset.preview='true';for(const id of ['holiday-title','holiday-film-title','holiday-return','holiday-resume','holiday-school-next']){const b=el.querySelector('#'+id);if(b)b.textContent='退出试玩，回到主界面';}const note=el.querySelector('.holiday-complete>small');if(note)note.textContent='独立试玩 · 不改变本局';}}
+ function act(id,played=null){if(busy)return;const h=state.holiday,a=activities.find(x=>x.id===id);if(!a||h.phase!=='days'||h.pos>=h.days*2)return;const day=Math.floor(h.pos/2);if(a.cost>state.energy||a.money<0&&state.weekend.wallet<-a.money||['work','girl'].includes(id)&&h.records.some(r=>r.day===day&&r.id===id))return;
+  if(id==='ball'&&!played){busy=true;api.basketball({holiday:true,scene:photoFor(a,h).replace('.jpg','')},r=>{busy=false;if(r)act(id,r);});return;}
+  busy=true;const g=state.growth;let text=a.lines[h.records.filter(r=>r.id===id).length%a.lines.length],who='narrator',mood,met=false,close=false;
+  if(id==='girl'){const n=g.contactWeeks.length,available=(day+n)%3!==0;close=state.october.mode==='closer'&&n>=6;met=available&&n>=4;
+   who='linyao';text=!available?'抱歉，今天已经和家里约好了。谢谢你想着我，下次可以提前问问。':n<4?'谢谢你问我。不过我等会儿有事，今天就先不约了。要问作业的话，可以把题发来。':close?(day%2?'我把回家的时间留出来了。到路口再给我发消息。':'那就一起走一会儿吧。你别来太早，我还没收拾好。'):'可以在书店碰个面。下午我还要回去帮忙。';mood=!available?'neutral':close?(CampusCharacters.relationshipPhase(state)==='tender'?'tender':'shy'):'neutral';if(met&&close)state.warm+=1;
+  }
+  if(played)text+=` 最后的三次投篮，你投进了 ${played.hits} 球。`;
+  state.energy=clamp(state.energy-a.cost);const paid=Math.max(0,Math.min(9999,state.weekend.wallet+(a.money||0)))-state.weekend.wallet;state.weekend.wallet+=paid;if(paid)state.weekend.ledger.push({week:state.week,amount:paid,text:(h.kind==='winter'?'寒假':'暑假')+' · '+a.name});for(const [k,v] of Object.entries(a.effect||{}))g[k]=clamp(g[k]+v);
+  if(id==='tuition'||id==='study'){g.mastery[h.subject]=clamp(g.mastery[h.subject]+(id==='tuition'?4:3));state.study+=id==='tuition'?2:1;}
+  if(id==='ball')state.friend+=1;if(id==='rest')state.family+=1;
+  const photo=met?photoFor(activities[2],h):photoFor(a,h);
+  h.records.push({id,day,slot:h.pos%2,photo,text,money:paid,met,subject:['study','tuition'].includes(id)?h.subject:null});h.pos++;if(h.pos%2===0)state.energy=clamp(state.energy+22);if(h.pos===h.days*2)h.phase='recap';api.save();
+  const scene=['ball','work'].includes(id)||met?photo.replace('.jpg',''):'home';
+  const extra=id==='girl'?(met?(close?'你们在书店碰头。她挑画册时把书页转向你，问你觉得哪一张好。临走前，你们把各自到家的时间对了一遍。':'你们在书店各挑了一本书，聊了几句开学后的打算。下午她先回家，你也去办自己的事。'):'你没有追着问原因。放下手机，继续安排自己的半天。'):id==='ball'?'回家前，你们约好下次有空再打。谁临时有事，就提前在群里说一声。':id==='work'?'店主把报酬交给你。整理书架比想象中累，拿到钱的时候，你开始盘算它能用来做什么。':id==='tuition'||id==='study'?`${CampusGrowth.subjects[h.subject]}的这一页做了记号。合上书之前，你给没弄懂的地方留了一小条纸签。`:'这一段时间没有铃声来催。你看了一眼钟，才发现太阳已经换了位置。';
+  api.dialogue({title:a.name,scene,lines:[{who,text,mood,motion:false},{who:'narrator',text:extra},{who:'narrator',text:`${h.pos%2===0?'这天晚上，你按时休息了。':'窗外的光慢慢移到了另一边。'}${a.money?` 口袋里现在有 ${state.weekend.wallet} 元。`:''}`} ]},paint);
+ }
+ function syncMotion(){if(!el)return;el.classList.toggle('holiday-still',!CampusExperience.motionEnabled);const b=el.querySelector('#holiday-motion');if(b){b.textContent='照片动态：'+(CampusExperience.motionEnabled?'开':'关');b.setAttribute('aria-pressed',String(CampusExperience.motionEnabled));}}
+ document.addEventListener('campus-motion-change',syncMotion);
+ function mount(S,callbacks){unmount();if(!valid(S)){S.holiday=null;callbacks.save();return;}state=S;api=callbacks;el=document.createElement('section');el.className='holiday-screen';el.setAttribute('aria-label','假期生活');document.getElementById('game').append(el);document.getElementById('game').classList.add('on-holiday');CampusAmbient?.setContext({place:'home',week:S.week});paint();syncMotion();el.querySelector('button,a')?.focus({preventScroll:true});}
+ return {begin,mount,unmount,valid,activities};
+})();

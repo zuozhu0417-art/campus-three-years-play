@@ -100,9 +100,9 @@
   function updateTitle(){
     const button=$('#continue-game');button.hidden=false;button.disabled=!saved;
     $('small',button).textContent=saved?`第 ${saved.week} 周 · ${saved.profile.name==='你'?'你的校园生活':saved.profile.name}`:'还没有留下的进度';
-    $('#title-save-summary').textContent=saved?`${saved.ended?'已到本章收束':saved.weekend.current.started&&!saved.weekend.current.finished?`周${saved.weekend.current.day?'日':'六'} · 还剩 ${saved.weekend.current.remaining} 段`:`工作日 · 还剩 ${saved.remaining} 段`}，继续会接回这里。`:'从“新的开始”认识大家。小游戏可以先在“更多玩法”练习。';
+    $('#title-save-summary').textContent=saved?.holiday?.active?`${saved.holiday.kind==='winter'?'寒假':'暑假'}手记 · 已记下 ${saved.holiday.pos} 个半天，继续会回到假期。`:saved?`${saved.ended?'已到本章收束':saved.weekend.current.started&&!saved.weekend.current.finished?`周${saved.weekend.current.day?'日':'六'} · 还剩 ${saved.weekend.current.remaining} 段`:`工作日 · 还剩 ${saved.remaining} 段`}，继续会接回这里。`:'从“新的开始”认识大家。小游戏可以先在“更多玩法”练习。';
   }
-  function returnTitle(){clearModals();$('#play-screen').hidden=true;$('#title-screen').hidden=false;$('#game').classList.add('at-title');$('#world').className='world classroom';updateTitle();(saved?$('#continue-game'):$('#new-game')).focus({preventScroll:true});}
+  function returnTitle(){window.CampusHoliday?.unmount();clearModals();$('#play-screen').hidden=true;$('#title-screen').hidden=false;$('#game').classList.add('at-title');$('#world').className='world classroom';updateTitle();(saved?$('#continue-game'):$('#new-game')).focus({preventScroll:true});}
   function identitySetup(after,canCancel=false){
     let selected=null;
     const m=showModal({kicker:'报到之前 · 先认识你',title:'这三年，由谁来度过？',wide:true,closable:false,body:`<p class="modal-note">选择主角并写下名字。能力起点随机，与性别无关；每种起点都能通过后续投入成长。</p><div class="identity-cards">${['female','male'].map(g=>`<button class="identity-card" data-gender="${g}" aria-pressed="false"><div class="identity-art"><img src="assets/expressions/player-${g}.png" alt="${g==='female'?'女生':'男生'}主角立绘"></div><strong>${g==='female'?'以女生的身份':'以男生的身份'}</strong><span>从同一个九月开始</span></button>`).join('')}</div><div class="receipt">这一局的起点：理解力 ${Math.round(G.ensure(S).aptitude)} / 身体素质 ${Math.round(G.ensure(S).body)} / 人缘 ${Math.round(G.ensure(S).social)}<br>没有不可改变的天赋标签，之后会记录你实际做过的事。</div><label class="identity-name" for="player-name">你的名字 <input id="player-name" maxlength="10" placeholder="可以先不填，故事里会称呼你" autocomplete="off"></label><div class="modal-actions"><button class="primary-button" id="identity-confirm" disabled>选好了，去报到</button></div>`});
@@ -188,7 +188,7 @@
     if(!saved)return;
     try{const raw=localStorage.getItem(KEY)||localStorage.getItem('campus-three-years-dynamic-v2')||localStorage.getItem('campus-three-years-chapter1-v1');if(raw&&JSON.parse(raw).version<6&&!localStorage.getItem(KEY+'-before-balance-v12'))localStorage.setItem(KEY+'-before-balance-v12',raw);}catch{}
     S=structuredClone(saved);clearModals();markPlay();render();save();
-    const resume=()=>{window.CampusCharacters.setProfile(S.profile);if(W.active(S)){render();if(S.weekend.current.pending)weekendOutcome();return;}if(S.weekend.current.started&&S.weekend.current.finished&&!S.ended){diary();return;}if(S.ended)showEnding();else if(S.week>4&&S.october.introPending)octoberArrival();else if(S.seat===null)readerLetter('start',()=>seatPicker(true));else if(!S.plan)weekIntro();else toast('书包还在原来的位置。');};
+    const resume=()=>{if(S.holiday?.active&&CampusHoliday.valid(S)){holidayUI();return;}window.CampusCharacters.setProfile(S.profile);if(W.active(S)){render();if(S.weekend.current.pending)weekendOutcome();return;}if(S.weekend.current.started&&S.weekend.current.finished&&!S.ended){diary();return;}if(S.ended)showEnding();else if(S.week>4&&S.october.introPending)octoberArrival();else if(S.seat===null)readerLetter('start',()=>seatPicker(true));else if(!S.plan)weekIntro();else toast('书包还在原来的位置。');};
     if(!S.profile.gender)identitySetup(resume);else resume();
   }
   function identityCard(){
@@ -198,13 +198,14 @@
   function characterAlbum(){
     const actors=window.CampusCharacters.actors;
     const visibleActors=Object.values(actors).filter(a=>!['qiaosui','chenyu','zhouyan'].includes(a.id)||(a.id==='zhouyan'?S.week>=21:a.id===Y1.visitor(S).who&&S.year.pursuit!=='unmet'));
-    const m=showModal({kicker:'人物小册 · 表情与短动画',title:'慢慢熟悉他们的样子',wide:true,body:`<div class="actor-grid">${visibleActors.map(a=>`<button class="actor-card" data-actor="${a.id}"><img src="${a.base}" alt="${esc(a.name)}"><strong>${esc(a.role)}</strong><small>${a.id.startsWith('player')?esc(a.role):esc(a.name)} · 看看立绘</small></button>`).join('')}</div><p class="modal-note">林遥与乔穗新增多张表情、手势立绘，食堂剧情会实际切换使用。原有短动态保留；新增立绘目前是静态画面。</p>`});
+    const m=showModal({kicker:'人物小册 · 表情与短动画',title:'慢慢熟悉他们的样子',wide:true,body:`<div class="actor-grid">${visibleActors.map(a=>`<button class="actor-card" data-actor="${a.id}"><img src="${a.base}" alt="${esc(a.name)}"><strong>${esc(a.role)}</strong><small>${a.id.startsWith('player')?esc(a.role):esc(a.name)} · 看看立绘</small></button>`).join('')}</div><p class="modal-note">林遥与乔穗新增多张表情、手势立绘，食堂剧情会实际切换使用。原有短动态保留；新增立绘目前是静态画面。</p><button class="secondary-button" id="relationship-preview">看看关系变化时的神态</button><p class="modal-note">此处只预览表情，不改变关系或触发未来剧情。</p>`});
+    $('#relationship-preview',m).onclick=()=>E.dialogue({title:'神态预览 · 不改变剧情进度',scene:'home',lines:[['cold','刚认识 · 礼貌而疏离','你是想问这道题吗？抱歉，我还得先把这一页写完。'],['neutral','熟悉 · 放下戒备','这页我还没写完。你先坐一会儿。'],['shy','靠近 · 腼腆','你别来太早，我还没收拾好。'],['tender','后期 · 亲昵','给你留了位置。今天也一起走吧。'],['sad','未来分手 · 难过','我知道了。你让我自己待一会儿。'],['withdrawn','未来分手 · 疏远','书放在这里就好，谢谢。别的事情，我暂时不想谈。']].map(([mood,stage,text])=>({who:'linyao',mood,text:stage+'：'+text,motion:false,presentation:'preview'}))});
     $$('[data-actor]',m).forEach(b=>b.onclick=()=>{const a=actors[b.dataset.actor];E.dialogue({title:a.role+' · '+a.name,lines:[{id:'album.'+a.id+'.neutral',who:a.id,mood:'neutral',text:'刚见面的时候，还不知道该说些什么。'},{id:'album.'+a.id+'.smile',who:a.id,mood:'smile',text:'慢慢熟起来，一抬头，就知道是在叫谁。'},...Object.keys(a.poses).filter(k=>['laugh','thoughtful','shy','wave','pause'].includes(k)).map(k=>({id:'album.'+a.id+'.'+k,who:a.id,mood:k,motion:false,text:({laugh:'笑的时候，手里的本子差点拿反。',thoughtful:'等一下，这个我还没有想明白。',shy:'你先别笑。我只是想把话说清楚。',wave:'这里有空位，要不要坐一会儿？',pause:'我慢一点讲。今天不用急着想好开场白。'})[k]})),...(a.poses.blink?[{id:'album.'+a.id+'.blink',who:a.id,mood:'blink',motion:false,text:'有些很短的停顿，也会被记住。'}]:[]),...(a.poses.sad?[{id:'album.'+a.id+'.sad',who:a.id,mood:'sad',motion:false,text:'有的时候，话说到一半，就没有再往下说。'}]:[])]});});
   }
   function slowGirl(id){
     const g=G.ensure(S),n=g.contactWeeks.length,w=S.week;
-    const moments=[['她把本子合上','这页我还没写完。你要问哪一道？','只问那一步，给她留出写完的时间','她把等号前的那一行指给你看，随后继续写自己的。'],['借一把尺子','用完放桌边就好，我一会儿还要用。','用完当面归还，不顺手翻她的画本','她点点头，把尺子收进笔袋。'],['值日后还没走','我在等颜料干。你先去忙吧。','问能不能帮忙收工具，等她同意再动','她把需要清洗的笔挑出来，另外两支留在手边。'],['被认出的脚步声','今天你们也拖堂了？我刚准备走。','讲讲课堂上的小插曲，不追问私事','她听到粉笔断成三截，没忍住笑了一下。'],['留了一小张纸','上次你问的那题，我找到另一种写法了。','认真看完，也告诉她自己的想法','你们对了几行步骤。铃响以后，她把纸留在桌上。'],['不再只谈题目','新画还没画完。你想看的话，下周再说。','答应等她愿意展示时再看','她把本子收好，问你周末准备做什么。']];
-    const a=moments[Math.min(n,5)];return {id,title:'课后 · '+a[0],cost:12,category:'friend',effects:{friend:2},lines:[['narrator',n<3?'林遥抬头看了一眼，手里的笔没有放下。':'她认出了你，给书本挪出一点位置。'],['linyao',a[1]],['you',w<10?'我就问一下，不耽误你。':'你现在方便说一会儿吗？']],choices:[{key:'respect',text:a[2],effects:{},flags:{},after:[['narrator',a[3]],['linyao',n<3?'嗯，谢谢。':'下次见。']]},{key:'brief',text:'简单打个招呼，聊几句各自的安排',effects:{},flags:{},after:[['linyao','好，我先把这点事情做完。'],['narrator','你们各自收好东西，没有把一次交谈当成更亲近的承诺。']]}]};
+    const moments=[['她把本子合上','你是想问这道题吗？我先把这一页写完，稍等一下。','只问那一步，给她留出写完的时间','她把等号前的那一行指给你看，随后继续写自己的。'],['借一把尺子','可以，用完放桌边就好，谢谢。我一会儿还要用。','用完当面归还，不顺手翻她的画本','她点点头，把尺子收进笔袋。'],['值日后还没走','谢谢你来问。我在等颜料干，你有事可以先去忙。','问能不能帮忙收工具，等她同意再动','她把需要清洗的笔挑出来，另外两支留在手边。'],['被认出的脚步声','今天你们也拖堂了？我刚准备走。','讲讲课堂上的小插曲，不追问私事','她听到粉笔断成三截，没忍住笑了一下。'],['留了一小张纸','上次你问的那题，我找到另一种写法了。','认真看完，也告诉她自己的想法','你们对了几行步骤。铃响以后，她把纸留在桌上。'],['不再只谈题目','新画还没画完。你想看的话，下周再说。','答应等她愿意展示时再看','她把本子收好，问你周末准备做什么。']];
+    const a=moments[Math.min(n,5)];return {id,title:'课后 · '+a[0],cost:12,category:'friend',effects:{friend:2},lines:[['narrator',n<3?'林遥停了一下笔，抬头听你说完，又把目光落回本子上。':'她认出了你，给书本挪出一点位置。'],['linyao',a[1]],['you',w<10?'我就问一下，不耽误你。':'你现在方便说一会儿吗？']],choices:[{key:'respect',text:a[2],effects:{},flags:{},after:[['narrator',a[3]],['linyao',n<3?'谢谢，放这里就好。':'下次见。']]},{key:'brief',text:'简单打个招呼，聊几句各自的安排',effects:{},flags:{},after:[['linyao','好，我先把这点事情做完。'],['narrator','你们各自收好东西，没有把一次交谈当成更亲近的承诺。']]}]};
   }
   function renderGrowth(){
     const g=G.ensure(S);let bar=$('#growth-bar');if(!bar){bar=document.createElement('aside');bar.id='growth-bar';$('#play-screen').append(bar);}
@@ -307,6 +308,8 @@
   function reportCard(index=null){const g=G.ensure(S);if(!g.reports.length){result('成绩单还没发下来','第一次月考在第四周结束。每科的掌握度、精力和压力都会影响发挥。');return;}const r=g.reports[index===null?g.reports.length-1:index],me=r.rows.find(x=>x.id==='player'),previous=g.reports[g.reports.indexOf(r)-1];const m=showModal({title:r.title,kicker:`第 ${r.week} 周 · 班级学情公示`,wide:true,body:`<div class="report-summary"><strong>${me.total}<small> / 900 分</small></strong><span>班级第 ${me.rank} / 44 名${previous?` · 上次第 ${previous.rank} 名`:''}</span></div><div class="growth-tabs">${g.reports.map((x,i)=>`<button data-report="${i}">W${x.week}</button>`).join('')}</div><p class="modal-note">全班 44 人，六科各 150 分；同分并列排名。姓名和发挥随同一周目保存，刷新不会重新抽成绩。</p><div class="report-scroll"><table><thead><tr><th>排名</th><th>姓名</th>${G.subjects.map(x=>`<th>${x}</th>`).join('')}<th>总分</th></tr></thead><tbody>${r.rows.map(x=>`<tr class="${x.id==='player'?'player-row':''}"><td>${x.rank}</td><th>${esc(x.name)}${x.id==='player'?'（你）':''}</th>${x.scores.map(n=>`<td>${n}</td>`).join('')}<td><b>${x.total}</b></td></tr>`).join('')}</tbody></table></div>`});marginHint(m,'把成绩单翻过来看看','<p>先挑自己最想弄懂的一科，再回看这几周的安排。排名是这次考试的结果；精力、压力与六科掌握会一起影响发挥。不用一口气追上所有人。</p>');$$('[data-report]',m).forEach(b=>b.onclick=()=>{closeModal(true);reportCard(Number(b.dataset.report));});}
 
   function render(){
+    window.CampusCharacters.setRelationship?.(S);
+    if(S.holiday?.active&&CampusHoliday.valid(S)){holidayUI();return;}
     const p=C.places[S.place],w=C.weeks[S.week-1];
     S.year=Y1.normalize(S.year,S);G.enter(S);
     E.setPeriod(C.weeks[S.week-1].date.split('月')[0].trim()+'月');
@@ -585,9 +588,10 @@
     $('#next-week',m).onclick=()=>{
       const previousWeek=S.week,notes=Y1.settle(S);G.settle(S);notes.forEach(x=>memory(x,'学年回响'));
       B.sleep(S,'sun-mon',1);S.diaries=S.diaries.filter(x=>x.week!==S.week);S.diaries.push({week:S.week,text});closeModal(true);
+      if(S.week===10&&!S.holiday?.completedWinter){startHoliday('winter');return;}
       if(S.week===4||S.week===20||S.week===C.weeks.length){if(S.week===4)S.october.exam={rank:rank(),oldSeat:S.seat,energy:S.energy};S.ended=true;save();render();showEnding();return;}
       S.week++;S.weekend.current=W.fresh(S.week);S.remaining=3;S.plan=null;S.done=[];S.place='classroom';save();render();
-      if(previousWeek===10){const exam=S.year.exams.find(x=>x.week===10);E.dialogue({title:'期末之后 · 寒假慢慢过去',lines:[{who:'teacher',text:`这次期末班级第 ${exam.rank}/44。卷子发回去，先看自己真正会了什么，不用替别人排三年的座位。`},{who:'narrator',text:'你们收好意向表。学校还会再次确认，今天交的不是不可更改的判决。'},{who:'mother',text:'假期别光等开学。鞋合不合脚，出去走走就知道。'},{who:'narrator',text:'普通教学周和大半个假期翻过去。再打开这一页，已经是寒假尾声。'}]},weekIntro);return;}
+
       if(previousWeek===19&&notes.length){E.dialogue({title:'校内交流 · 准备之后的结果',lines:notes.map(text=>({who:'teacher',text}))},weekIntro);return;}
       if(S.week===3&&!S.echoResolved){
         S.echoResolved=true;
@@ -738,9 +742,17 @@
   function showYearEnding(){
     const rows=Y1.recap(S),exams=S.year.exams;
     const m=showModal({kicker:'高一 · 二十个关键周之后',title:'下一间教室见',wide:true,closable:false,body:`<div class="photo-strip"><div class="polaroid"><img src="assets/year-summer.jpg" alt="高一最后一天的空教室"><p>把高一收进书包</p></div></div><div class="year-recap">${rows.map(x=>`<p>${esc(x)}</p>`).join('')}</div><div class="receipt">${exams.map(x=>`${x.week===10?'高一上':'高一下'}期末：第 ${x.rank}/44`).join(' · ')}<br>排名按对应学段的学习积累和精力记录。它影响座位，不替你决定三年的价值。</div><p class="handwritten">分班名单还没贴出来。<br>暑假有消息，可以自己先发一句。</p><p class="modal-note">可以接着进入高二开篇 W21—W23。保留现有存档、借款、约定和关系边界；林遥搬家、关系确认与之后的人生结局尚未制作。</p><div class="modal-actions"><button class="primary-button" id="second-year-continue">继续高二 · 看分班名单</button><button class="secondary-button" id="year-journal">翻看这一年的手记</button><button class="secondary-button" id="year-gallery">重看走过的画面</button><button class="secondary-button" id="year-export">导出高一进度</button><button class="secondary-button" id="year-title">回到主界面</button></div>`});
-    addReportButton(m);$('#second-year-continue',m).onclick=enterSecondYear;$('#year-journal',m).onclick=journal;$('#year-gallery',m).onclick=cgGallery;$('#year-export',m).onclick=exportSave;$('#year-title',m).onclick=returnTitle;
+    addReportButton(m);$('#second-year-continue',m).textContent='先去过暑假 →';$('#second-year-continue',m).onclick=()=>startHoliday('summer');$('#year-journal',m).onclick=journal;$('#year-gallery',m).onclick=cgGallery;$('#year-export',m).onclick=exportSave;$('#year-title',m).onclick=returnTitle;
   }
   function rank(){if(G.ensure(S).reports.some(x=>x.week===S.week))return G.ensure(S).reports.find(x=>x.week===S.week).rank;return S.week===4&&S.ended&&S.october.exam?S.october.exam.rank:B.rank(S.study,S.energy);}
+  function startHoliday(kind){clearModals();CampusHoliday.begin(S,kind);save();holidayUI();}
+  function holidayUI(){
+    CampusCharacters.setProfile(S.profile);CampusCharacters.setRelationship(S);E.setPeriod(S.holiday.kind==='winter'?'寒假':'暑假');
+    CampusHoliday.mount(S,{save,exit:()=>{save();returnTitle();},dialogue:E.dialogue,basketball:E.basketball,finish:()=>{
+      if(S.holiday.kind==='summer'){enterSecondYear();return;}
+      S.holiday.completedWinter=true;S.week=11;S.remaining=3;S.done=[];S.plan=null;S.ended=false;S.place='home';S.weekend.current=W.fresh(11);save();render();weekIntro();
+    }});
+  }
   function enterSecondYear(){
     if(S.week!==20||!S.ended)return;
     try{if(!localStorage.getItem(KEY+'-before-year-v15'))localStorage.setItem(KEY+'-before-year-v15',JSON.stringify(S));}catch{}
@@ -796,12 +808,18 @@
     showModal({kicker:'精力与日常作息',title:'正常睡觉，不需要占一个选项',body:`<div class="balance-rules"><p>每天都会正常睡觉，<strong>每晚自动恢复 6 精力</strong>，上限 100。周一到周三、周三到周五各经过两晚，分别恢复 12；进入周六、周日和下周一，各恢复 6。一整周共 42 点基础恢复。</p><p>只在日期真正推进时结算一次。看说明、换地点、刷新、重开游戏都不额外恢复；现实里等多久也不会刷出精力。</p><p>早点睡额外恢复 36，吃饭、散步和留白也保留额外恢复。它们是在正常作息之外，给自己多留一点余力。</p><p><strong>稳步订正：18 精力，正确积累 +3；集中攻坚：28 精力，正确 +5。</strong>认真看完讲解也分别有 +2、+3，符合学习计划再 +1。同周重复学习不降低收益。</p><p>从 64 精力开始，工作日三次稳步订正后剩 34；周末留白加正常睡眠，下周一为 64。若周末也安排很多高消耗活动，或连续集中攻坚，就需要额外休整。时间仍然不能同时留给所有人。</p></div>${S?.rhythm?.last?`<p class="receipt">最近一次：${esc(S.rhythm.last.label)}，实际恢复 +${S.rhythm.last.amount}。达到上限时不会继续累加。</p>`:''}`});
   }
   function morePlay(){
-    const m=showModal({kicker:'更多玩法',title:'先试一试，再走进那三年',wide:true,body:'<p class="modal-lead">这里可以单独练习小游戏。不会用掉剧情里的时间、精力或钱，也不会改变约定和解锁物。</p><div class="extras-list"><button class="extras-item" id="practice-running"><small>节奏与呼吸</small><strong>操场跑一圈</strong><span>光点进到落脚区时按空格，也可以直接点击。</span></button><button class="extras-item" id="practice-basketball"><small>三次机会</small><strong>半场投篮</strong><span>试试出手时机。没有倒计时，投歪了也能再来。</span></button><button class="extras-item" id="practice-phone"><small>留意老师的视野</small><strong>晚自习的手机</strong><span>在拿出与收起之间选择，看完消息再离开。</span></button></div><div class="extras-settings"><button class="secondary-button" id="extras-rules">精力与学习规则</button><button class="secondary-button" id="extras-help">操作说明</button><button class="secondary-button" data-music-toggle id="extras-music">背景音乐</button><button class="secondary-button" id="extras-sfx">点击音效</button><button class="secondary-button" id="extras-motion">场景与人物动态</button><button class="primary-button" id="extras-back">返回主界面</button></div>'});
+    const m=showModal({kicker:'更多玩法',title:'先试一试，再走进那三年',wide:true,body:'<p class="modal-lead">这里可以单独练习小游戏。不会用掉剧情里的时间、精力或钱，也不会改变约定和解锁物。</p><div class="extras-list"><button class="extras-item" id="practice-holiday"><small>校门以外 · 独立试玩</small><strong>先过几天寒假</strong><span>体验新界面与假期生活，不改变本局进度。</span></button><button class="extras-item" id="practice-running"><small>节奏与呼吸</small><strong>操场跑一圈</strong><span>光点进到落脚区时按空格，也可以直接点击。</span></button><button class="extras-item" id="practice-basketball"><small>三次机会</small><strong>半场投篮</strong><span>试试出手时机。没有倒计时，投歪了也能再来。</span></button><button class="extras-item" id="practice-phone"><small>留意老师的视野</small><strong>晚自习的手机</strong><span>在拿出与收起之间选择，看完消息再离开。</span></button></div><div class="extras-settings"><button class="secondary-button" id="extras-rules">精力与学习规则</button><button class="secondary-button" id="extras-help">操作说明</button><button class="secondary-button" data-music-toggle id="extras-music">背景音乐</button><button class="secondary-button" id="extras-sfx">点击音效</button><button class="secondary-button" id="extras-motion">场景与人物动态</button><button class="primary-button" id="extras-back">返回主界面</button></div>'});
+    $('#practice-holiday',m).onclick=holidayTry;
     window.CampusMusic.sync();$('#extras-music',m).onclick=toggleSound;
     const sfx=$('#extras-sfx',m),motion=$('#extras-motion',m),labels=()=>{sfx.textContent='点击音效：'+(window.CampusSfx.enabled?'开':'关');motion.textContent='场景与人物动态：'+(E.motionEnabled?'开':'关');};labels();
     sfx.onclick=()=>{window.CampusSfx.set(!window.CampusSfx.enabled);labels();};motion.onclick=()=>{E.setMotion(!E.motionEnabled);labels();};
     $('#extras-rules',m).onclick=energyGuide;$('#extras-help',m).onclick=help;$('#extras-back',m).onclick=()=>closeModal();
     for(const kind of ['running','basketball','phone'])$('#practice-'+kind,m).onclick=()=>practice(kind);
+  }
+  function holidayTry(){
+    const demo=initial();demo.week=10;demo.place='home';demo.profile={gender:'male',name:'你'};demo.weekend=W.initial(10);demo.weekend.wallet=45;demo.growth.contactWeeks=[1,3,5,7];demo.october.mode='undecided';
+    clearModals();markPlay();CampusCharacters.setProfile(demo.profile);CampusCharacters.setRelationship(demo);E.setPeriod('寒假');CampusHoliday.begin(demo,'winter');
+    CampusHoliday.mount(demo,{preview:true,save:()=>{},exit:returnTitle,finish:returnTitle,dialogue:E.dialogue,basketball:E.basketball});
   }
   function practice(kind){
     if(E.busy)return;
@@ -834,7 +852,7 @@
         if(!first)return;if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
       }return;
     }
-    if(!S||$('#play-screen').hidden)return;
+    if(!S||$('#play-screen').hidden||$('#game').classList.contains('on-holiday'))return;
     if(event.key==='Escape'){menu();return;}
     if(['1','2','3','4'].includes(event.key))move(['classroom','canteen','track','home'][Number(event.key)-1]);
     if(event.key.toLowerCase()==='j')journal();if(event.key.toLowerCase()==='p')openPlan();

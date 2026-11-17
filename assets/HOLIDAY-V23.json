@@ -1,0 +1,49 @@
+{
+  "tool": "built-in image_gen",
+  "date": "2026-11-17",
+  "notes": "Character edits preserve alpha; landscape PNG converted to JPEG quality92 without content edits. Original generated files retained.",
+  "assets": [
+    {
+      "file": "linyao-cool-v23.webp",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-ddf2f0b9-ae0c-4476-8984-b613ec8e578c.png",
+      "use": "分手后的疏远",
+      "bytes": 1396954,
+      "sha256": "029a4d3787a457e92d755dc4b5afe100006877958f55aaba36b4952b60e48760"
+    },
+    {
+      "file": "linyao-reserved-v23.webp",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-51bc97d7-539d-4256-958f-2972d77219cf.png",
+      "use": "前期礼貌而疏离",
+      "bytes": 1301610,
+      "sha256": "53dbf55cb0705060ed070fbc19c677e2142c096735fd6d2e9bc24996bc7737c2"
+    },
+    {
+      "file": "holiday-court-v23.jpg",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-cf372f0b-0403-421a-8341-9920c0041d2c.png",
+      "use": "冬季小区球场",
+      "bytes": 751598,
+      "sha256": "3c264802ae5199cbb4c86d070fc396346af71c4b9715fbeb5d36df3369a84bd5"
+    },
+    {
+      "file": "holiday-bookshop-v23.jpg",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-1cc440f2-1bac-4692-b0a6-4b651da6b096.png",
+      "use": "冬季书店",
+      "bytes": 673122,
+      "sha256": "6e76596fa825ace925199f8871efc56c3fafb606a0829a7cf1fae3ee18fa8dcc"
+    },
+    {
+      "file": "holiday-court-summer-v23.jpg",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-e751a128-159c-4095-bb74-11ba0bd6c4f0.png",
+      "use": "夏季小区球场",
+      "bytes": 873027,
+      "sha256": "ea47de05a9f38f25dff5841a7c8b9eab6915f79974b5a703c49d8cf4c3a060a0"
+    },
+    {
+      "file": "holiday-bookshop-summer-v23.jpg",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-6ba01b75-4b3a-41a5-8286-d79f7afff5a9.png",
+      "use": "夏季书店",
+      "bytes": 778722,
+      "sha256": "73e51e98617f452d0402e09a8d08fdd547fca09687435f197ec82f205ec39d5e"
+    }
+  ]
+}
