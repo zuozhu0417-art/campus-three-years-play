@@ -67,7 +67,7 @@ with sync_playwright() as pw:
  # Negative mood keys now use the new empty-hand school sprites; other emotions stay distinct.
  poses=p.evaluate("""()=>({angry:CampusCharacters.actors.linyao.poses.angry,disgusted:CampusCharacters.actors.linyao.poses.disgusted})""")
  assert poses['angry'].endswith('situations-v25/linyao-argument.webp')
- assert poses['disgusted'].endswith('situations-v25/linyao-aversion.webp')
+ assert poses['disgusted'].endswith('poses-v26/linyao-aversion.webp')
  assert not errors,errors
  assert not missing,missing
  b.close()

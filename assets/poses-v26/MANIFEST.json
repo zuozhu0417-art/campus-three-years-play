@@ -1,0 +1,34 @@
+{
+  "version": 26,
+  "tool": "built-in image_gen",
+  "purpose": "Natural shoulder-neck-head orientation; reference3 is pose-only, not photographic style",
+  "items": [
+    {
+      "id": "aversion",
+      "label": "转身回避",
+      "prompt": "Use case: identity-preserve. Edit a transparent visual novel sprite for 校园三年. Image 1 is the ONLY identity/style reference: same illustrated Lin Yao, youthful grey-brown eyes, long dark brown ponytail, dusty blue hair ribbon, delicate muted watercolor-gouache anime illustration with fine pencil detail. Image 2 (real-life woman in a street screenshot) is ONLY a biomechanical shoulder-neck-face orientation reference. Do NOT transfer her identity, photographic style, hair, street, text, logos, play icon or clothing. Rebuild a believable shoulder girdle, collar, neck and skull together rather than pasting a frontal face onto a side body. Preserve original illustrative rendering and age-appropriate proportions. One girl only, head through knees, portrait1024x1536, genuine transparent background. Normal compact skull/hair volume, natural neck length, shoulders lowered, chin clear of shoulder. No head forced straight toward camera, no near-frontal face above a side/back-facing torso, no owl twist, no chin over clavicle, no huge hair mass hiding a broken neck, no books/papers anywhere, no text or background. Pose: she is slowly turning away, not turning her head backwards. Chest and shoulders are in a 45-degree three-quarter SIDE view facing toward IMAGE RIGHT; face follows this same IMAGE RIGHT direction, at about 50-55 degrees from camera. The head rotates only 5-10 degrees relative to the chest, well below 45 degrees of neck rotation. Her nose points image-right, near cheek visible and far eye visibly foreshortened/partly hidden by nose bridge, asymmetrical three-quarter face, NOT two symmetrical fully frontal eyes. Gaze continues slightly downward toward image-right, away from the viewer; she does not look at the camera. Mood: restrained displeasure/aversion, lips flat, brow mildly knit, no smile. White short-sleeved school blouse and grey pleated skirt. One EMPTY hand is extended low at waist level, a small relaxed palm-out stop gesture; other arm lowered. Two separate natural shoulders, collar opening follows same chest direction. Do not look back over the shoulder. Match the natural unforced neck-shoulder relationship in Image2, while making her face follow her body more.",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-92f83c13-4b62-4f44-87ba-105a1f0f47ba.png",
+      "runtime": "assets/poses-v26/linyao-aversion.webp",
+      "sha256": "4ef22b37f1767b7c189b3125936cd21d8e600547d4837ea883a83c0948961c28",
+      "bytes": 280708,
+      "alpha_preserved": true
+    },
+    {
+      "id": "outing",
+      "label": "出游轻回望",
+      "prompt": "Use case: identity-preserve, precise pose-preserving costume edit. Image1 (the schoolgirl facing image-right, empty-hand stop gesture) is the APPROVED anatomical pose template AND identity/style reference. Preserve Image1's complete head, neck, collar/shoulder geometry, face perspective and IMAGE-RIGHT facing direction exactly: nose points to the right edge, eyes look right, head and chest both face right. DO NOT turn her head back to face left or to face the viewer. This is a girl seen naturally from the side, face follows shoulder direction. Preserve the same head-to-body proportions and compact hair silhouette. Change the emotion to a small relaxed happy smile, eyes gently bright while still looking ahead to IMAGE RIGHT, not at the camera. Change the clothes to the ivory modest short sleeve blouse, sage green long skirt and small tan crossbody bag from Image2. Image2 is ONLY a fabric/color/clothing reference; do not copy Image2's neck, body pose, head angle or gaze. Lower the stop-gesture hand naturally down at her side, other hand lightly touches bag strap near her hip, both hands relaxed and empty, natural standing/walking pause. Keep same Lin Yao, dusty blue ponytail ribbon, soft muted watercolor-gouache anime/pencil style. Head through knees 1024x1536 portrait, one figure, genuine transparent background, no text or background. ABSOLUTE: head and torso face the SAME IMAGE-RIGHT direction like Image1; no backwards over-shoulder glance, no frontal face, no reversed head, no book. Her three-quarter/profile face has a narrower far cheek and clearly foreshortened far eye.",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-ef4e5718-761d-492d-a97e-954bbf622c21.png",
+      "runtime": "assets/poses-v26/linyao-outing.webp",
+      "sha256": "06cbb7f70148c52fff7dfb3ae91ab3af8b38fc38dea530823f05bfbdb38dbbdd",
+      "bytes": 291222,
+      "alpha_preserved": true
+    }
+  ],
+  "discarded": [
+    {
+      "id": "outing-first-v26",
+      "source": "exec-81d7cf30-56ce-4ae4-9a29-181cbdff4a01.png",
+      "reason": "Torso and head still point in opposing directions; not shipped"
+    }
+  ]
+}

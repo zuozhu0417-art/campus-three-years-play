@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "changed_sprites": 2,
+  "alpha_preserved": true,
+  "suites": {
+    "verification-situations-v25.json": {
+      "passed": true,
+      "portraits": 8,
+      "checks": [
+        "Eight full sprites and thumbs decode; all actual game previews; motion cannot replace clothing or pose",
+        "Four viewport sizes without horizontal overflow",
+        "Actual holiday action: winter meeting, summer closer meeting, summer friendly meeting, declined meeting",
+        "Holiday energy, time and warmth accounting unchanged; previews never mutate game save",
+        "Angry and disgusted emotion keys now point to empty-hand sprites"
+      ],
+      "errors": [],
+      "missing": []
+    },
+    "verification-emotions-v24.json": {
+      "passed": true,
+      "portraits": 14,
+      "emotion_route_cases": 168,
+      "checks": [
+        "Every full portrait and thumbnail decodes, fourteen actual game previews",
+        "Title and character booklet entry paths; no save mutation or relationship unlock",
+        "Explicit emotion and mood survive six relationship contexts; no mismatched warm videos",
+        "Polite first-stage reserve remains the default; no random aversion from low affinity",
+        "Standalone gallery has no save access and works in four viewport sizes"
+      ],
+      "errors": [],
+      "missing": []
+    }
+  },
+  "visual_review": "Natural same-side head/shoulder orientation; render reviewed manually. No measured precise angle claim."
+}
