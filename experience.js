@@ -53,7 +53,7 @@ window.CampusExperience = (() => {
       $('#dialogue-motion').textContent=motionOn?'动态：开':'动态：关';$('#dialogue-motion').setAttribute('aria-pressed',String(motionOn));
       if(!lastPortrait){image.hidden=true;return;}
       const actor=characters.get(lastPortrait),mood=lastMood;
-      image.hidden=false;image.src=actor.poses[mood]||actor.base;image.alt=(actor.id.startsWith('player')?characters.profile.name:actor.name)+' · '+({cold:'礼貌而疏离',withdrawn:'疏远',tender:'含着笑',neutral:'平静',smile:'微笑',blink:'眨眼',sad:'失落',laugh:'掩嘴笑',thoughtful:'思考',shy:'害羞',wave:'挥手',pause:'停一停'}[mood]||mood);image.dataset.expression=mood;
+      image.hidden=false;image.src=actor.poses[mood]||actor.base;image.alt=(actor.id.startsWith('player')?characters.profile.name:actor.name)+' · '+(characters.emotionLabel(mood)||{cold:'礼貌而疏离',withdrawn:'疏远',tender:'含着笑',neutral:'平静',smile:'微笑',blink:'眨眼',sad:'失落',laugh:'掩嘴笑',thoughtful:'思考',shy:'害羞',wave:'挥手',pause:'停一停'}[mood]||mood);image.dataset.expression=mood;
       const clipName=lines[index].motion===false?null:mood==='smile'?'warm':mood==='neutral'?'idle':null;
       const clip=clipName&&actor.clips[clipName];if(!motionOn||!clip)return;
       const restore=()=>{if(token!==mediaToken)return;video.hidden=true;image.style.visibility='';};

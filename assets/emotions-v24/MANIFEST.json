@@ -1,0 +1,247 @@
+{
+  "tool": "built-in image_gen",
+  "date": "2026-11-17",
+  "reference": "assets/linyao-reserved-v23.webp",
+  "count": 14,
+  "notes": "Original PNGs retained. Runtime WebP quality93 and thumbnail WebP quality85; alpha preserved; no repainting, compositing or deterministic expression deformation.",
+  "assets": [
+    {
+      "id": "grieving",
+      "label": "难过",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-07aebbfb-53eb-4a1a-888b-1057719308c6.png",
+      "file": "linyao-grieving.webp",
+      "thumbnail": "thumbs/linyao-grieving.webp",
+      "prompt": "Edit target is the supplied portrait of LIN YAO, the same teenage female protagonist in the Chinese visual novel Campus Three Years. Create ONE separate portrait asset, not a grid. Keep EXACT same character identity and facial proportions, long dark ponytail, dusty blue ribbon, white short-sleeve school blouse, grey pleated skirt, sketchbook held naturally against chest, same waist/thigh-up portrait framing and scale, same soft hand-painted anime watercolor linework and subdued colors. Change ONLY expression and the small natural head/shoulder response needed for this emotional state. Face must remain recognizably the same person. Keep hands, fingers and sketchbook anatomically credible and consistent. Genuine clean TRANSPARENT alpha background, no scenery, no colored backdrop, no surrounding glow, no shadow panel, no text, no UI, no icons or symbols. Do not make it photographic or chibi. Portrait 2:3, full head and ribbon inside canvas with small breathing room. Requested emotional state: Quiet grief: eyebrows raised slightly at their inner ends, gaze lowered, eyelids heavy, closed mouth gently turned down. No tears yet, not blank or angry. Should clearly feel sad and vulnerable.",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "runtime_bytes": 372688,
+      "sha256": "669398318a1bcda48717242c113fe38c85ec751d9c74ceb3ef77a91aa350bdd9",
+      "thumbnail_bytes": 35362,
+      "alpha_unchanged": true
+    },
+    {
+      "id": "tearful",
+      "label": "忍泪",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-40cdfba4-2831-4416-8f72-9b035f1d0ccd.png",
+      "file": "linyao-tearful.webp",
+      "thumbnail": "thumbs/linyao-tearful.webp",
+      "prompt": "Edit target is the supplied portrait of LIN YAO, the same teenage female protagonist in the Chinese visual novel Campus Three Years. Create ONE separate portrait asset, not a grid. Keep EXACT same character identity and facial proportions, long dark ponytail, dusty blue ribbon, white short-sleeve school blouse, grey pleated skirt, sketchbook held naturally against chest, same waist/thigh-up portrait framing and scale, same soft hand-painted anime watercolor linework and subdued colors. Change ONLY expression and the small natural head/shoulder response needed for this emotional state. Face must remain recognizably the same person. Keep hands, fingers and sketchbook anatomically credible and consistent. Genuine clean TRANSPARENT alpha background, no scenery, no colored backdrop, no surrounding glow, no shadow panel, no text, no UI, no icons or symbols. Do not make it photographic or chibi. Portrait 2:3, full head and ribbon inside canvas with small breathing room. Requested emotional state: Holding back tears: watery eyes with a visible wet lower lid, reddened rims, pressed lips trembling slightly, trying to maintain composure. NO streams of tears yet. A subtle painful breath.",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "runtime_bytes": 355206,
+      "sha256": "c8ee61b3c352f93a4e8c3c4a62a37ba297473b4eb9806c02d4195b673a7c463f",
+      "thumbnail_bytes": 32596,
+      "alpha_unchanged": true
+    },
+    {
+      "id": "crying",
+      "label": "落泪",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-52c1e101-c7cf-438a-8000-1e678cd92230.png",
+      "file": "linyao-crying.webp",
+      "thumbnail": "thumbs/linyao-crying.webp",
+      "prompt": "Edit target is the supplied portrait of LIN YAO, the same teenage female protagonist in the Chinese visual novel Campus Three Years. Create ONE separate portrait asset, not a grid. Keep EXACT same character identity and facial proportions, long dark ponytail, dusty blue ribbon, white short-sleeve school blouse, grey pleated skirt, sketchbook held naturally against chest, same waist/thigh-up portrait framing and scale, same soft hand-painted anime watercolor linework and subdued colors. Change ONLY expression and the small natural head/shoulder response needed for this emotional state. Face must remain recognizably the same person. Keep hands, fingers and sketchbook anatomically credible and consistent. Genuine clean TRANSPARENT alpha background, no scenery, no colored backdrop, no surrounding glow, no shadow panel, no text, no UI, no icons or symbols. Do not make it photographic or chibi. Portrait 2:3, full head and ribbon inside canvas with small breathing room. Requested emotional state: Silent crying: one or two thin natural tear trails down cheeks, wet eyelashes, distressed inner brows, slightly parted lips trying to speak. Restrained human sadness, no melodramatic screaming, no giant cartoon tears.",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "runtime_bytes": 339730,
+      "sha256": "a1c3d0ae6b276efa06bf5b3910e2dd42c7cddcaabc50a9e0df14118b275822be",
+      "thumbnail_bytes": 32806,
+      "alpha_unchanged": true
+    },
+    {
+      "id": "angry",
+      "label": "生气",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-862c5c1d-6533-47b8-97d9-da94f6810ba8.png",
+      "file": "linyao-angry.webp",
+      "thumbnail": "thumbs/linyao-angry.webp",
+      "prompt": "Edit target is the supplied portrait of LIN YAO, the same teenage female protagonist in the Chinese visual novel Campus Three Years. Create ONE separate portrait asset, not a grid. Keep EXACT same character identity and facial proportions, long dark ponytail, dusty blue ribbon, white short-sleeve school blouse, grey pleated skirt, sketchbook held naturally against chest, same waist/thigh-up portrait framing and scale, same soft hand-painted anime watercolor linework and subdued colors. Change ONLY expression and the small natural head/shoulder response needed for this emotional state. Face must remain recognizably the same person. Keep hands, fingers and sketchbook anatomically credible and consistent. Genuine clean TRANSPARENT alpha background, no scenery, no colored backdrop, no surrounding glow, no shadow panel, no text, no UI, no icons or symbols. Do not make it photographic or chibi. Portrait 2:3, full head and ribbon inside canvas with small breathing room. Requested emotional state: Controlled anger: brows drawn together, eyes focused directly and firmly, jaw set, lips pressed as if about to object. Clearly upset, standing up for herself, NOT a cute blushing pout, NOT a monster face, no violence.",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "runtime_bytes": 349050,
+      "sha256": "d729827b445fd808467e3fbc87792d8f6bcb9ee58505e5a1e68e5d2b3aa876c8",
+      "thumbnail_bytes": 33616,
+      "alpha_unchanged": true
+    },
+    {
+      "id": "disgusted",
+      "label": "反感",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-c6d5e47d-349e-453b-bcce-42f128d1cbb9.png",
+      "file": "linyao-disgusted.webp",
+      "thumbnail": "thumbs/linyao-disgusted.webp",
+      "prompt": "Edit target is the supplied portrait of LIN YAO, the same teenage female protagonist in the Chinese visual novel Campus Three Years. Create ONE separate portrait asset, not a grid. Keep EXACT same character identity and facial proportions, long dark ponytail, dusty blue ribbon, white short-sleeve school blouse, grey pleated skirt, sketchbook held naturally against chest, same waist/thigh-up portrait framing and scale, same soft hand-painted anime watercolor linework and subdued colors. Change ONLY expression and the small natural head/shoulder response needed for this emotional state. Face must remain recognizably the same person. Keep hands, fingers and sketchbook anatomically credible and consistent. Genuine clean TRANSPARENT alpha background, no scenery, no colored backdrop, no surrounding glow, no shadow panel, no text, no UI, no icons or symbols. Do not make it photographic or chibi. Portrait 2:3, full head and ribbon inside canvas with small breathing room. Requested emotional state: Genuine aversion and interpersonal rejection: head turned slightly away, eyes averting to the side with mildly lowered lids, brows subtly tightened, lips compressed, shoulders slightly withdrawing. She wants distance. NO smiling, no blush, no seductive smirk, no exaggerated wrinkled nose or comic gagging; reserved but unmistakable discomfort.",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "runtime_bytes": 402404,
+      "sha256": "2e1466a59ec50c470d2be6aaf63698247b65b5136d14da1841abcb4a40e83361",
+      "thumbnail_bytes": 36418,
+      "alpha_unchanged": true
+    },
+    {
+      "id": "disappointed",
+      "label": "失望",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-ca06d832-ad69-4320-b25d-d94cce38feb9.png",
+      "file": "linyao-disappointed.webp",
+      "thumbnail": "thumbs/linyao-disappointed.webp",
+      "prompt": "Edit target is the supplied portrait of LIN YAO, the same teenage female protagonist in the Chinese visual novel Campus Three Years. Create ONE separate portrait asset, not a grid. Keep EXACT same character identity and facial proportions, long dark ponytail, dusty blue ribbon, white short-sleeve school blouse, grey pleated skirt, sketchbook held naturally against chest, same waist/thigh-up portrait framing and scale, same soft hand-painted anime watercolor linework and subdued colors. Change ONLY expression and the small natural head/shoulder response needed for this emotional state. Face must remain recognizably the same person. Keep hands, fingers and sketchbook anatomically credible and consistent. Genuine clean TRANSPARENT alpha background, no scenery, no colored backdrop, no surrounding glow, no shadow panel, no text, no UI, no icons or symbols. Do not make it photographic or chibi. Portrait 2:3, full head and ribbon inside canvas with small breathing room. Requested emotional state: Quiet disappointment: eyes lowered after losing an expectation, gently knitted inner brows, mouth slack and closed, shoulders slightly drooping. No tears, no anger, no smile. More resigned and deflated than the grief portrait.",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "runtime_bytes": 359572,
+      "sha256": "ca162c081d050420302e0a716de9702e260e936216860e84b81192cd50caa06e",
+      "thumbnail_bytes": 32060,
+      "alpha_unchanged": true
+    },
+    {
+      "id": "worried",
+      "label": "担心",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-7a2fe157-2a26-4d21-a2a2-81728f6a6d94.png",
+      "file": "linyao-worried.webp",
+      "thumbnail": "thumbs/linyao-worried.webp",
+      "prompt": "Edit target is the supplied portrait of LIN YAO, the same teenage female protagonist in the Chinese visual novel Campus Three Years. Create ONE separate portrait asset, not a grid. Keep EXACT same character identity and facial proportions, long dark ponytail, dusty blue ribbon, white short-sleeve school blouse, grey pleated skirt, sketchbook held naturally against chest, same waist/thigh-up portrait framing and scale, same soft hand-painted anime watercolor linework and subdued colors. Change ONLY expression and the small natural head/shoulder response needed for this emotional state. Face must remain recognizably the same person. Keep hands, fingers and sketchbook anatomically credible and consistent. Genuine clean TRANSPARENT alpha background, no scenery, no colored backdrop, no surrounding glow, no shadow panel, no text, no UI, no icons or symbols. Do not make it photographic or chibi. Portrait 2:3, full head and ribbon inside canvas with small breathing room. Requested emotional state: Concern for someone: attentive eyes slightly widened, brows raised at center, mouth slightly parted as if gently asking if they are okay. Worried and empathetic, NOT afraid, NOT romantic blush, NOT smiling.",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "runtime_bytes": 350824,
+      "sha256": "c7a51291270e96599f067b4223ac73769c9bf43f0f38be996e3c89d351ce7fc3",
+      "thumbnail_bytes": 33890,
+      "alpha_unchanged": true
+    },
+    {
+      "id": "surprised",
+      "label": "惊讶",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-94096bfe-1b13-4dc7-80fd-e151d03c24d3.png",
+      "file": "linyao-surprised.webp",
+      "thumbnail": "thumbs/linyao-surprised.webp",
+      "prompt": "Edit target is the supplied portrait of LIN YAO, the same teenage female protagonist in the Chinese visual novel Campus Three Years. Create ONE separate portrait asset, not a grid. Keep EXACT same character identity and facial proportions, long dark ponytail, dusty blue ribbon, white short-sleeve school blouse, grey pleated skirt, sketchbook held naturally against chest, same waist/thigh-up portrait framing and scale, same soft hand-painted anime watercolor linework and subdued colors. Change ONLY expression and the small natural head/shoulder response needed for this emotional state. Face must remain recognizably the same person. Keep hands, fingers and sketchbook anatomically credible and consistent. Genuine clean TRANSPARENT alpha background, no scenery, no colored backdrop, no surrounding glow, no shadow panel, no text, no UI, no icons or symbols. Do not make it photographic or chibi. Portrait 2:3, full head and ribbon inside canvas with small breathing room. Requested emotional state: Natural sudden surprise: eyes open wider without changing eye identity, brows lifted, small parted mouth as if saying ah, head lifted slightly. No terror, no giant round cartoon eyes, no graphic symbols.",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "runtime_bytes": 403412,
+      "sha256": "02e705c5915ca530e0b41a4397046dabb548009f9c2eca556bc47df1f319ee57",
+      "thumbnail_bytes": 37128,
+      "alpha_unchanged": true
+    },
+    {
+      "id": "embarrassed",
+      "label": "不好意思",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-694d34cf-4ff5-4df5-aade-d28e6be50d31.png",
+      "file": "linyao-embarrassed.webp",
+      "thumbnail": "thumbs/linyao-embarrassed.webp",
+      "prompt": "Edit target is the supplied portrait of LIN YAO, the same teenage female protagonist in the Chinese visual novel Campus Three Years. Create ONE separate portrait asset, not a grid. Keep EXACT same character identity and facial proportions, long dark ponytail, dusty blue ribbon, white short-sleeve school blouse, grey pleated skirt, sketchbook held naturally against chest, same waist/thigh-up portrait framing and scale, same soft hand-painted anime watercolor linework and subdued colors. Change ONLY expression and the small natural head/shoulder response needed for this emotional state. Face must remain recognizably the same person. Keep hands, fingers and sketchbook anatomically credible and consistent. Genuine clean TRANSPARENT alpha background, no scenery, no colored backdrop, no surrounding glow, no shadow panel, no text, no UI, no icons or symbols. Do not make it photographic or chibi. Portrait 2:3, full head and ribbon inside canvas with small breathing room. Requested emotional state: Socially embarrassed: looking aside and slightly down, a small restrained apologetic half-smile, faint blush, eyebrows gently raised, shoulders drawn in a little. A polite awkward moment, NOT flirtatious posing, NOT angry.",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "runtime_bytes": 368774,
+      "sha256": "91099ffeeb61d0f208e8609a8e1cb338af26355731fe4fff163076c022a85062",
+      "thumbnail_bytes": 34330,
+      "alpha_unchanged": true
+    },
+    {
+      "id": "delighted",
+      "label": "开心",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-af032688-3840-48e6-a53f-4e1ef69055ff.png",
+      "file": "linyao-delighted.webp",
+      "thumbnail": "thumbs/linyao-delighted.webp",
+      "prompt": "Edit target is the supplied portrait of LIN YAO, the same teenage female protagonist in the Chinese visual novel Campus Three Years. Create ONE separate portrait asset, not a grid. Keep EXACT same character identity and facial proportions, long dark ponytail, dusty blue ribbon, white short-sleeve school blouse, grey pleated skirt, sketchbook held naturally against chest, same waist/thigh-up portrait framing and scale, same soft hand-painted anime watercolor linework and subdued colors. Change ONLY expression and the small natural head/shoulder response needed for this emotional state. Face must remain recognizably the same person. Keep hands, fingers and sketchbook anatomically credible and consistent. Genuine clean TRANSPARENT alpha background, no scenery, no colored backdrop, no surrounding glow, no shadow panel, no text, no UI, no icons or symbols. Do not make it photographic or chibi. Portrait 2:3, full head and ribbon inside canvas with small breathing room. Requested emotional state: Open genuine happiness: bright attentive eyes, eyebrows relaxed, a warm natural smile with slightly parted lips. Delighted by a small good moment, NOT manic laughter, no heart icons, no exaggerated anime closed-eye grin.",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "runtime_bytes": 379376,
+      "sha256": "70f251c99ff14addcf8564efc40b2cfca4d4a94b6d6bfd494f4b87b980b0908a",
+      "thumbnail_bytes": 34810,
+      "alpha_unchanged": true
+    },
+    {
+      "id": "relieved",
+      "label": "释然",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-21564bd7-cc50-40d3-9248-6046111a2068.png",
+      "file": "linyao-relieved.webp",
+      "thumbnail": "thumbs/linyao-relieved.webp",
+      "prompt": "Edit target is the supplied portrait of LIN YAO, the same teenage female protagonist in the Chinese visual novel Campus Three Years. Create ONE separate portrait asset, not a grid. Keep EXACT same character identity and facial proportions, long dark ponytail, dusty blue ribbon, white short-sleeve school blouse, grey pleated skirt, sketchbook held naturally against chest, same waist/thigh-up portrait framing and scale, same soft hand-painted anime watercolor linework and subdued colors. Change ONLY expression and the small natural head/shoulder response needed for this emotional state. Face must remain recognizably the same person. Keep hands, fingers and sketchbook anatomically credible and consistent. Genuine clean TRANSPARENT alpha background, no scenery, no colored backdrop, no surrounding glow, no shadow panel, no text, no UI, no icons or symbols. Do not make it photographic or chibi. Portrait 2:3, full head and ribbon inside canvas with small breathing room. Requested emotional state: Relief after a difficult conversation: eyes softly relaxed, brow smooth, barely visible gentle closed-mouth smile, an exhale reflected in relaxed shoulders. Peaceful and slightly weary, NOT romantic or excited.",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "runtime_bytes": 361864,
+      "sha256": "2fb5f9378f6d310ef257055603169331b955053f06485519f81702ba3e194044",
+      "thumbnail_bytes": 34550,
+      "alpha_unchanged": true
+    },
+    {
+      "id": "tired",
+      "label": "疲惫",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-6e4da870-81ca-47d1-b928-9504d5684ce5.png",
+      "file": "linyao-tired.webp",
+      "thumbnail": "thumbs/linyao-tired.webp",
+      "prompt": "Edit target is the supplied portrait of LIN YAO, the same teenage female protagonist in the Chinese visual novel Campus Three Years. Create ONE separate portrait asset, not a grid. Keep EXACT same character identity and facial proportions, long dark ponytail, dusty blue ribbon, white short-sleeve school blouse, grey pleated skirt, sketchbook held naturally against chest, same waist/thigh-up portrait framing and scale, same soft hand-painted anime watercolor linework and subdued colors. Change ONLY expression and the small natural head/shoulder response needed for this emotional state. Face must remain recognizably the same person. Keep hands, fingers and sketchbook anatomically credible and consistent. Genuine clean TRANSPARENT alpha background, no scenery, no colored backdrop, no surrounding glow, no shadow panel, no text, no UI, no icons or symbols. Do not make it photographic or chibi. Portrait 2:3, full head and ribbon inside canvas with small breathing room. Requested emotional state: Tired after studying: heavy eyelids, a slightly unfocused gaze, relaxed closed mouth, subtle under-eye fatigue, shoulders resting. Awake but drained, not ill, not crying, not sad or angry, no cartoon sleep bubbles.",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "runtime_bytes": 392350,
+      "sha256": "a866de7b86a0c41fd6c682b570ca1acf35f1b05e8b11442df40ec25926a0e7ea",
+      "thumbnail_bytes": 35162,
+      "alpha_unchanged": true
+    },
+    {
+      "id": "hurt",
+      "label": "委屈",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-26e6c5a9-fce6-4d26-a52f-3957e0801fdd.png",
+      "file": "linyao-hurt.webp",
+      "thumbnail": "thumbs/linyao-hurt.webp",
+      "prompt": "Edit target is the supplied portrait of LIN YAO, the same teenage female protagonist in the Chinese visual novel Campus Three Years. Create ONE separate portrait asset, not a grid. Keep EXACT same character identity and facial proportions, long dark ponytail, dusty blue ribbon, white short-sleeve school blouse, grey pleated skirt, sketchbook held naturally against chest, same waist/thigh-up portrait framing and scale, same soft hand-painted anime watercolor linework and subdued colors. Change ONLY expression and the small natural head/shoulder response needed for this emotional state. Face must remain recognizably the same person. Keep hands, fingers and sketchbook anatomically credible and consistent. Genuine clean TRANSPARENT alpha background, no scenery, no colored backdrop, no surrounding glow, no shadow panel, no text, no UI, no icons or symbols. Do not make it photographic or chibi. Portrait 2:3, full head and ribbon inside canvas with small breathing room. Requested emotional state: Feeling hurt and misunderstood: inner brows raised, eyes glistening but no falling tears, lower lip subtly tightened, face turned slightly away while eyes still search toward the viewer. Vulnerable and trying to say something, NOT childish pouting.",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "runtime_bytes": 404862,
+      "sha256": "3d032089ed286e02b2a832b8a3573af5257c99941102c6f8851be25ba2a05c78",
+      "thumbnail_bytes": 37726,
+      "alpha_unchanged": true
+    },
+    {
+      "id": "determined",
+      "label": "认真坚定",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-100e3340-5d4c-4c84-bcd8-1fa06475ea6a.png",
+      "file": "linyao-determined.webp",
+      "thumbnail": "thumbs/linyao-determined.webp",
+      "prompt": "Edit target is the supplied portrait of LIN YAO, the same teenage female protagonist in the Chinese visual novel Campus Three Years. Create ONE separate portrait asset, not a grid. Keep EXACT same character identity and facial proportions, long dark ponytail, dusty blue ribbon, white short-sleeve school blouse, grey pleated skirt, sketchbook held naturally against chest, same waist/thigh-up portrait framing and scale, same soft hand-painted anime watercolor linework and subdued colors. Change ONLY expression and the small natural head/shoulder response needed for this emotional state. Face must remain recognizably the same person. Keep hands, fingers and sketchbook anatomically credible and consistent. Genuine clean TRANSPARENT alpha background, no scenery, no colored backdrop, no surrounding glow, no shadow panel, no text, no UI, no icons or symbols. Do not make it photographic or chibi. Portrait 2:3, full head and ribbon inside canvas with small breathing room. Requested emotional state: Quiet determination: focused steady eyes, relaxed but resolved eyebrows, composed firm closed mouth, shoulders straightened. She has made a considered decision. NOT angry or smiling, no heroic fantasy effect.",
+      "size": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "runtime_bytes": 363716,
+      "sha256": "8ce4d42d7b080e75d2c8d1574c3aa1285cf6192e33e18a80b55c2720d46432e3",
+      "thumbnail_bytes": 33456,
+      "alpha_unchanged": true
+    }
+  ]
+}

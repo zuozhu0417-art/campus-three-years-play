@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "portraits": 14,
+  "emotion_route_cases": 168,
+  "checks": [
+    "Every full portrait and thumbnail decodes, fourteen actual game previews",
+    "Title and character booklet entry paths; no save mutation or relationship unlock",
+    "Explicit emotion and mood survive six relationship contexts; no mismatched warm videos",
+    "Polite first-stage reserve remains the default; no random aversion from low affinity",
+    "Standalone gallery has no save access and works in four viewport sizes"
+  ],
+  "errors": [],
+  "missing": []
+}

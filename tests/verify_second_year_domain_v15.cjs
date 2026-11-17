@@ -1,6 +1,6 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),path=require('node:path');
 const root=path.join(__dirname,'..'),ctx={window:{}};vm.createContext(ctx);
-for(const name of ['content.js','october.js','year-one.js','canteen.js','year-two.js','characters.js','balance.js','weekend.js'])vm.runInContext(fs.readFileSync(path.join(root,name),'utf8'),ctx,{filename:name});
+for(const name of ['content.js','october.js','year-one.js','canteen.js','year-two.js','emotions.js','characters.js','balance.js','weekend.js'])vm.runInContext(fs.readFileSync(path.join(root,name),'utf8'),ctx,{filename:name});
 const {CAMPUS_CONTENT:C,CampusYearOne:Y,CampusCanteen:F,CampusBalance:B,CampusWeekend:W,CampusCharacters:A}=ctx.window;
 assert.equal(C.weeks.length,23);assert.equal(C.exercises.length,23);
 function state(week,gender,mode){return {week,done:[],remaining:3,profile:{gender,name:'小禾'},october:{mode},energy:80,study:20,friend:10,warm:10,family:5,memories:[],rhythm:B.fresh(),year:Y.fresh(),weekend:W.initial(week)};}

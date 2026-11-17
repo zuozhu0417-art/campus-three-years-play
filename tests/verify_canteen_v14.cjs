@@ -1,6 +1,6 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),path=require('node:path');
 const root=path.join(__dirname,'..'),ctx={window:{}};vm.createContext(ctx);
-for(const name of ['content.js','october.js','year-one.js','canteen.js','characters.js','balance.js','weekend.js'])vm.runInContext(fs.readFileSync(path.join(root,name),'utf8'),ctx,{filename:name});
+for(const name of ['content.js','october.js','year-one.js','canteen.js','emotions.js','characters.js','balance.js','weekend.js'])vm.runInContext(fs.readFileSync(path.join(root,name),'utf8'),ctx,{filename:name});
 const {CAMPUS_CONTENT:C,CampusYearOne:Y,CampusCanteen:F,CampusCharacters:A,CampusBalance:B,CampusWeekend:W}=ctx.window;
 function state(week,gender='male',mode='closer'){return {week,done:[],remaining:3,profile:{gender,name:'小禾'},october:{mode,poster:true,sportsPhoto:true},energy:80,study:20,friend:10,warm:10,family:5,memories:[],cgSeen:[],rhythm:B.fresh(),year:Y.fresh(),weekend:W.initial(week)};}
 assert(C.places.classroom.spots.some(x=>x.id==='girl'));assert(C.places.classroom.spots.some(x=>x.id==='friend'));
@@ -9,7 +9,7 @@ let scenes=0,choices=0;const seen={};
 for(const gender of ['male','female'])for(const mode of ['closer','friends','undecided'])for(let week=1;week<=20;week++)for(const id of ['girl-canteen','friend-canteen']){
  const S=state(week,gender,mode),e=F.scene(S,id);scenes++;assert.equal(e.id,id);assert.equal(e.cost,8);assert.equal(e.scene,'canteen');assert.equal(e.choices.length,2);seen[id]??=new Set();seen[id].add(e.title);
  for(const c of e.choices){choices++;assert(c.after.length);assert(!c.cg||F.cg[c.cg]);const t=structuredClone(S);assert(Y.apply(t,e,c));assert(!Y.apply(t,e,c));assert.equal(t.year.loan,0);assert.equal(t.weekend.wallet,0);assert(!t.year.flags.cameraKept&&!t.year.flags.paperTrip&&!t.year.flags.trialTalk&&!t.year.flags.makeupKept);assert(!t.promiseKept&&!t.noteKept);assert.equal(t.october.mode,mode);}
- for(const line of Y.lines(e,e.lines)){assert(line.id);const p=A.enrich(line);if(['linyao'].includes(line.who)&&line.mood)assert.equal(p.mood,line.mood);}
+ for(const line of Y.lines(e,e.lines)){assert(line.id);const p=A.enrich({...line,presentation:"preview"});if(['linyao'].includes(line.who)&&line.mood)assert.equal(p.mood,line.mood);}
  if(week>=7){S.done.push(id);let e2=Y.weekday(S,F.classroomId(id)),decorated=F.decorate(S,e2);assert(decorated.lines.length>e2.lines.length);assert.equal(decorated.lines[0][0],id==='girl-canteen'?'linyao':'zhaocheng');const t=structuredClone(S);Y.apply(t,e2,e2.choices.at(-1));assert(Y.apply(t,e,e.choices[0]),'Different venue must not collide in history');}
 }
 assert.equal(seen['girl-canteen'].size,20);assert.equal(seen['friend-canteen'].size,20);
