@@ -14,4 +14,7 @@ window.CampusEmotions=Object.freeze([
   ['relieved','释然','终于把话说清，肩膀也放松下来','说清楚以后，心里终于没那么乱了。'],
   ['tired','疲惫','没有多余的力气，先照顾自己','我有点累了，今天想早点回去休息。'],
   ['determined','认真坚定','想清楚之后，平静地作出决定','这次我已经想好了，也会把该做的事做好。']
-].map(([id,label,description,line])=>Object.freeze({id,label,description,line,src:`assets/emotions-v24/linyao-${id}.webp`,thumb:`assets/emotions-v24/thumbs/linyao-${id}.webp`})));
+].map(([id,label,description,line])=>{
+  const replacement={angry:'argument',disgusted:'aversion'}[id],folder=replacement?'situations-v25':'emotions-v24',file=replacement||id;
+  return Object.freeze({id,label,description,line,src:`assets/${folder}/linyao-${file}.webp`,thumb:`assets/${folder}/thumbs/linyao-${file}.webp`});
+}));

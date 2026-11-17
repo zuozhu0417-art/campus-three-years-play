@@ -51,7 +51,8 @@ window.CampusHoliday=(()=>{
   h.records.push({id,day,slot:h.pos%2,photo,text,money:paid,met,subject:['study','tuition'].includes(id)?h.subject:null});h.pos++;if(h.pos%2===0)state.energy=clamp(state.energy+22);if(h.pos===h.days*2)h.phase='recap';api.save();
   const scene=['ball','work'].includes(id)||met?photo.replace('.jpg',''):'home';
   const extra=id==='girl'?(met?(close?'你们在书店碰头。她挑画册时把书页转向你，问你觉得哪一张好。临走前，你们把各自到家的时间对了一遍。':'你们在书店各挑了一本书，聊了几句开学后的打算。下午她先回家，你也去办自己的事。'):'你没有追着问原因。放下手机，继续安排自己的半天。'):id==='ball'?'回家前，你们约好下次有空再打。谁临时有事，就提前在群里说一声。':id==='work'?'店主把报酬交给你。整理书架比想象中累，拿到钱的时候，你开始盘算它能用来做什么。':id==='tuition'||id==='study'?`${CampusGrowth.subjects[h.subject]}的这一页做了记号。合上书之前，你给没弄懂的地方留了一小条纸签。`:'这一段时间没有铃声来催。你看了一眼钟，才发现太阳已经换了位置。';
-  api.dialogue({title:a.name,scene,lines:[{who,text,mood,motion:false},{who:'narrator',text:extra},{who:'narrator',text:`${h.pos%2===0?'这天晚上，你按时休息了。':'窗外的光慢慢移到了另一边。'}${a.money?` 口袋里现在有 ${state.weekend.wallet} 元。`:''}`} ]},paint);
+  const pose=id==='girl'?(met?(h.kind==='winter'?'winter':close?'date':'outing'):'home'):undefined;
+  api.dialogue({title:a.name,scene,lines:[{who,text,mood,pose,motion:false},{who:'narrator',text:extra},{who:'narrator',text:`${h.pos%2===0?'这天晚上，你按时休息了。':'窗外的光慢慢移到了另一边。'}${a.money?` 口袋里现在有 ${state.weekend.wallet} 元。`:''}`} ]},paint);
  }
  function syncMotion(){if(!el)return;el.classList.toggle('holiday-still',!CampusExperience.motionEnabled);const b=el.querySelector('#holiday-motion');if(b){b.textContent='照片动态：'+(CampusExperience.motionEnabled?'开':'关');b.setAttribute('aria-pressed',String(CampusExperience.motionEnabled));}}
  document.addEventListener('campus-motion-change',syncMotion);

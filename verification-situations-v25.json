@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "portraits": 8,
+  "checks": [
+    "Eight full sprites and thumbs decode; all actual game previews; motion cannot replace clothing or pose",
+    "Four viewport sizes without horizontal overflow",
+    "Actual holiday action: winter meeting, summer closer meeting, summer friendly meeting, declined meeting",
+    "Holiday energy, time and warmth accounting unchanged; previews never mutate game save",
+    "Angry and disgusted emotion keys now point to empty-hand sprites"
+  ],
+  "errors": [],
+  "missing": []
+}

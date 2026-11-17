@@ -1,0 +1,123 @@
+{
+  "version": 25,
+  "tool": "built-in image_gen",
+  "reference": "assets/linyao-reserved-v23.webp",
+  "items": [
+    {
+      "id": "outing",
+      "label": "便服出游",
+      "prompt": "Use case: identity-preserve. Asset: one transparent visual-novel character sprite for Chinese high-school slice-of-life game 校园三年. Reference image is ONLY an identity and painting-style reference, NOT a pose/composition/prop template. Redraw the exact same girl Lin Yao, same youthful face, grey-brown eyes, long dark brown hair and dusty blue ribbon, delicate muted watercolor-gouache anime illustration with soft pencil detail, same proportions and age-appropriate design. Make a genuinely new pose and clothes as specified below. One figure only, portrait 1024x1536, head through knees visible, anatomically clear hands, clean genuine transparent background, no scenery, no text. CRITICAL: remove the sketchbook completely. No book, notebook, paper, pen, backpack or schoolbag anywhere. Do not repeat the arms wrapped around a book pose. No photorealism, no chibi, no glamour makeup, no sexualized clothing. A happy daytime outing: wearing a pretty ivory short-sleeve cotton blouse tucked into a flowing sage green below-knee skirt, small modest tan cross-body bag at her side. IMPORTANT ANATOMY CORRECTION: natural human head, neck and shoulders; body only slightly angled 15 degrees toward the viewer, face facing the same direction as the chest, head upright over the spine, both shoulders naturally lowered and visible, normal length neck. Absolutely no over-the-shoulder backward head turn, no raised shoulder pressed to chin, no head tilt. Crown hair must closely follow a believable skull contour, compact smooth hair volume at the crown rather than an enlarged helmet, one neat ponytail resting down her back rather than a huge flying mass. She stands casually with weight on one leg, right empty hand raised beside shoulder in a small greeting wave, left empty arm rests down naturally. Bright relaxed open smile and lively eyes, no extreme angle. A natural attractive teenage girl ready for a walk. Clean silhouette with normal limb and head-to-body proportions, head through knees with comfortable margins. Keep her recognizable face and watercolor-anime painting style.",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-038702e4-c125-4e78-a1b0-e1efab694f25.png",
+      "runtime": "assets/situations-v25/linyao-outing.webp",
+      "sha256": "fa722c4032e8623ad17fb857d21e9db5c5327b35251da0939b80344244aba54c",
+      "bytes": 225920,
+      "size": [
+        1024,
+        1536
+      ],
+      "alpha_preserved": true
+    },
+    {
+      "id": "date",
+      "label": "腼腆赴约",
+      "prompt": "Use case: identity-preserve. Asset: one transparent visual-novel character sprite for Chinese high-school slice-of-life game 校园三年. Reference image is ONLY an identity and painting-style reference, NOT a pose/composition/prop template. Redraw the exact same girl Lin Yao, same youthful face, grey-brown eyes, long dark brown hair and dusty blue ribbon, delicate muted watercolor-gouache anime illustration with soft pencil detail, same proportions and age-appropriate design. Make a genuinely new pose and clothes as specified below. One figure only, portrait 1024x1536, head through knees visible, anatomically clear hands, clean genuine transparent background, no scenery, no text. CRITICAL: remove the sketchbook completely. No book, notebook, paper, pen, backpack or schoolbag anywhere. Do not repeat the arms wrapped around a book pose. No photorealism, no chibi, no glamour makeup, no sexualized clothing. A shy meeting with someone she likes: wearing a modest pale blue floral below-knee summer dress with short sleeves, a lightweight ivory cardigan open over it. Standing slightly angled, both EMPTY hands held behind her back with elbows comfortably lowered, shoulders just a little tucked, feet/knees in a relaxed shy stance, looking toward viewer with tiny tender closed-mouth smile and soft blush. New silhouette, no hands folded in front of chest. Sweet, reserved and natural rather than cutesy. Anatomy quality: natural head over neck and shoulders; compact crown hair follows skull contour, moderate ponytail volume; no enlarged helmet hair, no extreme head turn.",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-ab11b26f-daa6-45be-828e-05190946acc5.png",
+      "runtime": "assets/situations-v25/linyao-date.webp",
+      "sha256": "23376d428205b76bdd9d86172e9e90b1ab4e3249d654e4dbaa9fe017c2d00a6d",
+      "bytes": 247214,
+      "size": [
+        1024,
+        1536
+      ],
+      "alpha_preserved": true
+    },
+    {
+      "id": "argument",
+      "label": "空手争执",
+      "prompt": "Use case: identity-preserve. Asset: one transparent visual-novel character sprite for Chinese high-school slice-of-life game 校园三年. Reference image is ONLY an identity and painting-style reference, NOT a pose/composition/prop template. Redraw the exact same girl Lin Yao, same youthful face, grey-brown eyes, long dark brown hair and dusty blue ribbon, delicate muted watercolor-gouache anime illustration with soft pencil detail, same proportions and age-appropriate design. Make a genuinely new pose and clothes as specified below. One figure only, portrait 1024x1536, head through knees visible, anatomically clear hands, clean genuine transparent background, no scenery, no text. CRITICAL: remove the sketchbook completely. No book, notebook, paper, pen, backpack or schoolbag anywhere. Do not repeat the arms wrapped around a book pose. No photorealism, no chibi, no glamour makeup, no sexualized clothing. A serious disagreement after school: original white short-sleeved school shirt and grey pleated skirt, but both arms are EMPTY and crossed naturally across her torso with visible shirt fabric where a book used to be. Straightened shoulders, chin slightly raised, brows knitted, lips pressed then slightly open as if firmly speaking, direct angry eye contact. She is upset, setting boundaries, not blushing or pouting cutely. Head through knees, three-quarter body. No object held or tucked under arms.",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-5d275909-4c2c-443f-812a-ebf8d4d8593d.png",
+      "runtime": "assets/situations-v25/linyao-argument.webp",
+      "sha256": "4535cca53dfac818ccf691bb1e981327242dfa6c1fa92038fde80a7204564d0c",
+      "bytes": 267682,
+      "size": [
+        1024,
+        1536
+      ],
+      "alpha_preserved": true
+    },
+    {
+      "id": "aversion",
+      "label": "转身回避",
+      "prompt": "Use case: identity-preserve. Asset: one transparent visual-novel character sprite for Chinese high-school slice-of-life game 校园三年. Reference image is ONLY an identity and painting-style reference, NOT a pose/composition/prop template. Redraw the exact same girl Lin Yao, same youthful face, grey-brown eyes, long dark brown hair and dusty blue ribbon, delicate muted watercolor-gouache anime illustration with soft pencil detail, same proportions and age-appropriate design. Make a genuinely new pose and clothes as specified below. One figure only, portrait 1024x1536, head through knees visible, anatomically clear hands, clean genuine transparent background, no scenery, no text. CRITICAL: remove the sketchbook completely. No book, notebook, paper, pen, backpack or schoolbag anywhere. Do not repeat the arms wrapped around a book pose. No photorealism, no chibi, no glamour makeup, no sexualized clothing. She wants distance from someone who crossed a boundary. Original white short-sleeve school blouse and grey pleated skirt. Three-quarter body turned away toward right, face turned only partway back, narrowed eyes looking aside, restrained displeasure rather than fury, mouth flat. One EMPTY hand raised at waist/chest level palm outward in a clear small 'please stop' gesture, other empty arm hangs down. Weight shifted back as if about to leave. Clearly different silhouette from the reference. No book, no folded arm holding anything.",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-d401dc9a-a68c-4fae-937d-697e7ed3a84d.png",
+      "runtime": "assets/situations-v25/linyao-aversion.webp",
+      "sha256": "6146fdc8412c09fb825b59cf50c08b9c7f5a4ae98b8997c35be94cddd22dd262",
+      "bytes": 262662,
+      "size": [
+        1024,
+        1536
+      ],
+      "alpha_preserved": true
+    },
+    {
+      "id": "tears",
+      "label": "难过拭泪",
+      "prompt": "Use case: identity-preserve. Asset: one transparent visual-novel character sprite for Chinese high-school slice-of-life game 校园三年. Reference image is ONLY an identity and painting-style reference, NOT a pose/composition/prop template. Redraw the exact same girl Lin Yao, same youthful face, grey-brown eyes, long dark brown hair and dusty blue ribbon, delicate muted watercolor-gouache anime illustration with soft pencil detail, same proportions and age-appropriate design. Make a genuinely new pose and clothes as specified below. One figure only, portrait 1024x1536, head through knees visible, anatomically clear hands, clean genuine transparent background, no scenery, no text. CRITICAL: remove the sketchbook completely. No book, notebook, paper, pen, backpack or schoolbag anywhere. Do not repeat the arms wrapped around a book pose. No photorealism, no chibi, no glamour makeup, no sexualized clothing. An emotionally hurt moment during a holiday: wearing a simple dusty blue loose long-sleeved cotton top and a modest cream skirt, no school uniform. Upper body leaning slightly forward, one EMPTY hand raised to gently wipe a tear at the outer corner of her eye with the back of her finger, other empty hand relaxed at her side. Gaze lowered, teary eyes and fragile trembling lips, believable quiet grief. Natural anatomy, clear separation between hand and face, restrained tears not exaggerated streams. Three-quarter body head to knees, no scenery or objects. Anatomy quality: natural head over neck and shoulders; compact crown hair follows skull contour, moderate ponytail volume; no enlarged helmet hair, no extreme head turn.",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-e3fc39e9-0c69-4fb2-bd35-d28c8d86482d.png",
+      "runtime": "assets/situations-v25/linyao-tears.webp",
+      "sha256": "f3526f926dbcddfe4e221f5af2ac6d9ac4eefbea48ce3504167b9bf3b7e66305",
+      "bytes": 275710,
+      "size": [
+        1024,
+        1536
+      ],
+      "alpha_preserved": true
+    },
+    {
+      "id": "lunch",
+      "label": "食堂端餐",
+      "prompt": "Use case: identity-preserve. Asset: one transparent visual-novel character sprite for Chinese high-school slice-of-life game 校园三年. Reference image is ONLY an identity and painting-style reference, NOT a pose/composition/prop template. Redraw the exact same girl Lin Yao, same youthful face, grey-brown eyes, long dark brown hair and dusty blue ribbon, delicate muted watercolor-gouache anime illustration with soft pencil detail, same proportions and age-appropriate design. Make a genuinely new pose and clothes as specified below. One figure only, portrait 1024x1536, head through knees visible, anatomically clear hands, clean genuine transparent background, no scenery, no text. CRITICAL: remove the sketchbook completely. No book, notebook, paper, pen, backpack or schoolbag anywhere. Do not repeat the arms wrapped around a book pose. No photorealism, no chibi, no glamour makeup, no sexualized clothing. School lunch: original white short-sleeved school blouse and grey pleated skirt. Standing three-quarter toward viewer, holding a single stainless steel divided cafeteria lunch tray with BOTH hands at waist level, one hand supporting each side, realistic proportions and modest food portions rice vegetables and egg. Looking toward viewer with a polite small smile and inquiring raised eyebrow, as if asking whether the adjacent seat is free. Elbows lowered, tray and all fingers readable. No book, no chopsticks in hands, no desk or background. Anatomy quality: natural head over neck and shoulders; compact crown hair follows skull contour, moderate ponytail volume; no enlarged helmet hair, no extreme head turn.",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-dd95f9d8-918b-46ea-bb72-8910ea36e63c.png",
+      "runtime": "assets/situations-v25/linyao-lunch.webp",
+      "sha256": "bc611c7a5fc10661f6aad791b1e5306080ab990f8f492974e49b039596e4f563",
+      "bytes": 308166,
+      "size": [
+        1024,
+        1536
+      ],
+      "alpha_preserved": true
+    },
+    {
+      "id": "winter",
+      "label": "冬日见面",
+      "prompt": "Use case: identity-preserve. Asset: one transparent visual-novel character sprite for Chinese high-school slice-of-life game 校园三年. Reference image is ONLY an identity and painting-style reference, NOT a pose/composition/prop template. Redraw the exact same girl Lin Yao, same youthful face, grey-brown eyes, long dark brown hair and dusty blue ribbon, delicate muted watercolor-gouache anime illustration with soft pencil detail, same proportions and age-appropriate design. Make a genuinely new pose and clothes as specified below. One figure only, portrait 1024x1536, head through knees visible, anatomically clear hands, clean genuine transparent background, no scenery, no text. CRITICAL: remove the sketchbook completely. No book, notebook, paper, pen, backpack or schoolbag anywhere. Do not repeat the arms wrapped around a book pose. No photorealism, no chibi, no glamour makeup, no sexualized clothing. A cold winter holiday meeting: wearing an age-appropriate muted camel duffle coat with toggles, a soft dusty blue scarf, grey knit mittens, grey wool skirt visible below coat. Standing angled toward left, one mitten hand gently gathering the scarf near the chin while the other mitten arm lowered naturally, a little cold-pinkness in cheeks, warmly shy small smile as she recognizes someone arriving, shoulders nestled into scarf. Hair ribbon still recognizable, a few loose windblown hair strands. No bag, no book, no held objects. Anatomy quality: natural head over neck and shoulders; compact crown hair follows skull contour, moderate ponytail volume; no enlarged helmet hair, no extreme head turn.",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-ad02b26e-5d0b-405c-a0a4-297d006f36f4.png",
+      "runtime": "assets/situations-v25/linyao-winter.webp",
+      "sha256": "2e5800c06fe6a69fc5bdd05d5b90e7aefbca6715bb2d9d3870f25b2cef4d5257",
+      "bytes": 386694,
+      "size": [
+        1024,
+        1536
+      ],
+      "alpha_preserved": true
+    },
+    {
+      "id": "home",
+      "label": "居家放松",
+      "prompt": "Use case: identity-preserve. Asset: one transparent visual-novel character sprite for Chinese high-school slice-of-life game 校园三年. Reference image is ONLY an identity and painting-style reference, NOT a pose/composition/prop template. Redraw the exact same girl Lin Yao, same youthful face, grey-brown eyes, long dark brown hair and dusty blue ribbon, delicate muted watercolor-gouache anime illustration with soft pencil detail, same proportions and age-appropriate design. Make a genuinely new pose and clothes as specified below. One figure only, portrait 1024x1536, head through knees visible, anatomically clear hands, clean genuine transparent background, no scenery, no text. CRITICAL: remove the sketchbook completely. No book, notebook, paper, pen, backpack or schoolbag anywhere. Do not repeat the arms wrapped around a book pose. No photorealism, no chibi, no glamour makeup, no sexualized clothing. Relaxed at home during a school holiday: loose pale lavender long-sleeve sweatshirt and simple light grey comfortable wide-leg trousers, same face and hair in a looser compact ponytail with dusty blue ribbon. Natural standing posture angled only slightly toward viewer, head upright, shoulders relaxed, one EMPTY hand tucked halfway into a trouser pocket, other EMPTY arm relaxed down at her side with fingers loosely curled, every fingertip inside canvas. She gives a small easy contented smile, eyes gently open. A casual everyday moment, not glamour or cute posing. Normal head neck shoulders proportions and realistic compact hair silhouette. Clean head-through-knees composition and comfortable margins all round. NO raised arms, NO overhead stretching, NO books, NO props.",
+      "source": "C:\\Users\\Lecoo\\.codex\\generated_images\\01a1dea9-5105-7902-9366-69dac8ade33d\\exec-3fa2954e-efd6-41c3-ada5-2a47a69dfda8.png",
+      "runtime": "assets/situations-v25/linyao-home.webp",
+      "sha256": "4f58489beb90dc226cfbcff149a89853428d7cd145318b2bd2e233f793d26bc9",
+      "bytes": 243212,
+      "size": [
+        1024,
+        1536
+      ],
+      "alpha_preserved": true
+    }
+  ],
+  "discarded": [
+    "outing v1: user rejected head-neck anatomy; not shipped",
+    "home v1: high raised hand/fingers rejected; not shipped"
+  ]
+}

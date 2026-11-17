@@ -9,6 +9,7 @@ window.CampusCharacters = (() => {
   Object.assign(actors.linyao.poses,{cold:'assets/linyao-reserved-v23.webp',withdrawn:'assets/linyao-cool-v23.webp',tender:'assets/expressions/linyao-smile.png'});
   Object.assign(actors.qiaosui.poses,{wave:'assets/qiaosui-wave-v14.webp',pause:'assets/qiaosui-pause-v14.webp'});
   Object.assign(actors.linyao.poses,Object.fromEntries(window.CampusEmotions.map(e=>[e.id,e.src])));
+  Object.assign(actors.linyao.poses,Object.fromEntries((window.CampusSituations||[]).map(e=>[e.pose,e.src])));
   actors.zhouyan={id:'zhouyan',name:'周砚',role:'高二的新同桌',base:'assets/zhouyan-v15.webp',poses:{neutral:'assets/zhouyan-v15.webp',smile:'assets/zhouyan-v15.webp'},clips:{}};
   let profile={gender:null,name:'你'},relationship=null;
   function relationshipPhase(S=relationship){
@@ -24,6 +25,7 @@ window.CampusCharacters = (() => {
     const actor=get(line.who);if(!actor)return {...line,id:line.id||`narrative-${index}`};
     const text=String(line.text).replaceAll('{name}',profile.name||'你').replaceAll('{pronoun}',profile.gender==='female'?'她':'他');
     const emotion=actor.id==='linyao'?window.CampusEmotions.find(e=>e.id===(line.emotion||line.mood)):null;
+    const situation=actor.id==='linyao'?(window.CampusSituations||[]).find(e=>e.id===line.pose):null;
     let mood=emotion?.id||line.mood;
     if(!mood){mood=/谢谢|幸好|笑|下次还|来了|一起|看懂|稳|没关系|还温着/.test(text)?'smile':/没来|找别人|先忙|没事|先不了|忘了|后来.*阿哲/.test(text)&&actor.poses.sad?'sad':'neutral';}
     if(actor.id==='linyao'&&line.presentation!=='preview'&&!emotion){
@@ -36,8 +38,9 @@ window.CampusCharacters = (() => {
         else if(stage==='tender'&&['smile','laugh'].includes(mood))mood='tender';
       }
     }
+    if(situation)mood=situation.pose;
     if(!actor.poses[mood])mood='neutral';
-    return {...line,text,mood,id:line.id||`${actor.id}-${index}`,motion:(emotion||line.motion===false)?false:line.motion||(mood==='smile'?'warm':'idle')};
+    return {...line,text,mood,id:line.id||`${actor.id}-${index}`,motion:(emotion||situation||line.motion===false)?false:line.motion||(mood==='smile'?'warm':'idle')};
   }
-  return {actors,get,enrich,emotionLabel(id){return window.CampusEmotions.find(e=>e.id===id)?.label;},relationshipPhase,setRelationship(S){relationship=S;},setProfile(p){profile={gender:p.gender,name:p.name||'你'};},get profile(){return {...profile};}};
+  return {actors,get,enrich,emotionLabel(id){return window.CampusEmotions.find(e=>e.id===id)?.label||(window.CampusSituations||[]).find(e=>e.pose===id)?.label;},relationshipPhase,setRelationship(S){relationship=S;},setProfile(p){profile={gender:p.gender,name:p.name||'你'};},get profile(){return {...profile};}};
 })();

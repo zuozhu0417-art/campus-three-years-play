@@ -1,6 +1,6 @@
 /* Read-only sheet: no game or localStorage access. */
 (() => {
-  const entries=window.CampusEmotions,root=document.getElementById('emotion-selector');
+  const entries=document.body.dataset.catalog==='situations'?window.CampusSituations:window.CampusEmotions,root=document.getElementById('emotion-selector');
   function select(id,bringIntoView=false){
     const e=entries.find(x=>x.id===id);if(!e)return;
     const image=document.getElementById('emotion-full');image.src=e.src;image.alt='林遥 · '+e.label;

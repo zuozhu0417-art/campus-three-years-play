@@ -111,7 +111,9 @@ with sync_playwright() as pw:
  assert len(matrix)==9
  # Test actual rendered pose and future preview without modifying a real relationship.
  fixture(p,kind='winter',n=0,mode='undecided');p.locator('#holiday-film-next').click();p.locator('[data-holiday-action=girl]').click()
- assert p.locator('.character-still').get_attribute('data-expression')=='cold';drain(p)
+ # v25: the holiday message uses home clothes; school reserve is tested in the matrix above.
+ assert p.locator('.character-still').get_attribute('data-expression')=='situation-home'
+ assert '抱歉' in p.locator('#dialogue-text').inner_text();drain(p)
  assert not state(p)['holiday']['records'][0]['met']
  assert p.locator('[data-holiday-action=girl]').is_disabled()
  fixture(p,week=12,n=8,mode='closer',ended=False)
