@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "paths": [
+    {
+      "viewport": [
+        1366,
+        768
+      ],
+      "path": "return/self/bus",
+      "verified": true
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "path": "return/self/bus",
+      "verified": true
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "path": "return/self/bus",
+      "verified": true
+    },
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "path": "return/self/bus",
+      "verified": true
+    },
+    {
+      "path": "ball/absent/desk/self/miss",
+      "verified": true
+    },
+    {
+      "path": "copy/clue/repair/bus",
+      "verified": true
+    },
+    {
+      "path": "copy/keep/bus/wrong-work",
+      "verified": true
+    },
+    {
+      "path": "clue/hint/ball/all-three/miss",
+      "verified": true
+    },
+    {
+      "path": "defer-leaves/book-return/unresolved",
+      "verified": true
+    },
+    {
+      "path": "wet-book-denial/friend-silence/wednesday",
+      "verified": true
+    }
+  ],
+  "errors": [],
+  "scope": "Standalone prototype only; original game files and saves not used"
+}

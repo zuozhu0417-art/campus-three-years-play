@@ -1,0 +1,16 @@
+{
+  "size": [
+    1672,
+    941
+  ],
+  "distinct_rgb": 87009,
+  "strict_five_color": false,
+  "palette_prompt": [
+    "#20282B",
+    "#697A74",
+    "#D2D1AF",
+    "#8A6F5A",
+    "#A06457"
+  ],
+  "note": "Generated preview, not strict indexed five-color output. Empty scene, character traits not evaluated."
+}
